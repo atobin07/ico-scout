@@ -1,401 +1,474 @@
 """
-Generate a polished PDF resume and Word cover letter from markdown application files.
+State-of-the-art PDF resume + Word cover letter generator.
 Usage: python3 generate_application.py <application_folder>
 """
 
-import sys
-import os
-import re
+import sys, os, re
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib import colors
-from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Table, TableStyle
-)
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
+from reportlab.platypus import (
+    BaseDocTemplate, Frame, PageTemplate, Paragraph,
+    Spacer, HRFlowable, Table, TableStyle, KeepTogether
+)
+from reportlab.platypus.flowables import Flowable
 from docx import Document
 from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml.ns import qn
+from docx.oxml import OxmlElement
 
-# ── Brand colors ──────────────────────────────────────────────────────────────
-TEAL   = colors.HexColor("#1B7A8C")
-DARK   = colors.HexColor("#1A1A2E")
-GRAY   = colors.HexColor("#555555")
-LGRAY  = colors.HexColor("#AAAAAA")
-WHITE  = colors.white
+# ── Palette ───────────────────────────────────────────────────────────────────
+C_NAVY   = colors.HexColor("#0D1B2A")   # deep navy
+C_TEAL   = colors.HexColor("#1B7A8C")   # primary teal
+C_LTEAL  = colors.HexColor("#E8F4F7")   # teal tint background
+C_GOLD   = colors.HexColor("#C9A84C")   # accent gold
+C_GRAY   = colors.HexColor("#4A5568")   # body text
+C_LGRAY  = colors.HexColor("#718096")   # secondary text
+C_RULE   = colors.HexColor("#CBD5E0")   # divider
+C_WHITE  = colors.white
+C_BG     = colors.HexColor("#F7FAFC")   # page bg tint (sidebar)
 
-TEAL_DOCX  = RGBColor(0x1B, 0x7A, 0x8C)
-DARK_DOCX  = RGBColor(0x1A, 0x1A, 0x2E)
-GRAY_DOCX  = RGBColor(0x55, 0x55, 0x55)
+W = letter[0]
+H = letter[1]
+MARGIN   = 0.45 * inch
+SIDEBAR  = 2.05 * inch
+MAIN_W   = W - SIDEBAR - MARGIN * 3
 
 
-# ── PDF Resume ────────────────────────────────────────────────────────────────
+# ── Custom Flowables ──────────────────────────────────────────────────────────
 
-def build_pdf_resume(resume_md: str, out_path: str):
-    doc = SimpleDocTemplate(
-        out_path,
-        pagesize=letter,
-        leftMargin=0.6*inch,
-        rightMargin=0.6*inch,
-        topMargin=0.5*inch,
-        bottomMargin=0.5*inch,
-    )
+class ColorRect(Flowable):
+    """Solid colour rectangle — used for sidebar background."""
+    def __init__(self, w, h, color):
+        super().__init__()
+        self.w, self.h, self.color = w, h, color
+    def draw(self):
+        self.canv.setFillColor(self.color)
+        self.canv.rect(0, 0, self.w, -self.h, fill=1, stroke=0)
+    def wrap(self, *args): return self.w, 0
 
-    # Styles
-    styles = getSampleStyleSheet()
 
-    name_style = ParagraphStyle("Name",
-        fontSize=26, textColor=DARK, leading=30,
-        fontName="Helvetica-Bold", alignment=TA_LEFT)
+class Dot(Flowable):
+    """Small teal filled circle — bullet for sidebar."""
+    def draw(self):
+        self.canv.setFillColor(C_TEAL)
+        self.canv.circle(3, 3, 3, fill=1, stroke=0)
+    def wrap(self, *args): return 8, 8
 
-    title_style = ParagraphStyle("Title",
-        fontSize=11, textColor=TEAL, leading=14,
-        fontName="Helvetica", alignment=TA_LEFT)
 
-    contact_style = ParagraphStyle("Contact",
-        fontSize=9, textColor=GRAY, leading=13,
-        fontName="Helvetica", alignment=TA_LEFT)
+class SidebarPage:
+    """Page template that draws the navy sidebar behind everything."""
+    def __init__(self):
+        pass
+    def __call__(self, canvas, doc):
+        canvas.saveState()
+        # Full-height sidebar
+        canvas.setFillColor(C_NAVY)
+        canvas.rect(0, 0, SIDEBAR + MARGIN * 0.5, H, fill=1, stroke=0)
+        # Gold accent line where sidebar meets main content
+        canvas.setFillColor(C_GOLD)
+        canvas.rect(SIDEBAR + MARGIN * 0.5, 0, 2, H, fill=1, stroke=0)
+        canvas.restoreState()
 
-    section_style = ParagraphStyle("Section",
-        fontSize=10, textColor=WHITE, leading=14,
-        fontName="Helvetica-Bold", alignment=TA_LEFT,
-        spaceAfter=4)
 
-    job_title_style = ParagraphStyle("JobTitle",
-        fontSize=10, textColor=DARK, leading=13,
-        fontName="Helvetica-Bold")
+# ── Style factory ─────────────────────────────────────────────────────────────
 
-    job_meta_style = ParagraphStyle("JobMeta",
-        fontSize=9, textColor=TEAL, leading=12,
-        fontName="Helvetica-Oblique")
+def S(name, **kw):
+    defaults = dict(fontName="Helvetica", fontSize=9, leading=13,
+                    textColor=C_GRAY, spaceAfter=0, spaceBefore=0)
+    defaults.update(kw)
+    return ParagraphStyle(name, **defaults)
 
-    body_style = ParagraphStyle("Body",
-        fontSize=9, textColor=DARK, leading=13,
-        fontName="Helvetica", leftIndent=10)
 
-    bullet_style = ParagraphStyle("Bullet",
-        fontSize=9, textColor=DARK, leading=12.5,
-        fontName="Helvetica", leftIndent=16, firstLineIndent=-8,
-        spaceAfter=1)
+# Sidebar styles
+s_name      = S("sName", fontName="Helvetica-Bold", fontSize=20,
+                 textColor=C_WHITE, leading=24, spaceAfter=2)
+s_subtitle  = S("sSub",  fontName="Helvetica",     fontSize=9,
+                 textColor=C_GOLD,  leading=12, spaceAfter=8)
+s_sec_side  = S("sSecS", fontName="Helvetica-Bold", fontSize=7.5,
+                 textColor=C_GOLD,  leading=10, spaceAfter=3,
+                 spaceBefore=10)
+s_side_body = S("sSB",   fontName="Helvetica", fontSize=8.2,
+                 textColor=colors.HexColor("#CBD5E0"), leading=12)
+s_side_bull = S("sSBull",fontName="Helvetica", fontSize=8.2,
+                 textColor=colors.HexColor("#CBD5E0"), leading=12,
+                 leftIndent=10, firstLineIndent=-8)
 
-    summary_style = ParagraphStyle("Summary",
-        fontSize=9.5, textColor=DARK, leading=14,
-        fontName="Helvetica")
+# Main content styles
+s_sec_main  = S("sMSec", fontName="Helvetica-Bold", fontSize=8,
+                 textColor=C_TEAL,  leading=10,
+                 spaceBefore=8, spaceAfter=2)
+s_job_title = S("sJT",   fontName="Helvetica-Bold", fontSize=10,
+                 textColor=C_NAVY,  leading=13)
+s_company   = S("sCo",   fontName="Helvetica-Oblique", fontSize=8.5,
+                 textColor=C_TEAL,  leading=11, spaceAfter=2)
+s_dates     = S("sDt",   fontName="Helvetica", fontSize=8,
+                 textColor=C_LGRAY, leading=11, alignment=TA_RIGHT)
+s_body      = S("sBody", fontName="Helvetica", fontSize=9,
+                 textColor=C_GRAY,  leading=13)
+s_bullet    = S("sBull", fontName="Helvetica", fontSize=8.8,
+                 textColor=C_GRAY,  leading=12.5,
+                 leftIndent=12, firstLineIndent=-9, spaceAfter=1.5)
+s_summary   = S("sSum",  fontName="Helvetica", fontSize=9.2,
+                 textColor=C_GRAY,  leading=14, spaceAfter=4)
+s_italic    = S("sItal", fontName="Helvetica-Oblique", fontSize=8,
+                 textColor=C_LGRAY, leading=11, leftIndent=10)
+s_skill_cat = S("sSCat", fontName="Helvetica-Bold", fontSize=8,
+                 textColor=C_TEAL,  leading=11)
+s_skill_val = S("sSVal", fontName="Helvetica", fontSize=8,
+                 textColor=C_GRAY,  leading=11)
 
-    story = []
 
-    lines = resume_md.strip().split("\n")
+def rule():
+    return HRFlowable(width="100%", thickness=0.5, color=C_RULE,
+                      spaceAfter=4, spaceBefore=0)
+
+def section_heading(text):
+    return KeepTogether([
+        Paragraph(text.upper(), s_sec_main),
+        HRFlowable(width="100%", thickness=1.5, color=C_TEAL,
+                   spaceAfter=4, spaceBefore=0)
+    ])
+
+def sidebar_section(text):
+    return Paragraph(text.upper(), s_sec_side)
+
+
+# ── PDF Builder ───────────────────────────────────────────────────────────────
+
+def build_pdf_resume(md: str, out_path: str):
+    lines = md.strip().split("\n")
+
+    # ── Parse markdown into structured data ───────────────────────────────────
+    name = ""; subtitle = ""; contact = ""
+    sections = {}       # ordered list of (section_name, [content_lines])
+    current = None
+
     i = 0
-
-    def section_header(text):
-        data = [[Paragraph(text.upper(), section_style)]]
-        t = Table(data, colWidths=[7.3*inch])
-        t.setStyle(TableStyle([
-            ("BACKGROUND", (0,0), (-1,-1), TEAL),
-            ("LEFTPADDING", (0,0), (-1,-1), 6),
-            ("RIGHTPADDING", (0,0), (-1,-1), 6),
-            ("TOPPADDING", (0,0), (-1,-1), 3),
-            ("BOTTOMPADDING", (0,0), (-1,-1), 3),
-        ]))
-        return t
-
-    def skip_blanks():
-        nonlocal i
-        while i < len(lines) and lines[i].strip() == "":
-            i += 1
-
-    # ── Header block ──────────────────────────────────────────────────────────
-    # Name (first # heading)
     while i < len(lines):
-        line = lines[i].strip()
-        if line.startswith("# "):
-            name = line[2:].strip()
-            story.append(Paragraph(name, name_style))
-            i += 1
-            break
+        ln = lines[i].strip()
+        if ln.startswith("# "):
+            name = ln[2:].strip(); i += 1; continue
+        if ln.startswith("**") and ln.endswith("**") and not current:
+            subtitle = ln.strip("*"); i += 1; continue
+        if not current and ("@" in ln or "(" in ln) and "|" in ln:
+            contact = ln; i += 1; continue
+        if ln.startswith("## "):
+            current = ln[3:].strip()
+            sections[current] = []; i += 1; continue
+        if current is not None:
+            sections[current].append(lines[i])
         i += 1
 
-    # Subtitle (**...**)
-    skip_blanks()
-    if i < len(lines) and lines[i].strip().startswith("**") and lines[i].strip().endswith("**"):
-        subtitle = lines[i].strip().strip("*")
-        story.append(Paragraph(subtitle, title_style))
-        i += 1
+    # ── Sidebar content ───────────────────────────────────────────────────────
+    sidebar_story = []
 
-    # Contact line
-    skip_blanks()
-    if i < len(lines) and ("@" in lines[i] or "(" in lines[i]):
-        contact = lines[i].strip()
-        story.append(Spacer(1, 2))
-        story.append(Paragraph(contact, contact_style))
-        i += 1
+    # Name block
+    sidebar_story.append(Spacer(1, 0.4*inch))
+    for part in name.split():
+        sidebar_story.append(Paragraph(part, s_name))
+    sidebar_story.append(Spacer(1, 4))
+    if subtitle:
+        sidebar_story.append(Paragraph(subtitle, s_subtitle))
 
-    story.append(Spacer(1, 6))
-    story.append(HRFlowable(width="100%", thickness=2, color=TEAL))
-    story.append(Spacer(1, 6))
+    # Contact
+    if contact:
+        sidebar_story.append(sidebar_section("Contact"))
+        for item in contact.split("|"):
+            item = item.strip()
+            if item:
+                sidebar_story.append(Paragraph(f"• {item}", s_side_bull))
+        sidebar_story.append(Spacer(1, 4))
 
-    # ── Body sections ─────────────────────────────────────────────────────────
-    current_section = None
+    # Skills section → sidebar
+    if "Core Skills" in sections or "Technical Skills" in sections or "Skills" in sections:
+        key = next((k for k in ("Core Skills","Technical Skills","Skills")
+                    if k in sections), None)
+        if key:
+            sidebar_story.append(sidebar_section("Skills"))
+            for ln in sections[key]:
+                ln = ln.strip()
+                if ln.startswith("- "):
+                    skill = re.sub(r'\*\*(.*?)\*\*', r'\1', ln[2:].strip())
+                    # Truncate long skill lines
+                    if len(skill) > 38:
+                        skill = skill[:36] + "…"
+                    sidebar_story.append(Paragraph(f"• {skill}", s_side_bull))
+            del sections[key]
 
-    while i < len(lines):
-        line = lines[i]
-        stripped = line.strip()
+    # Education → sidebar
+    if "Education" in sections:
+        sidebar_story.append(sidebar_section("Education"))
+        for ln in sections["Education"]:
+            ln = ln.strip()
+            if not ln: continue
+            ln_clean = re.sub(r'\*\*(.*?)\*\*', r'\1', ln)
+            ln_clean = re.sub(r'\*(.*?)\*', r'\1', ln_clean)
+            sidebar_story.append(Paragraph(ln_clean, s_side_body))
+        del sections["Education"]
 
-        # ## Section heading
-        if stripped.startswith("## "):
-            heading = stripped[3:].strip()
-            story.append(Spacer(1, 6))
-            story.append(section_header(heading))
-            story.append(Spacer(1, 4))
-            current_section = heading
-            i += 1
-            continue
+    # Certifications → sidebar
+    if "Certifications" in sections:
+        sidebar_story.append(sidebar_section("Certifications"))
+        for ln in sections["Certifications"]:
+            ln = ln.strip()
+            if ln.startswith("- "):
+                cert = re.sub(r'\*\*(.*?)\*\*', r'\1', ln[2:])
+                sidebar_story.append(Paragraph(f"• {cert}", s_side_bull))
+        del sections["Certifications"]
 
-        # ### Job / sub-heading
-        if stripped.startswith("### "):
-            parts = stripped[4:].strip().split("|")
-            job_t = parts[0].strip() if len(parts) > 0 else ""
-            company = parts[1].strip() if len(parts) > 1 else ""
-            dates = parts[2].strip() if len(parts) > 2 else ""
+    # ── Main content ──────────────────────────────────────────────────────────
+    main_story = []
+    main_story.append(Spacer(1, 0.25*inch))
 
-            # Two-column: job title left, dates right
-            left = Paragraph(f"<b>{job_t}</b>", job_title_style)
-            right = Paragraph(dates, ParagraphStyle("Dates",
-                fontSize=9, textColor=GRAY, fontName="Helvetica",
-                alignment=TA_RIGHT))
-            row = Table([[left, right]], colWidths=[5.2*inch, 2.1*inch])
-            row.setStyle(TableStyle([
-                ("VALIGN", (0,0), (-1,-1), "BOTTOM"),
-                ("LEFTPADDING", (0,0), (-1,-1), 0),
-                ("RIGHTPADDING", (0,0), (-1,-1), 0),
-                ("TOPPADDING", (0,0), (-1,-1), 0),
-                ("BOTTOMPADDING", (0,0), (-1,-1), 0),
-            ]))
-            story.append(row)
-            if company:
-                story.append(Paragraph(company, job_meta_style))
-            story.append(Spacer(1, 2))
-            i += 1
-            continue
+    for sec_name, sec_lines in sections.items():
+        main_story.append(section_heading(sec_name))
 
-        # Markdown table (skills table)
-        if stripped.startswith("|") and "---" not in stripped:
-            table_lines = []
-            while i < len(lines) and lines[i].strip().startswith("|"):
-                row_line = lines[i].strip()
-                if "---" not in row_line:
-                    cells = [c.strip() for c in row_line.split("|")[1:-1]]
-                    table_lines.append(cells)
-                i += 1
-            if table_lines:
-                col_w = [2.5*inch, 4.8*inch]
-                tdata = []
-                for r_idx, row in enumerate(table_lines):
-                    styled_row = []
-                    for c_idx, cell in enumerate(row):
-                        cell_clean = re.sub(r'\*\*(.*?)\*\*', r'\1', cell)
-                        s = ParagraphStyle("TC",
-                            fontSize=9, leading=12,
-                            fontName="Helvetica-Bold" if (r_idx == 0 or c_idx == 0) else "Helvetica",
-                            textColor=TEAL if c_idx == 0 else DARK)
-                        styled_row.append(Paragraph(cell_clean, s))
-                    tdata.append(styled_row)
-                t = Table(tdata, colWidths=col_w)
+        i = 0
+        while i < len(sec_lines):
+            ln = sec_lines[i].strip()
+
+            if not ln: i += 1; continue
+
+            # ### Job heading
+            if ln.startswith("### "):
+                parts = ln[4:].split("|")
+                job_t   = parts[0].strip() if len(parts) > 0 else ""
+                company = parts[1].strip() if len(parts) > 1 else ""
+                dates   = parts[2].strip() if len(parts) > 2 else ""
+
+                left  = Paragraph(f"<b>{job_t}</b>", s_job_title)
+                right = Paragraph(dates, s_dates)
+                t = Table([[left, right]],
+                          colWidths=[MAIN_W * 0.72, MAIN_W * 0.28])
                 t.setStyle(TableStyle([
-                    ("ROWBACKGROUNDS", (0,0), (-1,-1), [colors.HexColor("#F0F8FA"), WHITE]),
-                    ("BOX", (0,0), (-1,-1), 0.5, LGRAY),
-                    ("INNERGRID", (0,0), (-1,-1), 0.25, LGRAY),
-                    ("VALIGN", (0,0), (-1,-1), "TOP"),
-                    ("LEFTPADDING", (0,0), (-1,-1), 5),
-                    ("RIGHTPADDING", (0,0), (-1,-1), 5),
-                    ("TOPPADDING", (0,0), (-1,-1), 3),
-                    ("BOTTOMPADDING", (0,0), (-1,-1), 3),
+                    ("VALIGN",        (0,0),(-1,-1),"BOTTOM"),
+                    ("LEFTPADDING",   (0,0),(-1,-1),0),
+                    ("RIGHTPADDING",  (0,0),(-1,-1),0),
+                    ("TOPPADDING",    (0,0),(-1,-1),0),
+                    ("BOTTOMPADDING", (0,0),(-1,-1),1),
                 ]))
-                story.append(t)
-                story.append(Spacer(1, 4))
-            continue
+                main_story.append(KeepTogether([t]))
+                if company:
+                    main_story.append(Paragraph(company, s_company))
+                i += 1; continue
 
-        # Bullet points
-        if stripped.startswith("- "):
-            text = stripped[2:].strip()
-            text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
-            story.append(Paragraph(f"• {text}", bullet_style))
-            i += 1
-            continue
+            # Markdown table
+            if ln.startswith("|") and "---" not in ln:
+                rows = []
+                while i < len(sec_lines) and sec_lines[i].strip().startswith("|"):
+                    row_ln = sec_lines[i].strip()
+                    if "---" not in row_ln:
+                        cells = [c.strip() for c in row_ln.split("|")[1:-1]]
+                        rows.append(cells)
+                    i += 1
+                if rows:
+                    tdata = []
+                    for r_i, row in enumerate(rows):
+                        styled = []
+                        for c_i, cell in enumerate(row):
+                            cell = re.sub(r'\*\*(.*?)\*\*', r'\1', cell)
+                            st = ParagraphStyle("TC", fontName=(
+                                "Helvetica-Bold" if c_i == 0 else "Helvetica"),
+                                fontSize=8.5, leading=12,
+                                textColor=(C_TEAL if c_i == 0 else C_GRAY))
+                            styled.append(Paragraph(cell, st))
+                        tdata.append(styled)
+                    col_w = [MAIN_W * 0.34, MAIN_W * 0.66]
+                    t = Table(tdata, colWidths=col_w, repeatRows=0)
+                    t.setStyle(TableStyle([
+                        ("ROWBACKGROUNDS",(0,0),(-1,-1),
+                         [C_LTEAL, C_WHITE]),
+                        ("BOX",          (0,0),(-1,-1), 0.5, C_RULE),
+                        ("INNERGRID",    (0,0),(-1,-1), 0.25, C_RULE),
+                        ("VALIGN",       (0,0),(-1,-1), "TOP"),
+                        ("LEFTPADDING",  (0,0),(-1,-1), 5),
+                        ("RIGHTPADDING", (0,0),(-1,-1), 5),
+                        ("TOPPADDING",   (0,0),(-1,-1), 3),
+                        ("BOTTOMPADDING",(0,0),(-1,-1), 3),
+                    ]))
+                    main_story.append(t)
+                    main_story.append(Spacer(1, 4))
+                continue
 
-        # Italic metadata line (*...*)
-        if stripped.startswith("*") and stripped.endswith("*") and not stripped.startswith("**"):
-            text = stripped.strip("*")
-            story.append(Paragraph(f"<i>{text}</i>",
-                ParagraphStyle("Meta", fontSize=8.5, textColor=LGRAY,
-                               fontName="Helvetica-Oblique", leftIndent=10)))
-            i += 1
-            continue
+            # Bullet
+            if ln.startswith("- "):
+                text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', ln[2:])
+                main_story.append(Paragraph(f"<font color='#1B7A8C'>▸</font>  {text}",
+                                            s_bullet))
+                i += 1; continue
 
-        # Bold label line (**...**)
-        if stripped.startswith("**") and stripped.endswith("**"):
-            text = stripped.strip("*")
-            story.append(Paragraph(f"<b>{text}</b>",
-                ParagraphStyle("Bold", fontSize=9.5, textColor=DARK,
-                               fontName="Helvetica-Bold")))
-            i += 1
-            continue
+            # Italic line
+            if ln.startswith("*") and ln.endswith("*") and not ln.startswith("**"):
+                main_story.append(Paragraph(ln.strip("*"), s_italic))
+                i += 1; continue
 
-        # Regular paragraph text
-        if stripped:
-            text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', stripped)
+            # Regular text
+            text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', ln)
             text = re.sub(r'\*(.*?)\*', r'<i>\1</i>', text)
-            story.append(Paragraph(text, summary_style))
-            story.append(Spacer(1, 3))
+            main_story.append(Paragraph(text, s_summary))
+            i += 1
 
-        i += 1
+        main_story.append(Spacer(1, 6))
 
-    doc.build(story)
-    print(f"✓ PDF saved: {out_path}")
+    # ── Lay out two-column page ───────────────────────────────────────────────
+    sidebar_x = MARGIN * 0.3
+    sidebar_w = SIDEBAR
+    main_x    = SIDEBAR + MARGIN * 1.1
+    content_h = H - MARGIN * 1.5
+
+    sidebar_frame = Frame(sidebar_x, MARGIN * 0.75,
+                          sidebar_w, content_h,
+                          leftPadding=10, rightPadding=6,
+                          topPadding=0, bottomPadding=0,
+                          id="sidebar", showBoundary=0)
+
+    main_frame    = Frame(main_x, MARGIN * 0.75,
+                          MAIN_W, content_h,
+                          leftPadding=4, rightPadding=4,
+                          topPadding=0, bottomPadding=0,
+                          id="main", showBoundary=0)
+
+    page_bg = SidebarPage()
+    template = PageTemplate(id="TwoCol",
+                            frames=[sidebar_frame, main_frame],
+                            onPage=page_bg)
+
+    doc = BaseDocTemplate(out_path, pagesize=letter,
+                          pageTemplates=[template],
+                          leftMargin=0, rightMargin=0,
+                          topMargin=0, bottomMargin=0)
+
+    # Combine: sidebar first (fills sidebar frame), then FrameBreak, then main
+    from reportlab.platypus import FrameBreak
+    full_story = sidebar_story + [FrameBreak()] + main_story
+    doc.build(full_story)
+    print(f"✓ PDF: {out_path}")
 
 
 # ── Word Cover Letter ─────────────────────────────────────────────────────────
 
-def build_word_cover_letter(cover_md: str, out_path: str):
+def build_word_cover_letter(md: str, out_path: str):
     doc = Document()
 
-    # Page margins
-    for section in doc.sections:
-        section.top_margin = Inches(1)
-        section.bottom_margin = Inches(1)
-        section.left_margin = Inches(1.1)
-        section.right_margin = Inches(1.1)
+    # Page setup
+    for sec in doc.sections:
+        sec.top_margin    = Inches(0.8)
+        sec.bottom_margin = Inches(0.8)
+        sec.left_margin   = Inches(1.1)
+        sec.right_margin  = Inches(1.1)
 
-    lines = cover_md.strip().split("\n")
-    i = 0
+    # Default paragraph style
+    style = doc.styles["Normal"]
+    style.font.name = "Calibri"
+    style.font.size = Pt(11)
 
-    # Skip H1 title line
-    while i < len(lines):
-        if lines[i].strip().startswith("# "):
-            i += 1
-            break
-        i += 1
-
-    # Name header
-    if i < len(lines):
-        name_line = lines[i].strip()
+    def add_para(text="", bold=False, size=11, color=None,
+                 align=WD_ALIGN_PARAGRAPH.LEFT, space_after=6):
         p = doc.add_paragraph()
-        p.alignment = WD_ALIGN_PARAGRAPH.LEFT
-        run = p.add_run(name_line)
-        run.bold = True
-        run.font.size = Pt(14)
-        run.font.color.rgb = DARK_DOCX
-        i += 1
+        p.alignment = align
+        p.paragraph_format.space_after = Pt(space_after)
+        p.paragraph_format.space_before = Pt(0)
+        if not text:
+            return p
+        parts = re.split(r'(\*\*.*?\*\*)', text)
+        for part in parts:
+            is_bold = part.startswith("**") and part.endswith("**")
+            run = p.add_run(part[2:-2] if is_bold else part)
+            run.bold = bold or is_bold
+            run.font.size = Pt(size)
+            run.font.name = "Calibri"
+            if color:
+                run.font.color.rgb = color
+        return p
 
-    # Contact / date / address lines (next few non-blank lines before body)
-    while i < len(lines) and lines[i].strip():
-        p = doc.add_paragraph()
-        run = p.add_run(lines[i].strip())
-        run.font.size = Pt(10)
-        run.font.color.rgb = GRAY_DOCX
-        p.paragraph_format.space_after = Pt(0)
-        i += 1
-
-    doc.add_paragraph()  # spacer
-
-    # Teal divider via a colored paragraph border hack — use a rule paragraph
-    p = doc.add_paragraph()
-    from docx.oxml.ns import qn
-    from docx.oxml import OxmlElement
-    pPr = p._p.get_or_add_pPr()
-    pBdr = OxmlElement('w:pBdr')
-    bottom = OxmlElement('w:bottom')
-    bottom.set(qn('w:val'), 'single')
-    bottom.set(qn('w:sz'), '6')
-    bottom.set(qn('w:space'), '1')
-    bottom.set(qn('w:color'), '1B7A8C')
-    pBdr.append(bottom)
-    pPr.append(pBdr)
-
-    doc.add_paragraph()  # spacer
-
-    # Skip blank lines
-    while i < len(lines) and not lines[i].strip():
-        i += 1
-
-    # Hiring manager block
-    while i < len(lines) and lines[i].strip() and not lines[i].strip().startswith("Dear"):
-        p = doc.add_paragraph()
-        run = p.add_run(lines[i].strip())
-        run.font.size = Pt(10)
-        run.font.color.rgb = DARK_DOCX
-        p.paragraph_format.space_after = Pt(0)
-        i += 1
-
-    doc.add_paragraph()
-
-    # Body paragraphs
-    while i < len(lines):
-        line = lines[i].strip()
-
-        if not line:
-            doc.add_paragraph()
-            i += 1
-            continue
-
-        # Salutation
-        if line.startswith("Dear"):
-            p = doc.add_paragraph()
-            run = p.add_run(line)
-            run.bold = True
-            run.font.size = Pt(10.5)
-            run.font.color.rgb = DARK_DOCX
-            i += 1
-            doc.add_paragraph()
-            continue
-
-        # Closing (Sincerely)
-        if line.startswith("Sincerely"):
-            doc.add_paragraph()
-            p = doc.add_paragraph()
-            run = p.add_run(line)
-            run.font.size = Pt(10.5)
-            run.font.color.rgb = DARK_DOCX
-            i += 1
-            continue
-
-        # Body text — handle **bold** inline
+    def add_rule(color_hex="1B7A8C", thickness=12):
         p = doc.add_paragraph()
         p.paragraph_format.space_after = Pt(8)
-        # Parse inline bold
-        parts = re.split(r'(\*\*.*?\*\*)', line)
-        for part in parts:
-            if part.startswith("**") and part.endswith("**"):
-                run = p.add_run(part[2:-2])
-                run.bold = True
-            else:
-                run = p.add_run(part)
-            run.font.size = Pt(10.5)
-            run.font.color.rgb = DARK_DOCX
+        pPr = p._p.get_or_add_pPr()
+        pBdr = OxmlElement("w:pBdr")
+        bot  = OxmlElement("w:bottom")
+        bot.set(qn("w:val"),   "single")
+        bot.set(qn("w:sz"),    str(thickness))
+        bot.set(qn("w:space"), "1")
+        bot.set(qn("w:color"), color_hex)
+        pBdr.append(bot)
+        pPr.append(pBdr)
+
+    lines = md.strip().split("\n")
+    i = 0
+
+    # Skip H1
+    while i < len(lines) and not lines[i].strip().startswith("# "):
+        i += 1
+    i += 1  # skip the title line
+
+    # Header: name
+    name_line = lines[i].strip() if i < len(lines) else ""
+    add_para(name_line, bold=True, size=18,
+             color=RGBColor(0x0D, 0x1B, 0x2A), space_after=2)
+    i += 1
+
+    # Contact / date lines
+    while i < len(lines) and lines[i].strip():
+        add_para(lines[i].strip(), size=10,
+                 color=RGBColor(0x71, 0x80, 0x96), space_after=0)
+        i += 1
+
+    add_rule("1B7A8C", 16)
+
+    # Skip blanks
+    while i < len(lines) and not lines[i].strip(): i += 1
+
+    # Recipient block
+    while i < len(lines) and lines[i].strip() \
+          and not lines[i].strip().startswith("Dear"):
+        add_para(lines[i].strip(), size=10.5,
+                 color=RGBColor(0x0D, 0x1B, 0x2A), space_after=0)
+        i += 1
+
+    add_para()
+
+    # Body
+    in_body = False
+    while i < len(lines):
+        ln = lines[i].strip()
+        if not ln:
+            add_para(space_after=4)
+            i += 1; continue
+
+        if ln.startswith("Dear"):
+            add_para(ln, bold=True, size=11,
+                     color=RGBColor(0x0D, 0x1B, 0x2A), space_after=10)
+            i += 1; in_body = True; continue
+
+        if ln.startswith("Sincerely"):
+            add_para()
+            add_para(ln, size=11, color=RGBColor(0x0D, 0x1B, 0x2A),
+                     space_after=0)
+            i += 1; continue
+
+        add_para(ln, size=11, color=RGBColor(0x0D, 0x1B, 0x2A),
+                 space_after=8)
         i += 1
 
     doc.save(out_path)
-    print(f"✓ DOCX saved: {out_path}")
+    print(f"✓ DOCX: {out_path}")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python3 generate_application.py <application_folder>")
+        print("Usage: python3 generate_application.py <folder>")
         sys.exit(1)
 
     folder = sys.argv[1]
-    resume_path = os.path.join(folder, "resume.md")
-    cover_path = os.path.join(folder, "cover_letter.md")
-    pdf_out = os.path.join(folder, "resume.pdf")
-    docx_out = os.path.join(folder, "cover_letter.docx")
+    with open(os.path.join(folder, "resume.md"))       as f: resume_md = f.read()
+    with open(os.path.join(folder, "cover_letter.md")) as f: cover_md  = f.read()
 
-    with open(resume_path) as f:
-        resume_md = f.read()
-    with open(cover_path) as f:
-        cover_md = f.read()
-
-    build_pdf_resume(resume_md, pdf_out)
-    build_word_cover_letter(cover_md, docx_out)
+    build_pdf_resume(resume_md,          os.path.join(folder, "resume.pdf"))
+    build_word_cover_letter(cover_md,    os.path.join(folder, "cover_letter.docx"))
