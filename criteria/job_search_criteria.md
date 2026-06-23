@@ -2,7 +2,7 @@
 
 ## Target Roles
 
-### Primary (Strong Fit)
+### Primary
 - Junior full-stack developer / contractor
 - AI solutions developer / AI implementation
 - Digital infrastructure builder
@@ -12,18 +12,17 @@
 - No-code / low-code developer (Airtable, Smartsheet, Power Platform, Zapier)
 - AI tools implementation specialist
 - Business systems developer
-
-### Secondary (Coordinator / Analyst)
 - Data analyst / data-related roles
-- Project management / PM coordinator
-- Operations coordinator / technical coordinator
-- Microsoft 365 / Microsoft tools specialist
-- Any coordinator role (operations, technical, project, program)
-
-### Tertiary (Fallback)
 - Web developer / web development
 - Data entry
 - Administrative analyst / spreadsheet-heavy roles
+
+### Secondary
+- Project management / PM coordinator
+- Operations coordinator / technical coordinator
+- Logistics / supply chain roles
+- Microsoft 365 / Microsoft tools specialist
+- Any coordinator role (operations, technical, project, program, logistics)
 
 ## Preferred Platforms & Tools (search keywords)
 
