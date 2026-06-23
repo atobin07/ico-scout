@@ -4,7 +4,7 @@
 ---
 
 **ALEXANDER TOBIN**
-(757) 289-1204 | atobin@alum.utk.edu | atobin07@proton.me | Virginia Beach, VA
+(757) 289-1204 | atobin@alum.utk.edu | Virginia Beach, VA
 
 ## Professional Summary
 Airtable consultant and junior full-stack developer specializing in building end-to-end Airtable solutions for businesses — including relational data architecture, custom interfaces, multi-step automations, and third-party integrations. Also experienced in broader digital app infrastructure using AI-assisted development, workflow automation, and systems integration across tools like Smartsheet, Power Automate, Azure, and Python. Proven track record delivering production-ready solutions for real business operations — from data ingestion and processing to client-facing interfaces and reporting layers.

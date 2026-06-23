@@ -1,6 +1,6 @@
 # Alexander Tobin
 **Power BI Developer | BI Engineer | Data Analytics**
-(757) 289-1204 | atobin@alum.utk.edu | atobin07@proton.me | Virginia Beach, VA
+(757) 289-1204 | atobin@alum.utk.edu | Virginia Beach, VA
 
 ## Professional Summary
 

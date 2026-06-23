@@ -60,5 +60,5 @@ When in doubt, default to `resumes/resume_airtable_data_analyst.md` — it is th
 ## Candidate Info
 - **Name:** Alexander Tobin
 - **Phone:** (757) 289-1204
-- **Email:** atobin@alum.utk.edu | atobin07@proton.me
+- **Email:** atobin@alum.utk.edu
 - **Location:** Virginia Beach, VA

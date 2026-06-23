@@ -1,6 +1,6 @@
 # Alexander Tobin
 **Website Specialist | Digital Designer | Content Manager**
-(757) 289-1204 | atobin@alum.utk.edu | atobin07@proton.me | Virginia Beach, VA
+(757) 289-1204 | atobin@alum.utk.edu | Virginia Beach, VA
 
 ---
 
