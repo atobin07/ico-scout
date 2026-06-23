@@ -236,6 +236,34 @@ def rich(t):
     t = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', t)
     return re.sub(r'\*(.*?)\*', r'<i>\1</i>', t)
 
+def _skill_fill(label: str) -> float:
+    """Return a 0–1 fill level based on skill keyword priority tiers."""
+    t = label.lower()
+    # Tier 1 — core technical (expert-level tools, primary resume keywords)
+    T1 = ["sql", "python", "excel", "airtable", "power bi", "tableau",
+          "azure", "ms sql", "sql server", "data integrat", "data analyt",
+          "project manag", "api", "airtable", "ecommerce"]
+    # Tier 2 — strong secondary skills
+    T2 = ["cloud", "aws", "google cloud", "devops", "containeriz", "json",
+          "xml", "visualization", "statistical", "index/match", "xlookup",
+          "array formula", "kpi", "otif", "supply chain", "sop", "bi"]
+    # Tier 3 — soft / general skills
+    T3 = ["attention", "integrity", "time manag", "data entry", "communication",
+          "collaborat", "cross-functional", "detail"]
+    for kw in T1:
+        if kw in t:
+            # vary within 0.88–0.97 using a stable hash offset
+            return round(0.88 + (hash(label) % 9) * 0.01, 2)
+    for kw in T2:
+        if kw in t:
+            return round(0.72 + (hash(label) % 11) * 0.01, 2)
+    for kw in T3:
+        if kw in t:
+            return round(0.52 + (hash(label) % 13) * 0.01, 2)
+    # Fallback: mid-range with label-based variance
+    return round(0.65 + (hash(label) % 15) * 0.01, 2)
+
+
 def _hex(c):
     return f"#{int(c.red*255):02X}{int(c.green*255):02X}{int(c.blue*255):02X}"
 
@@ -485,7 +513,7 @@ def build_sidebar(data, compact=False):
                 ls = ln.strip()
                 if ls.startswith("- "):
                     sk = strip_md(ls[2:]).strip()
-                    story.append(SkillBar(sk, SF_AVAIL, color=C_GOLD))
+                    story.append(SkillBar(sk, SF_AVAIL, fill=_skill_fill(sk), color=C_GOLD))
                     story.append(Spacer(1, 3))
                 elif ls.startswith("|") and "---" not in ls:
                     cells = [c.strip() for c in ls.split("|")[1:-1]]
@@ -498,7 +526,7 @@ def build_sidebar(data, compact=False):
                     for v in vals.split(","):
                         v = v.strip()
                         if v:
-                            story.append(SkillBar(v, SF_AVAIL, fill=0.76, color=C_GOLD))
+                            story.append(SkillBar(v, SF_AVAIL, fill=_skill_fill(v), color=C_GOLD))
                             story.append(Spacer(1, 3))
 
         elif sn == "Education":
