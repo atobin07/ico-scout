@@ -206,98 +206,144 @@ A_CONT_H   = H - A_HDR_H - A_MY
 #  CANVAS DRAW FUNCTIONS (header + background drawn per page)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _draw_header_text(canvas, data, hdr_h):
-    """Write name, subtitle, and contact onto the canvas header area."""
-    cx = canvas
-
-    # Contact strip across full width
-    contact_parts = [p.strip() for p in data["contact"].split("|") if p.strip()]
-    contact_str   = "   ·   ".join(contact_parts)
-    cx.setFont("Helvetica", 7.5)
-    cx.setFillColor(colors.HexColor("#7A9BB8"))
-    cx.drawString(16, H - hdr_h + 9, contact_str)
-
-    # Subtitle
-    if data["subtitle"]:
-        cx.setFont("Helvetica", 9)
-        cx.setFillColor(C_GOLD)
-        cx.drawString(16, H - hdr_h + 28, data["subtitle"])
-
-    # Name (large, top of header)
-    cx.setFont("Helvetica-Bold", 26)
-    cx.setFillColor(C_WHITE)
-    cx.drawString(16, H - hdr_h + 48, data["name"])
-
-
 def make_draw_signature(data):
-    """Combined theme: executive circles + asymmetric diagonal slash + gradient sidebar."""
-    hdr_h = E_HDR_H
+    """
+    Signature theme header layers (bottom to top):
+      1. Navy base
+      2. Translucent bezier sweep curve (gold) — movement/depth behind name
+      3. Subtle teal glow box behind the name text
+      4. Triple diagonal stripes (teal → dark teal → gold) on right half
+      5. Dot-grid texture patch (translucent gold) in mid-header
+      6. Decorative stroke circles in the stripe zone
+      7. Gold bottom rule + darker contact strip
+      8. Name, gold underline, subtitle, contact text
+    """
+    hdr_h  = E_HDR_H
+    STRIP_H = 18  # height of contact strip at bottom of header
+
     def draw(canvas, doc):
         canvas.saveState()
 
-        # ── Header ────────────────────────────────────────────────────────────
-        # Navy base
+        # ── 1. Navy base ──────────────────────────────────────────────────────
         canvas.setFillColor(C_NAVY)
         canvas.rect(0, H - hdr_h, W, hdr_h, fill=1, stroke=0)
 
-        # Teal diagonal slash — top-right
-        canvas.setFillColor(C_TEAL2)
-        p = canvas.beginPath()
-        p.moveTo(W * 0.52, H)
-        p.lineTo(W * 0.64, H - hdr_h)
-        p.lineTo(W,        H - hdr_h)
-        p.lineTo(W,        H)
-        p.close()
-        canvas.drawPath(p, fill=1, stroke=0)
+        # Clip all header decoration to the header rectangle
+        canvas.saveState()
+        clip = canvas.beginPath()
+        clip.rect(0, H - hdr_h, W, hdr_h)
+        canvas.clipPath(clip, stroke=0)
 
-        # Thin gold accent slash layered on teal
-        canvas.setFillColor(C_GOLD)
-        p2 = canvas.beginPath()
-        p2.moveTo(W * 0.49, H)
-        p2.lineTo(W * 0.52, H - hdr_h)
-        p2.lineTo(W * 0.64, H - hdr_h)
-        p2.lineTo(W * 0.52, H)
-        p2.close()
-        canvas.drawPath(p2, fill=1, stroke=0)
+        # ── 2. Bezier sweep curve (gold, very translucent) ────────────────────
+        # A thick sweeping arc from bottom-left to upper-right behind the name.
+        # Creates a sense of motion without competing with text.
+        canvas.setStrokeColor(colors.Color(0.79, 0.66, 0.30, alpha=0.12))
+        canvas.setLineWidth(30)
+        sweep = canvas.beginPath()
+        sweep.moveTo(-8, H - hdr_h + 10)
+        sweep.curveTo(50,  H - hdr_h + 52,
+                      140, H - hdr_h + 70,
+                      310, H - hdr_h + 74)
+        canvas.drawPath(sweep, fill=0, stroke=1)
 
-        # Decorative gold circles — anchored in teal zone (top-right)
-        for cx, cy, r, a in [
-            (W - 28,  H - 8,  44, 0.18),
-            (W - 66,  H - 14, 30, 0.13),
-            (W - 12,  H - 48, 22, 0.10),
+        # A second, thinner sweep slightly offset for depth
+        canvas.setStrokeColor(colors.Color(0.79, 0.66, 0.30, alpha=0.07))
+        canvas.setLineWidth(12)
+        sweep2 = canvas.beginPath()
+        sweep2.moveTo(-8, H - hdr_h + 22)
+        sweep2.curveTo(60,  H - hdr_h + 62,
+                       160, H - hdr_h + 76,
+                       340, H - hdr_h + 78)
+        canvas.drawPath(sweep2, fill=0, stroke=1)
+
+        # ── 3. Teal glow block behind name ───────────────────────────────────
+        nw = canvas.stringWidth(data["name"], "Helvetica-Bold", 27)
+        canvas.setFillColor(colors.Color(0.10, 0.47, 0.54, alpha=0.18))
+        canvas.roundRect(10, H - hdr_h + 38, nw + 18, 38, 4, fill=1, stroke=0)
+
+        # ── 4. Triple diagonal stripes on right half ──────────────────────────
+        def stripe(x_top, x_bot, col):
+            p = canvas.beginPath()
+            p.moveTo(x_top, H)
+            p.lineTo(W,     H)
+            p.lineTo(W,     H - hdr_h)
+            p.lineTo(x_bot, H - hdr_h)
+            p.close()
+            canvas.setFillColor(col)
+            canvas.drawPath(p, fill=1, stroke=0)
+
+        stripe(W * 0.46, W * 0.60, C_TEAL2)                        # wide teal
+        stripe(W * 0.62, W * 0.73, colors.HexColor("#0A4A58"))      # dark teal shadow
+        stripe(W * 0.43, W * 0.46, C_GOLD)                          # thin gold wedge
+
+        # ── 5. Dot-grid texture (gold, very subtle) ───────────────────────────
+        # 6 × 3 grid of tiny circles in the transition zone between name and stripes
+        canvas.setFillColor(colors.Color(0.79, 0.66, 0.30, alpha=0.22))
+        for col in range(6):
+            for row in range(3):
+                dx = W * 0.36 + col * 11
+                dy = H - hdr_h + STRIP_H + 8 + row * 11
+                canvas.circle(dx, dy, 1.4, fill=1, stroke=0)
+
+        # ── 6. Decorative stroke circles in the stripe zone ───────────────────
+        for cx_, cy_, r_, lw_, a_ in [
+            (W - 22,  H - 9,   42, 1.8, 0.22),   # large ring, top-right
+            (W - 55,  H - 22,  26, 1.2, 0.16),   # medium ring
+            (W * 0.70, H - hdr_h + 30, 18, 1.0, 0.14),  # small ring, lower
         ]:
-            fc = colors.Color(0.97, 0.85, 0.45, alpha=a)
-            sc = colors.Color(0.97, 0.85, 0.45, alpha=a * 1.5)
-            canvas.setFillColor(fc)
-            canvas.setStrokeColor(sc)
-            canvas.setLineWidth(1.0)
-            canvas.circle(cx, cy, r, fill=1, stroke=1)
+            canvas.setStrokeColor(colors.Color(1.0, 1.0, 1.0, alpha=a_))
+            canvas.setFillColor(colors.Color(1, 1, 1, alpha=0))
+            canvas.setLineWidth(lw_)
+            canvas.circle(cx_, cy_, r_, fill=0, stroke=1)
 
-        # Gold bottom rule across full width
+        canvas.restoreState()  # end header clip
+
+        # ── 7. Contact strip + gold rule ──────────────────────────────────────
+        # Slightly darker band at bottom of header for contact info
+        canvas.setFillColor(colors.Color(0, 0, 0, alpha=0.28))
+        canvas.rect(0, H - hdr_h, W, STRIP_H, fill=1, stroke=0)
+        # Gold rule on top of contact strip
         canvas.setFillColor(C_GOLD)
-        canvas.rect(0, H - hdr_h, W * 0.50, 3, fill=1, stroke=0)
+        canvas.rect(0, H - hdr_h + STRIP_H - 0.5, W * 0.43, 1.5, fill=1, stroke=0)
 
-        # Header text (name, subtitle, contact)
-        _draw_header_text(canvas, data, hdr_h)
+        # ── 8. Header text ────────────────────────────────────────────────────
+        contact_parts = [p.strip() for p in data["contact"].split("|") if p.strip()]
+        contact_str   = "   ◆   ".join(contact_parts)
+        canvas.setFont("Helvetica", 7.5)
+        canvas.setFillColor(colors.HexColor("#8AADCC"))
+        canvas.drawString(16, H - hdr_h + 5, contact_str)
+
+        # Subtitle
+        if data["subtitle"]:
+            canvas.setFont("Helvetica", 9)
+            canvas.setFillColor(C_GOLD)
+            canvas.drawString(16, H - hdr_h + STRIP_H + 8, data["subtitle"])
+
+        # Name
+        canvas.setFont("Helvetica-Bold", 27)
+        canvas.setFillColor(C_WHITE)
+        canvas.drawString(16, H - hdr_h + STRIP_H + 26, data["name"])
+
+        # Short gold underline accent beneath name
+        canvas.setFillColor(C_GOLD)
+        canvas.rect(16, H - hdr_h + STRIP_H + 23, 55, 2.5, fill=1, stroke=0)
 
         # ── Sidebar ───────────────────────────────────────────────────────────
         # Gold left accent strip
         canvas.setFillColor(C_GOLD)
         canvas.rect(0, 0, E_LSTRIP, H - hdr_h, fill=1, stroke=0)
 
-        # Gradient sidebar (3 shades darkest→lightest top→bottom)
-        bands = [
-            (H - hdr_h,  (H - hdr_h) * 0.66, colors.HexColor("#0F2040")),
-            ((H - hdr_h) * 0.66, (H - hdr_h) * 0.33, colors.HexColor("#0C1C34")),
-            ((H - hdr_h) * 0.33, 0,                   colors.HexColor("#0A1628")),
-        ]
-        for y_top, y_bot, col in bands:
+        # Gradient sidebar (3 bands)
+        for y_bot, y_top, col in [
+            (0,                       (H - hdr_h) * 0.40, colors.HexColor("#0A1628")),
+            ((H - hdr_h) * 0.40,     (H - hdr_h) * 0.75, colors.HexColor("#0C1C34")),
+            ((H - hdr_h) * 0.75,      H - hdr_h,          colors.HexColor("#0F2040")),
+        ]:
             canvas.setFillColor(col)
-            canvas.rect(E_LSTRIP, y_bot,
-                        E_SB_W - E_LSTRIP, y_top - y_bot,
+            canvas.rect(E_LSTRIP, y_bot, E_SB_W - E_LSTRIP, y_top - y_bot,
                         fill=1, stroke=0)
 
-        # Gold divider between sidebar and main
+        # Gold divider
         canvas.setFillColor(C_GOLD)
         canvas.rect(E_SB_W, 0, E_GOLD_W, H - hdr_h, fill=1, stroke=0)
 
@@ -305,7 +351,6 @@ def make_draw_signature(data):
     return draw
 
 
-# Keep legacy names pointing to the combined draw so old code still works
 def make_draw_executive(data):  return make_draw_signature(data)
 def make_draw_asymmetric(data): return make_draw_signature(data)
 
