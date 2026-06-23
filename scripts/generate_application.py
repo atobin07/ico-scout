@@ -71,38 +71,48 @@ SIDEBAR_SECTIONS = {"Core Skills", "Technical Skills", "Skills",
 # ══════════════════════════════════════════════════════════════════════════════
 
 class SectionHeading(Flowable):
-    """Gold left-bar + teal label + hairline rule."""
+    """Modern minimal: small gold diamond + tracked label + extending hairline."""
     def __init__(self, text, w, bar=None, txt=None):
         super().__init__()
         self.text = text.upper()
         self._w   = w
         self.bar  = bar or C_GOLD
         self.txt  = txt or C_TEAL
-        self._h   = 18
+        self._h   = 22
 
     def wrap(self, aw, ah): return self._w, self._h
 
     def draw(self):
         c = self.canv
         c.saveState()
-        # Subtle background band spanning full frame width
-        c.setFillColor(colors.Color(0.10, 0.48, 0.54, alpha=0.08))
-        c.rect(-MF_LP, 1, self._w + MF_LP + MF_RP, 15, fill=1, stroke=0)
-        # Gold left bar
+
+        # Small gold diamond prefix
         c.setFillColor(self.bar)
-        c.rect(0, 3, 5, 11, fill=1, stroke=0)
-        # Thin gold rule below bar (decorative notch)
-        c.setFillColor(colors.Color(0.79, 0.66, 0.30, alpha=0.50))
-        c.rect(0, 2, 18, 1, fill=1, stroke=0)
-        # Label
+        c.translate(4, 11)
+        c.rotate(45)
+        c.rect(-3, -3, 6, 6, fill=1, stroke=0)
+        c.rotate(-45)
+        c.translate(-4, -11)
+
+        # Section label
         c.setFont("Helvetica-Bold", 8)
         c.setFillColor(self.txt)
-        c.drawString(11, 5.5, self.text)
-        # Hairline rule
+        c.drawString(14, 7.5, self.text)
+
+        # Thin rule extending right from after the label text
+        tw = c.stringWidth(self.text, "Helvetica-Bold", 8)
+        rule_x = 16 + tw
         c.setStrokeColor(colors.Color(
-            self.txt.red, self.txt.green, self.txt.blue, alpha=0.22))
+            self.txt.red, self.txt.green, self.txt.blue, alpha=0.30))
         c.setLineWidth(0.5)
-        c.line(0, 1, self._w, 1)
+        c.line(rule_x + 6, 10.5, self._w, 10.5)
+
+        # Very faint full-width bottom rule
+        c.setStrokeColor(colors.Color(
+            self.txt.red, self.txt.green, self.txt.blue, alpha=0.10))
+        c.setLineWidth(0.3)
+        c.line(0, 2, self._w, 2)
+
         c.restoreState()
 
 
@@ -514,7 +524,7 @@ def build_sidebar(data, compact=False):
                 if ls.startswith("- "):
                     sk = strip_md(ls[2:]).strip()
                     story.append(SkillBar(sk, SF_AVAIL, fill=_skill_fill(sk), color=C_GOLD))
-                    story.append(Spacer(1, 3))
+                    story.append(Spacer(1, 5))
                 elif ls.startswith("|") and "---" not in ls:
                     cells = [c.strip() for c in ls.split("|")[1:-1]]
                     if not cells: continue
@@ -527,7 +537,7 @@ def build_sidebar(data, compact=False):
                         v = v.strip()
                         if v:
                             story.append(SkillBar(v, SF_AVAIL, fill=_skill_fill(v), color=C_GOLD))
-                            story.append(Spacer(1, 3))
+                            story.append(Spacer(1, 5))
 
         elif sn == "Education":
             s_edu_bold = S("edu_b", fontName="Helvetica-Bold", fontSize=7.6,
@@ -554,7 +564,7 @@ def build_sidebar(data, compact=False):
                     story.append(Paragraph(f"◆  {strip_md(ls[2:])}", s_bull))
                     story.append(Spacer(1, 2))
 
-        story.append(Spacer(1, 6))
+        story.append(Spacer(1, 10))
 
     return story
 
@@ -570,20 +580,25 @@ def build_main(data, compact=False, max_bullets=None):
                 textColor=C_TEAL,  leading=12, spaceAfter=2)
     s_date = S("dt",  fontName="Helvetica-Bold", fontSize=8,
                 textColor=C_GOLD,  leading=11, alignment=TA_RIGHT)
-    s_bull = S("bu",  fontName="Helvetica", fontSize=8.8,
-                textColor=C_GRAY,  leading=12.5 if not compact else 11.5,
+    s_bull = S("bu",  fontName="Helvetica", fontSize=8.5,
+                textColor=C_GRAY,  leading=13 if not compact else 11.5,
                 leftIndent=10, firstLineIndent=-8,
-                spaceAfter=2.5 if not compact else 1)
+                spaceAfter=3 if not compact else 1)
     s_sum  = S("su",  fontName="Helvetica", fontSize=9,
                 textColor=C_LGRAY, leading=13.5, spaceAfter=3)
 
-    story   = [Spacer(1, 6)]
+    story   = [Spacer(1, 8)]
     job_idx = 0
+    first_sec = True
 
     for sec in data["sections"]:
         if sec["name"] in SIDEBAR_SECTIONS: continue
 
+        if not first_sec:
+            story.append(Spacer(1, 10 if not compact else 5))
+        first_sec = False
         story.append(SectionHeading(sec["name"], MF_AVAIL))
+        story.append(Spacer(1, 5 if not compact else 2))
 
         # Text items / tables
         table_rows = []
@@ -642,7 +657,7 @@ def build_main(data, compact=False, max_bullets=None):
                 ("ROUNDEDCORNERS", [3]),
             ]))
             story.append(card)
-            story.append(Spacer(1, 5 if not compact else 2))
+            story.append(Spacer(1, 9 if not compact else 4))
             job_idx += 1
 
     return story
