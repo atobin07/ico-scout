@@ -15,11 +15,48 @@ from reportlab.platypus import (
     Spacer, HRFlowable, Table, TableStyle, KeepTogether, FrameBreak
 )
 from reportlab.platypus.flowables import Flowable
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from docx import Document
 from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
+
+# ── Font registration ─────────────────────────────────────────────────────────
+_FONT_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "fonts")
+
+def _reg(name, filename):
+    path = os.path.join(_FONT_DIR, filename)
+    if os.path.exists(path):
+        pdfmetrics.registerFont(TTFont(name, path))
+        return True
+    return False
+
+_inter = (
+    _reg("Inter",            "Inter-Regular.ttf") and
+    _reg("Inter-Bold",       "Inter-Bold.ttf")    and
+    _reg("Inter-SemiBold",   "Inter-SemiBold.ttf") and
+    _reg("Inter-Italic",     "Inter-Italic.ttf")
+)
+
+if _inter:
+    pdfmetrics.registerFontFamily(
+        "Inter",
+        normal="Inter",
+        bold="Inter-Bold",
+        italic="Inter-Italic",
+        boldItalic="Inter-Bold",
+    )
+    F_REG    = "Inter"
+    F_BOLD   = "Inter-Bold"
+    F_SEMI   = "Inter-SemiBold"
+    F_ITALIC = "Inter-Italic"
+else:
+    F_REG    = "Helvetica"
+    F_BOLD   = "Helvetica-Bold"
+    F_SEMI   = "Helvetica-Bold"
+    F_ITALIC = "Helvetica-Oblique"
 
 W, H = letter   # 612 × 792 pts
 
@@ -95,12 +132,12 @@ class SectionHeading(Flowable):
         c.translate(-4, -11)
 
         # Section label
-        c.setFont("Helvetica-Bold", 8)
+        c.setFont(F_BOLD, 8)
         c.setFillColor(self.txt)
         c.drawString(14, 7.5, self.text)
 
         # Thin rule extending right from after the label text
-        tw = c.stringWidth(self.text, "Helvetica-Bold", 8)
+        tw = c.stringWidth(self.text, F_BOLD, 8)
         rule_x = 16 + tw
         c.setStrokeColor(colors.Color(
             self.txt.red, self.txt.green, self.txt.blue, alpha=0.30))
@@ -143,7 +180,7 @@ class SidebarSecHeader(Flowable):
         c.rotate(-45)
         c.translate(-7, -7.5)
         # Label
-        c.setFont("Helvetica-Bold", 7)
+        c.setFont(F_BOLD, 7)
         c.setFillColor(C_GOLD)
         c.drawString(14, 4.5, self.text)
         c.restoreState()
@@ -153,7 +190,7 @@ class SkillBar(Flowable):
     """Skill label (wrapping) + filled progress track. Layout bottom-up:
        [2pt pad] [4pt bar] [5pt gap] [text lines @ 11pt each] [2pt pad]
     """
-    _FONT  = "Helvetica"
+    _FONT  = F_REG
     _SIZE  = 7.5
     _BOT   = 2    # padding below bar
     _BARH  = 4    # bar height
@@ -233,7 +270,7 @@ class JobCard(Flowable):
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def S(name, **kw):
-    d = dict(fontName="Helvetica", fontSize=9, leading=13,
+    d = dict(fontName=F_REG, fontSize=9, leading=13,
              textColor=C_GRAY, spaceAfter=0, spaceBefore=0)
     d.update(kw)
     return ParagraphStyle(name, **d)
@@ -357,9 +394,9 @@ def make_draw(data):
         # ── Decorative layer ─────────────────────────────────────────────────
 
         # Translucent initials watermark — big, anchored right
-        canvas.setFont("Helvetica-Bold", 90)
+        canvas.setFont(F_BOLD, 90)
         canvas.setFillColor(colors.Color(1, 1, 1, alpha=0.055))
-        iw = canvas.stringWidth(initials, "Helvetica-Bold", 90)
+        iw = canvas.stringWidth(initials, F_BOLD, 90)
         canvas.drawString(W - iw - 10, H - HDR_H + CTX_H + 2, initials)
 
         # Concentric rings (centered in right teal zone)
@@ -386,9 +423,9 @@ def make_draw(data):
             pill_h = pill_font_size + pill_pad_y * 2
             pill_y = H - HDR_H + CTX_H + 5
             pill_x = diag_bot + 18
-            canvas.setFont("Helvetica-Bold", pill_font_size)
+            canvas.setFont(F_BOLD, pill_font_size)
             for tag in data["tags"][:8]:
-                tw = canvas.stringWidth(tag, "Helvetica-Bold", pill_font_size)
+                tw = canvas.stringWidth(tag, F_BOLD, pill_font_size)
                 pw = tw + pill_pad_x * 2
                 if pill_x + pw > W - 10:
                     break
@@ -443,13 +480,13 @@ def make_draw(data):
         # Contact line
         parts = [p.strip() for p in data["contact"].split("|") if p.strip()]
         contact_str = "   ◆   ".join(parts)
-        canvas.setFont("Helvetica", 7.5)
+        canvas.setFont(F_REG, 7.5)
         canvas.setFillColor(colors.HexColor("#8AADCC"))
         canvas.drawString(16, H - HDR_H + 6, contact_str)
 
         # Name
         name_y = H - HDR_H + CTX_H + 34
-        canvas.setFont("Helvetica-Bold", 36)
+        canvas.setFont(F_BOLD, 36)
         canvas.setFillColor(C_WHITE)
         canvas.drawString(16, name_y, data["name"])
 
@@ -461,7 +498,7 @@ def make_draw(data):
 
         # Subtitle / tagline
         if data["subtitle"]:
-            canvas.setFont("Helvetica", 9.5)
+            canvas.setFont(F_REG, 9.5)
             canvas.setFillColor(C_GOLD2)
             canvas.drawString(18, H - HDR_H + CTX_H + 14, data["subtitle"])
 
@@ -503,10 +540,10 @@ def make_draw(data):
 # ══════════════════════════════════════════════════════════════════════════════
 
 def build_sidebar(data, compact=False):
-    s_body = S("sb", fontName="Helvetica", fontSize=7.6,
+    s_body = S("sb", fontName=F_REG, fontSize=7.6,
                 textColor=colors.HexColor("#A0BBCF"), leading=11, spaceAfter=1,
                 leftIndent=6)
-    s_bull = S("sbu", fontName="Helvetica", fontSize=7.6,
+    s_bull = S("sbu", fontName=F_REG, fontSize=7.6,
                 textColor=colors.HexColor("#A0BBCF"), leading=11, spaceAfter=2,
                 leftIndent=14, firstLineIndent=-8)
 
@@ -540,10 +577,10 @@ def build_sidebar(data, compact=False):
                             story.append(Spacer(1, 5))
 
         elif sn == "Education":
-            s_edu_bold = S("edu_b", fontName="Helvetica-Bold", fontSize=7.6,
+            s_edu_bold = S("edu_b", fontName=F_BOLD, fontSize=7.6,
                             textColor=colors.HexColor("#C8DCEC"), leading=11,
                             spaceAfter=1, leftIndent=6)
-            s_edu_body = S("edu_n", fontName="Helvetica", fontSize=7.4,
+            s_edu_body = S("edu_n", fontName=F_REG, fontSize=7.4,
                             textColor=colors.HexColor("#8AADCC"), leading=11,
                             spaceAfter=1, leftIndent=6)
             for ln in sec["items"]:
@@ -574,17 +611,17 @@ def build_sidebar(data, compact=False):
 # ══════════════════════════════════════════════════════════════════════════════
 
 def build_main(data, compact=False, max_bullets=None):
-    s_job  = S("jt",  fontName="Helvetica-Bold", fontSize=10.5,
+    s_job  = S("jt",  fontName=F_BOLD, fontSize=10.5,
                 textColor=colors.HexColor("#09152A"),  leading=14)
-    s_co   = S("co",  fontName="Helvetica-Oblique", fontSize=8.5,
+    s_co   = S("co",  fontName=F_ITALIC, fontSize=8.5,
                 textColor=C_TEAL,  leading=12, spaceAfter=2)
-    s_date = S("dt",  fontName="Helvetica-Bold", fontSize=8,
+    s_date = S("dt",  fontName=F_BOLD, fontSize=8,
                 textColor=C_GOLD,  leading=11, alignment=TA_RIGHT)
-    s_bull = S("bu",  fontName="Helvetica", fontSize=8.5,
+    s_bull = S("bu",  fontName=F_REG, fontSize=8.5,
                 textColor=C_GRAY,  leading=13 if not compact else 11.5,
                 leftIndent=10, firstLineIndent=-8,
                 spaceAfter=3 if not compact else 1)
-    s_sum  = S("su",  fontName="Helvetica", fontSize=9,
+    s_sum  = S("su",  fontName=F_REG, fontSize=9,
                 textColor=C_LGRAY, leading=13.5, spaceAfter=3)
 
     story   = [Spacer(1, 8)]
@@ -677,7 +714,7 @@ def _skills_table(rows_raw):
         for i, cell in enumerate(cells):
             cell = strip_md(cell)
             st = ParagraphStyle("TC",
-                fontName="Helvetica-Bold" if i == 0 else "Helvetica",
+                fontName=F_BOLD if i == 0 else F_REG,
                 fontSize=8.3, leading=12,
                 textColor=C_TEAL if i == 0 else C_GRAY)
             styled.append(Paragraph(cell, st))
