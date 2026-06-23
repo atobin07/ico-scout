@@ -1,17 +1,29 @@
 # Job Search Criteria
 
 ## Target Roles
+
+### Primary (Strong Fit)
+- Junior full-stack developer / contractor
+- AI solutions developer / AI implementation
+- Digital infrastructure builder
+- App development (AI-assisted / no-code / low-code)
+- Systems integrations developer
+- Workflow automation developer
+- No-code / low-code developer (Airtable, Smartsheet, Power Platform, Zapier)
+- AI tools implementation specialist
+- Business systems developer
+
+### Secondary (Coordinator / Analyst)
 - Data analyst / data-related roles
-- Web developer / web development
-- Junior developer
-- Data entry
-- AI solutions or implementation
-- Project management
-- Operations coordinator
-- Project management coordinator / PM coordinator
-- Technical coordinator
+- Project management / PM coordinator
+- Operations coordinator / technical coordinator
 - Microsoft 365 / Microsoft tools specialist
 - Any coordinator role (operations, technical, project, program)
+
+### Tertiary (Fallback)
+- Web developer / web development
+- Data entry
+- Administrative analyst / spreadsheet-heavy roles
 
 ## Preferred Platforms & Tools (search keywords)
 
