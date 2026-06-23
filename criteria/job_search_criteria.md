@@ -74,7 +74,18 @@
 - Java
 - R
 
-## Notes
-- Open to any location (remote/hybrid/on-site — confirm with user)
-- Salary range — confirm with user
-- Experience level — junior to mid
+## Location Preference
+1. **Remote-first** — prioritize fully remote positions
+2. **Nationwide (negotiable remote)** — open to jobs anywhere in the US where remote work can be negotiated; willing to discuss relocation or hybrid arrangements
+- Current location: Virginia Beach, VA
+
+## Salary
+- Negotiable — no hard minimum; open to competitive offers
+
+## Resume Tailoring Priority
+- **Quality over quantity** — prioritize jobs where the resume can be strongly tailored to the role
+- Skip jobs where the fit is weak or the resume would require significant stretching
+- Aim for high-confidence applications, not volume
+
+## Experience Level
+- Junior to mid-level
