@@ -7,7 +7,7 @@
 (757) 289-1204 | atobin@alum.utk.edu | atobin07@proton.me | Virginia Beach, VA
 
 ## Professional Summary
-Junior full-stack developer and AI systems contractor specializing in building digital app infrastructure using AI-assisted development, workflow automation, and systems integration. Experienced in designing and deploying business applications, custom dashboards, automated pipelines, and cross-platform integrations using tools like Airtable, Smartsheet, Power Automate, Azure, and Python. Proven track record delivering end-to-end solutions for real business operations — from data ingestion and processing to client-facing interfaces and reporting layers.
+Airtable consultant and junior full-stack developer specializing in building end-to-end Airtable solutions for businesses — including relational data architecture, custom interfaces, multi-step automations, and third-party integrations. Also experienced in broader digital app infrastructure using AI-assisted development, workflow automation, and systems integration across tools like Smartsheet, Power Automate, Azure, and Python. Proven track record delivering production-ready solutions for real business operations — from data ingestion and processing to client-facing interfaces and reporting layers.
 
 ## Core Skills
 - AI-assisted development & implementation

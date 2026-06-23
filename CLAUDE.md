@@ -34,7 +34,7 @@ Choose the base resume from `resumes/` that best matches the job being applied t
 
 | Job Type | Resume File |
 |----------|-------------|
-| Junior developer, full-stack contractor, AI implementation, app development, systems integration, no-code/low-code, automation dev | `resumes/resume_junior_fullstack_ai_dev.md` |
+| Airtable consultant, Airtable developer/admin, junior developer, full-stack contractor, AI implementation, app development, systems integration, no-code/low-code, automation dev | `resumes/resume_junior_fullstack_ai_dev.md` |
 | Airtable, data analyst, project manager, workflow automation, BI, Smartsheet admin | `resumes/resume_airtable_data_analyst.md` |
 | EDI integrations, SQL/database, supply chain tech, systems integration | `resumes/resume_edi_data_analyst.md` |
 | Logistics, supply chain, warehouse management, freight, operations | `resumes/resume_logistics_supply_chain.md` |

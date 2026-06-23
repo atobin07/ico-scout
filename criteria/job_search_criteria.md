@@ -3,6 +3,8 @@
 ## Target Roles
 
 ### Primary
+- Airtable consultant / Airtable solutions provider
+- Airtable developer / Airtable administrator
 - Junior full-stack developer / contractor
 - AI solutions developer / AI implementation
 - Digital infrastructure builder
