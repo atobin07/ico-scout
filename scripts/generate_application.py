@@ -123,28 +123,54 @@ class SidebarSecHeader(Flowable):
 
 
 class SkillBar(Flowable):
-    """Skill label + filled progress track."""
+    """Skill label (wrapping) + filled progress track."""
+    _FONT = "Helvetica"
+    _SIZE = 7.5
+    _BAR  = 4      # bar height
+    _LH   = 10     # line height per text row
+    _INDENT = 5    # left indent for text and bar
+
     def __init__(self, label, w, fill=0.82, color=None):
         super().__init__()
         self.label = label
         self._w    = w
         self.fill  = fill
         self.color = color or C_TEAL
-        self._h    = 18
+        # Word-wrap at init time using char-width estimate
+        # Helvetica 7.5pt ≈ 3.9pt average per character
+        usable = w - self._INDENT
+        cpl    = max(8, int(usable / 3.9))
+        self._lines = self._wordwrap(label, cpl)
+        self._h     = len(self._lines) * self._LH + self._BAR + 4
+
+    @staticmethod
+    def _wordwrap(text, cpl):
+        words, lines, cur = text.split(), [], ""
+        for word in words:
+            test = (cur + " " + word).strip()
+            if len(test) <= cpl:
+                cur = test
+            else:
+                if cur: lines.append(cur)
+                cur = word
+        if cur: lines.append(cur)
+        return lines or [text[:cpl]]
 
     def wrap(self, aw, ah): return self._w, self._h
 
     def draw(self):
         c = self.canv
         c.saveState()
-        c.setFont("Helvetica", 7.5)
+        c.setFont(self._FONT, self._SIZE)
         c.setFillColor(colors.HexColor("#A8C0D8"))
-        c.drawString(0, 8, self.label)
-        bw = self._w
+        for i, line in enumerate(self._lines):
+            y = self._h - (i + 1) * self._LH + self._BAR + 1
+            c.drawString(self._INDENT, y, line)
+        bar_w = self._w - self._INDENT
         c.setFillColor(colors.HexColor("#112840"))
-        c.roundRect(0, 2, bw, 4, 1.5, fill=1, stroke=0)
+        c.roundRect(self._INDENT, 0, bar_w, self._BAR, 1.5, fill=1, stroke=0)
         c.setFillColor(self.color)
-        c.roundRect(0, 2, bw * self.fill, 4, 1.5, fill=1, stroke=0)
+        c.roundRect(self._INDENT, 0, bar_w * self.fill, self._BAR, 1.5, fill=1, stroke=0)
         c.restoreState()
 
 
@@ -345,10 +371,11 @@ def make_draw(data):
 
 def build_sidebar(data, compact=False):
     s_body = S("sb", fontName="Helvetica", fontSize=7.6,
-                textColor=colors.HexColor("#A0BBCF"), leading=11, spaceAfter=1)
+                textColor=colors.HexColor("#A0BBCF"), leading=11, spaceAfter=1,
+                leftIndent=6)
     s_bull = S("sbu", fontName="Helvetica", fontSize=7.6,
                 textColor=colors.HexColor("#A0BBCF"), leading=11, spaceAfter=2,
-                leftIndent=8, firstLineIndent=-6)
+                leftIndent=14, firstLineIndent=-8)
 
     story = [Spacer(1, 10)]
 
@@ -363,7 +390,6 @@ def build_sidebar(data, compact=False):
                 ls = ln.strip()
                 if ls.startswith("- "):
                     sk = strip_md(ls[2:]).strip()
-                    if len(sk) > 36: sk = sk[:34] + "…"
                     story.append(SkillBar(sk, SF_AVAIL, color=C_GOLD))
                 elif ls.startswith("|") and "---" not in ls:
                     cells = [c.strip() for c in ls.split("|")[1:-1]]
