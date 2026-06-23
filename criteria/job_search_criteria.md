@@ -83,9 +83,11 @@
 - Negotiable — no hard minimum; open to competitive offers
 
 ## Resume Tailoring Priority
-- **Quality over quantity** — prioritize jobs where the resume can be strongly tailored to the role
-- Skip jobs where the fit is weak or the resume would require significant stretching
-- Aim for high-confidence applications, not volume
+- **Strong fits first** — prioritize jobs where the resume maps closely to the role
+- **Weak fits second** — still apply, but after strong fits are complete
+- Output folders:
+  - `applications/STRONG/` — strong fit applications
+  - `applications/WEAK/` — weak fit applications
 
 ## Experience Level
 - Junior to mid-level

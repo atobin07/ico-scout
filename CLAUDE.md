@@ -11,7 +11,7 @@ Search Indeed for jobs matching the user's criteria and prepare application mate
 3. Select the best-fit resume from `resumes/` based on the job type (see Resume Selection Guide below).
 4. Draft a tailored resume highlighting relevant experience from the selected base resume that matches the role.
 5. Draft a tailored cover letter (3–4 paragraphs) addressing the job requirements and company.
-6. Create a folder named `[Company Name] - [Job Title] - [Date]` inside `applications/` and save:
+6. Assess fit strength: **STRONG** (resume maps closely to the role) or **WEAK** (partial match, worth applying but lower confidence). Create a folder named `[Company Name] - [Job Title] - [Date]` inside `applications/STRONG/` or `applications/WEAK/` accordingly, and save:
    - `job_description.md` — full job description and Indeed URL
    - `resume.md` — tailored resume
    - `cover_letter.md` — tailored cover letter
@@ -49,10 +49,12 @@ When in doubt, default to `resumes/resume_airtable_data_analyst.md` — it is th
 - `criteria/` — user-provided job search criteria (role, location, keywords, salary, etc.)
   - `criteria/job_search_criteria.md` — current active search criteria
 - `resumes/` — base resumes by role type (see Resume Selection Guide above)
-- `applications/` — output folder; each job gets its own subfolder named `[Company Name] - [Job Title] - [Date]`
-  - `job_description.md` — full job description and Indeed URL
-  - `resume.md` — tailored resume
-  - `cover_letter.md` — tailored cover letter
+- `applications/STRONG/` — strong fit jobs; subfolders named `[Company Name] - [Job Title] - [Date]`
+- `applications/WEAK/` — weak fit jobs; same subfolder naming convention
+  - Each subfolder contains:
+    - `job_description.md` — full job description and Indeed URL
+    - `resume.md` — tailored resume
+    - `cover_letter.md` — tailored cover letter
 
 ## Candidate Info
 - **Name:** Alexander Tobin
