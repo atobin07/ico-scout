@@ -615,24 +615,31 @@ def build_main(data, compact=False, max_bullets=None):
 
         # Jobs
         for job in sec["jobs"]:
-            cap    = (max_bullets or {}).get(job_idx)
-            title  = Paragraph(f"<b>{job['title']}</b>", s_job)
+            cap      = (max_bullets or {}).get(job_idx)
+            CARD_LP  = 9
+            INNER_W  = MF_AVAIL - CARD_LP   # actual usable width inside the card
+
+            title    = Paragraph(f"<b>{job['title']}</b>", s_job)
             is_current = any(w in job["dates"].lower() for w in ("current", "present", "now"))
-            date_txt = (f'<font color="{_hex(C_GOLD)}">▶ CURRENT</font>  '
-                        f'<font color="{_hex(C_GOLD2)}">{job["dates"]}</font>'
-                        if is_current else job["dates"])
-            date   = Paragraph(date_txt, s_date)
-            hdr_t  = Table([[title, date]],
-                           colWidths=[MF_AVAIL * 0.68, MF_AVAIL * 0.32])
+            # Concise date — gold for current, standard for past
+            date_color = _hex(C_GOLD) if is_current else _hex(C_LGRAY)
+            date_label = job["dates"].replace("– Current", "– Present")
+            date     = Paragraph(f'<font color="{date_color}">{date_label}</font>', s_date)
+
+            hdr_t = Table([[title, date]],
+                          colWidths=[INNER_W * 0.62, INNER_W * 0.38])
             hdr_t.setStyle(TableStyle([
-                ("VALIGN",       (0,0),(-1,-1),"BOTTOM"),
-                ("LEFTPADDING",  (0,0),(-1,-1),0),
-                ("RIGHTPADDING", (0,0),(-1,-1),0),
-                ("TOPPADDING",   (0,0),(-1,-1),0),
-                ("BOTTOMPADDING",(0,0),(-1,-1),1),
+                ("VALIGN",        (0,0),(-1,-1),"BOTTOM"),
+                ("LEFTPADDING",   (0,0),(-1,-1),0),
+                ("RIGHTPADDING",  (0,0),(-1,-1),0),
+                ("TOPPADDING",    (0,0),(-1,-1),0),
+                ("BOTTOMPADDING", (0,0),(-1,-1),2),
             ]))
 
-            bullets = job["bullets"] if cap is None else job["bullets"][:cap]
+            # Cap bullets: 4 by default, fewer when compacting
+            DEFAULT_B = 4 if not compact else 3
+            raw_bullets = job["bullets"] if cap is None else job["bullets"][:cap]
+            bullets = raw_bullets[:DEFAULT_B] if cap is None else raw_bullets
             bullet_items = []
             for b in bullets:
                 bullet_items.append(Paragraph(
@@ -644,20 +651,18 @@ def build_main(data, compact=False, max_bullets=None):
                 block_inner.append(Paragraph(job["company"], s_co))
             block_inner.extend(bullet_items)
 
-            # Table with teal left border = timeline effect
             card = Table([[block_inner]], colWidths=[MF_AVAIL])
             card.setStyle(TableStyle([
-                ("VALIGN",       (0,0),(-1,-1),"TOP"),
-                ("LEFTPADDING",  (0,0),(-1,-1),9),
-                ("RIGHTPADDING", (0,0),(-1,-1),0),
-                ("TOPPADDING",   (0,0),(-1,-1),3),
-                ("BOTTOMPADDING",(0,0),(-1,-1),4),
-                ("LINEBEFORE",   (0,0),(0,-1), 3, C_TEAL),
-                ("BACKGROUND",   (0,0),(-1,-1), colors.Color(0.10, 0.48, 0.54, alpha=0.035)),
-                ("ROUNDEDCORNERS", [3]),
+                ("VALIGN",        (0,0),(-1,-1),"TOP"),
+                ("LEFTPADDING",   (0,0),(-1,-1),CARD_LP),
+                ("RIGHTPADDING",  (0,0),(-1,-1),4),
+                ("TOPPADDING",    (0,0),(-1,-1),4),
+                ("BOTTOMPADDING", (0,0),(-1,-1),5),
+                ("LINEBEFORE",    (0,0),(0,-1), 3, C_TEAL),
+                ("BACKGROUND",    (0,0),(-1,-1), colors.Color(0.10, 0.48, 0.54, alpha=0.03)),
             ]))
             story.append(card)
-            story.append(Spacer(1, 9 if not compact else 4))
+            story.append(Spacer(1, 8 if not compact else 3))
             job_idx += 1
 
     return story
