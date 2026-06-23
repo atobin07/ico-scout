@@ -77,49 +77,49 @@ class SidebarPage:
 # ── Style factory ─────────────────────────────────────────────────────────────
 
 def S(name, **kw):
-    defaults = dict(fontName="Helvetica", fontSize=8, leading=11,
+    defaults = dict(fontName="Helvetica", fontSize=9, leading=13,
                     textColor=C_GRAY, spaceAfter=0, spaceBefore=0)
     defaults.update(kw)
     return ParagraphStyle(name, **defaults)
 
 
 # Sidebar styles
-s_name      = S("sName", fontName="Helvetica-Bold", fontSize=17,
-                 textColor=C_WHITE, leading=20, spaceAfter=1)
-s_subtitle  = S("sSub",  fontName="Helvetica",     fontSize=7.5,
-                 textColor=C_GOLD,  leading=10, spaceAfter=4)
-s_sec_side  = S("sSecS", fontName="Helvetica-Bold", fontSize=6.5,
-                 textColor=C_GOLD,  leading=9, spaceAfter=2,
-                 spaceBefore=7)
-s_side_body = S("sSB",   fontName="Helvetica", fontSize=7.2,
-                 textColor=colors.HexColor("#CBD5E0"), leading=10)
-s_side_bull = S("sSBull",fontName="Helvetica", fontSize=7.2,
-                 textColor=colors.HexColor("#CBD5E0"), leading=10,
-                 leftIndent=9, firstLineIndent=-7)
+s_name      = S("sName", fontName="Helvetica-Bold", fontSize=20,
+                 textColor=C_WHITE, leading=23, spaceAfter=2)
+s_subtitle  = S("sSub",  fontName="Helvetica",     fontSize=8.5,
+                 textColor=C_GOLD,  leading=12, spaceAfter=10)
+s_sec_side  = S("sSecS", fontName="Helvetica-Bold", fontSize=7.5,
+                 textColor=C_GOLD,  leading=10, spaceAfter=4,
+                 spaceBefore=12)
+s_side_body = S("sSB",   fontName="Helvetica", fontSize=8,
+                 textColor=colors.HexColor("#CBD5E0"), leading=12)
+s_side_bull = S("sSBull",fontName="Helvetica", fontSize=8,
+                 textColor=colors.HexColor("#CBD5E0"), leading=12,
+                 leftIndent=10, firstLineIndent=-8)
 
 # Main content styles
-s_sec_main  = S("sMSec", fontName="Helvetica-Bold", fontSize=7,
-                 textColor=C_TEAL,  leading=9,
-                 spaceBefore=5, spaceAfter=1)
-s_job_title = S("sJT",   fontName="Helvetica-Bold", fontSize=8.5,
-                 textColor=C_NAVY,  leading=11)
-s_company   = S("sCo",   fontName="Helvetica-Oblique", fontSize=7.5,
-                 textColor=C_TEAL,  leading=10, spaceAfter=1)
-s_dates     = S("sDt",   fontName="Helvetica", fontSize=7.5,
-                 textColor=C_LGRAY, leading=10, alignment=TA_RIGHT)
-s_body      = S("sBody", fontName="Helvetica", fontSize=8,
+s_sec_main  = S("sMSec", fontName="Helvetica-Bold", fontSize=8,
+                 textColor=C_TEAL,  leading=10,
+                 spaceBefore=10, spaceAfter=2)
+s_job_title = S("sJT",   fontName="Helvetica-Bold", fontSize=9.5,
+                 textColor=C_NAVY,  leading=12)
+s_company   = S("sCo",   fontName="Helvetica-Oblique", fontSize=8.5,
+                 textColor=C_TEAL,  leading=11, spaceAfter=2)
+s_dates     = S("sDt",   fontName="Helvetica", fontSize=8.5,
+                 textColor=C_LGRAY, leading=12, alignment=TA_RIGHT)
+s_body      = S("sBody", fontName="Helvetica", fontSize=9,
+                 textColor=C_GRAY,  leading=13)
+s_bullet    = S("sBull", fontName="Helvetica", fontSize=8.8,
+                 textColor=C_GRAY,  leading=12.5,
+                 leftIndent=12, firstLineIndent=-9, spaceAfter=2.5)
+s_summary   = S("sSum",  fontName="Helvetica", fontSize=9,
+                 textColor=C_GRAY,  leading=13.5, spaceAfter=4)
+s_italic    = S("sItal", fontName="Helvetica-Oblique", fontSize=8,
+                 textColor=C_LGRAY, leading=11, leftIndent=10)
+s_skill_cat = S("sSCat", fontName="Helvetica-Bold", fontSize=8.5,
+                 textColor=C_TEAL,  leading=11)
+s_skill_val = S("sSVal", fontName="Helvetica", fontSize=8.5,
                  textColor=C_GRAY,  leading=11)
-s_bullet    = S("sBull", fontName="Helvetica", fontSize=7.8,
-                 textColor=C_GRAY,  leading=10.5,
-                 leftIndent=11, firstLineIndent=-8, spaceAfter=1)
-s_summary   = S("sSum",  fontName="Helvetica", fontSize=8,
-                 textColor=C_GRAY,  leading=11.5, spaceAfter=2)
-s_italic    = S("sItal", fontName="Helvetica-Oblique", fontSize=7,
-                 textColor=C_LGRAY, leading=9, leftIndent=8)
-s_skill_cat = S("sSCat", fontName="Helvetica-Bold", fontSize=7.5,
-                 textColor=C_TEAL,  leading=10)
-s_skill_val = S("sSVal", fontName="Helvetica", fontSize=7.5,
-                 textColor=C_GRAY,  leading=10)
 
 
 def rule():
