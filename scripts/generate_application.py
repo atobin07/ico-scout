@@ -246,7 +246,7 @@ def _hex(c):
 
 def parse_resume(md: str) -> dict:
     lines = md.strip().split("\n")
-    data  = dict(name="", subtitle="", contact="", sections=[])
+    data  = dict(name="", subtitle="", tags=[], contact="", sections=[])
     cur_sec = cur_job = None
 
     for raw in lines:
@@ -254,7 +254,12 @@ def parse_resume(md: str) -> dict:
         if ln.startswith("# "):
             data["name"] = ln[2:].strip(); continue
         if ln.startswith("**") and ln.endswith("**") and not cur_sec:
-            data["subtitle"] = ln.strip("*"); continue
+            val = ln.strip("*")
+            if val.lower().startswith("tags:"):
+                data["tags"] = [t.strip() for t in val[5:].split("·") if t.strip()]
+            else:
+                data["subtitle"] = val
+            continue
         if not cur_sec and ("@" in ln or "(" in ln) and "|" in ln:
             data["contact"] = ln; continue
         if ln.startswith("## "):
@@ -334,6 +339,32 @@ def make_draw(data):
         for col in range(4):
             for row in range(4):
                 canvas.circle(gx0 + col * 11, gy0 + row * 11, 1.4, fill=1, stroke=0)
+
+        # Tech-stack pill badges floating in teal zone
+        if data.get("tags"):
+            pill_font_size = 6.8
+            pill_pad_x = 5
+            pill_pad_y = 2.5
+            pill_h = pill_font_size + pill_pad_y * 2
+            pill_y = H - HDR_H + CTX_H + 5
+            pill_x = diag_bot + 18
+            canvas.setFont("Helvetica-Bold", pill_font_size)
+            for tag in data["tags"][:8]:
+                tw = canvas.stringWidth(tag, "Helvetica-Bold", pill_font_size)
+                pw = tw + pill_pad_x * 2
+                if pill_x + pw > W - 10:
+                    break
+                # Pill background
+                canvas.setFillColor(colors.Color(1, 1, 1, alpha=0.14))
+                canvas.roundRect(pill_x, pill_y, pw, pill_h, pill_h / 2, fill=1, stroke=0)
+                # Pill border
+                canvas.setStrokeColor(colors.Color(1, 1, 1, alpha=0.28))
+                canvas.setLineWidth(0.5)
+                canvas.roundRect(pill_x, pill_y, pw, pill_h, pill_h / 2, fill=0, stroke=1)
+                # Pill text
+                canvas.setFillColor(C_WHITE)
+                canvas.drawString(pill_x + pill_pad_x, pill_y + pill_pad_y + 0.5, tag)
+                pill_x += pw + 5
 
         # Sweeping gold Bezier arc behind name (navy side)
         canvas.setStrokeColor(colors.Color(0.79, 0.66, 0.30, alpha=0.12))
@@ -543,7 +574,11 @@ def build_main(data, compact=False, max_bullets=None):
         for job in sec["jobs"]:
             cap    = (max_bullets or {}).get(job_idx)
             title  = Paragraph(f"<b>{job['title']}</b>", s_job)
-            date   = Paragraph(job["dates"], s_date)
+            is_current = any(w in job["dates"].lower() for w in ("current", "present", "now"))
+            date_txt = (f'<font color="{_hex(C_GOLD)}">▶ CURRENT</font>  '
+                        f'<font color="{_hex(C_GOLD2)}">{job["dates"]}</font>'
+                        if is_current else job["dates"])
+            date   = Paragraph(date_txt, s_date)
             hdr_t  = Table([[title, date]],
                            colWidths=[MF_AVAIL * 0.68, MF_AVAIL * 0.32])
             hdr_t.setStyle(TableStyle([

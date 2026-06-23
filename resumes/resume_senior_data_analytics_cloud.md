@@ -1,13 +1,10 @@
-# Resume: Senior Data Analytics & Cloud/DevOps
-**Best for:** Senior data roles, cloud engineering, AI/ML implementation, DevOps-adjacent, full-stack data engineering
-
----
-
-**ALEXANDER TOBIN**
-(757) 289-1204 | atobin@alum.utk.edu | Virginia Beach, VA 23234
+# Alexander Tobin
+**Senior Data Analyst & Cloud/DevOps Engineer**
+**Tags:** SQL · Python · Azure · Power BI · Airtable · DevOps · APIs
+(757) 289-1204 | atobin@alum.utk.edu | Virginia Beach, VA
 
 ## Professional Summary
-Seasoned Data Analyst and Project Manager with a robust skill set in advanced analytics and data management, characterized by proficiency in Excel and adeptness in data visualization tools like Tableau and Power BI. My skills extend to SQL querying, Python programming, and integrating APIs for efficient data operations across cloud platforms including AWS, Azure, and Google Cloud. Experienced in containerization with Azure. I have experience working closely with DevOps and adhering to practices to enhance workflow efficiencies. My approach combines meticulous attention to detail and data integrity with exemplary time management skills, ensuring that data insights drive strategic decision-making and operational excellence.
+Data-driven analyst and project manager with 10+ years delivering cloud-integrated analytics, automation, and operational systems. Expert in SQL, Python, Azure, and Airtable — turning complex data into decisions that drive growth and efficiency.
 
 ## Skills
 - Advanced Excel skills
