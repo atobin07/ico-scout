@@ -123,12 +123,17 @@ class SidebarSecHeader(Flowable):
 
 
 class SkillBar(Flowable):
-    """Skill label (wrapping) + filled progress track."""
-    _FONT = "Helvetica"
-    _SIZE = 7.5
-    _BAR  = 4      # bar height
-    _LH   = 10     # line height per text row
-    _INDENT = 5    # left indent for text and bar
+    """Skill label (wrapping) + filled progress track. Layout bottom-up:
+       [2pt pad] [4pt bar] [5pt gap] [text lines @ 11pt each] [2pt pad]
+    """
+    _FONT  = "Helvetica"
+    _SIZE  = 7.5
+    _BOT   = 2    # padding below bar
+    _BARH  = 4    # bar height
+    _GAP   = 5    # gap between bar and text
+    _LH    = 11   # line height per text row
+    _TPAD  = 2    # padding above last text line
+    _IND   = 6    # left indent
 
     def __init__(self, label, w, fill=0.82, color=None):
         super().__init__()
@@ -136,15 +141,14 @@ class SkillBar(Flowable):
         self._w    = w
         self.fill  = fill
         self.color = color or C_TEAL
-        # Word-wrap at init time using char-width estimate
-        # Helvetica 7.5pt ≈ 3.9pt average per character
-        usable = w - self._INDENT
-        cpl    = max(8, int(usable / 3.9))
-        self._lines = self._wordwrap(label, cpl)
-        self._h     = len(self._lines) * self._LH + self._BAR + 4
+        usable     = w - self._IND
+        cpl        = max(8, int(usable / 3.9))
+        self._lines = self._wrap(label, cpl)
+        n           = len(self._lines)
+        self._h     = self._BOT + self._BARH + self._GAP + n * self._LH + self._TPAD
 
     @staticmethod
-    def _wordwrap(text, cpl):
+    def _wrap(text, cpl):
         words, lines, cur = text.split(), [], ""
         for word in words:
             test = (cur + " " + word).strip()
@@ -159,18 +163,23 @@ class SkillBar(Flowable):
     def wrap(self, aw, ah): return self._w, self._h
 
     def draw(self):
-        c = self.canv
+        c  = self.canv
+        bw = self._w - self._IND
         c.saveState()
+
+        # Progress bar (at the bottom)
+        c.setFillColor(colors.HexColor("#112840"))
+        c.roundRect(self._IND, self._BOT, bw, self._BARH, 1.5, fill=1, stroke=0)
+        c.setFillColor(self.color)
+        c.roundRect(self._IND, self._BOT, bw * self.fill, self._BARH, 1.5, fill=1, stroke=0)
+
+        # Text lines above bar (draw bottom-up)
         c.setFont(self._FONT, self._SIZE)
         c.setFillColor(colors.HexColor("#A8C0D8"))
-        for i, line in enumerate(self._lines):
-            y = self._h - (i + 1) * self._LH + self._BAR + 1
-            c.drawString(self._INDENT, y, line)
-        bar_w = self._w - self._INDENT
-        c.setFillColor(colors.HexColor("#112840"))
-        c.roundRect(self._INDENT, 0, bar_w, self._BAR, 1.5, fill=1, stroke=0)
-        c.setFillColor(self.color)
-        c.roundRect(self._INDENT, 0, bar_w * self.fill, self._BAR, 1.5, fill=1, stroke=0)
+        text_base = self._BOT + self._BARH + self._GAP
+        for i, line in enumerate(reversed(self._lines)):
+            c.drawString(self._IND, text_base + i * self._LH, line)
+
         c.restoreState()
 
 
@@ -391,6 +400,7 @@ def build_sidebar(data, compact=False):
                 if ls.startswith("- "):
                     sk = strip_md(ls[2:]).strip()
                     story.append(SkillBar(sk, SF_AVAIL, color=C_GOLD))
+                    story.append(Spacer(1, 3))
                 elif ls.startswith("|") and "---" not in ls:
                     cells = [c.strip() for c in ls.split("|")[1:-1]]
                     if not cells: continue
@@ -398,23 +408,39 @@ def build_sidebar(data, compact=False):
                     vals = strip_md(cells[1]) if len(cells) > 1 else ""
                     if cat.lower() in ("category", ""): continue
                     story.append(Paragraph(f"<b>{cat}</b>", s_body))
+                    story.append(Spacer(1, 2))
                     for v in vals.split(","):
                         v = v.strip()
-                        if v: story.append(SkillBar(v, SF_AVAIL, fill=0.76, color=C_GOLD))
+                        if v:
+                            story.append(SkillBar(v, SF_AVAIL, fill=0.76, color=C_GOLD))
+                            story.append(Spacer(1, 3))
 
         elif sn == "Education":
+            s_edu_bold = S("edu_b", fontName="Helvetica-Bold", fontSize=7.6,
+                            textColor=colors.HexColor("#C8DCEC"), leading=11,
+                            spaceAfter=1, leftIndent=6)
+            s_edu_body = S("edu_n", fontName="Helvetica", fontSize=7.4,
+                            textColor=colors.HexColor("#8AADCC"), leading=11,
+                            spaceAfter=1, leftIndent=6)
             for ln in sec["items"]:
                 ls = ln.strip()
-                if not ls or ls.startswith("|"): continue
-                story.append(Paragraph(strip_md(ls), s_body))
+                if not ls:
+                    story.append(Spacer(1, 5)); continue
+                if ls.startswith("|"): continue
+                # Render bold markers; first line of each entry is bold
+                text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', ls)
+                text = re.sub(r'\*(.*?)\*', r'<i>\1</i>', text)
+                st = s_edu_bold if "<b>" in text else s_edu_body
+                story.append(Paragraph(text, st))
 
         elif sn == "Certifications":
             for ln in sec["items"]:
                 ls = ln.strip()
                 if ls.startswith("- "):
                     story.append(Paragraph(f"◆  {strip_md(ls[2:])}", s_bull))
+                    story.append(Spacer(1, 2))
 
-        story.append(Spacer(1, 4))
+        story.append(Spacer(1, 6))
 
     return story
 
