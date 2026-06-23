@@ -33,9 +33,9 @@ C_BG     = colors.HexColor("#F7FAFC")   # page bg tint (sidebar)
 
 W = letter[0]
 H = letter[1]
-MARGIN   = 0.45 * inch
-SIDEBAR  = 2.05 * inch
-MAIN_W   = W - SIDEBAR - MARGIN * 3
+MARGIN   = 0.35 * inch
+SIDEBAR  = 1.95 * inch
+MAIN_W   = W - SIDEBAR - MARGIN * 2.8
 
 
 # ── Custom Flowables ──────────────────────────────────────────────────────────
@@ -77,60 +77,60 @@ class SidebarPage:
 # ── Style factory ─────────────────────────────────────────────────────────────
 
 def S(name, **kw):
-    defaults = dict(fontName="Helvetica", fontSize=9, leading=13,
+    defaults = dict(fontName="Helvetica", fontSize=8, leading=11,
                     textColor=C_GRAY, spaceAfter=0, spaceBefore=0)
     defaults.update(kw)
     return ParagraphStyle(name, **defaults)
 
 
 # Sidebar styles
-s_name      = S("sName", fontName="Helvetica-Bold", fontSize=20,
-                 textColor=C_WHITE, leading=24, spaceAfter=2)
-s_subtitle  = S("sSub",  fontName="Helvetica",     fontSize=9,
-                 textColor=C_GOLD,  leading=12, spaceAfter=8)
-s_sec_side  = S("sSecS", fontName="Helvetica-Bold", fontSize=7.5,
-                 textColor=C_GOLD,  leading=10, spaceAfter=3,
-                 spaceBefore=10)
-s_side_body = S("sSB",   fontName="Helvetica", fontSize=8.2,
-                 textColor=colors.HexColor("#CBD5E0"), leading=12)
-s_side_bull = S("sSBull",fontName="Helvetica", fontSize=8.2,
-                 textColor=colors.HexColor("#CBD5E0"), leading=12,
-                 leftIndent=10, firstLineIndent=-8)
+s_name      = S("sName", fontName="Helvetica-Bold", fontSize=17,
+                 textColor=C_WHITE, leading=20, spaceAfter=1)
+s_subtitle  = S("sSub",  fontName="Helvetica",     fontSize=7.5,
+                 textColor=C_GOLD,  leading=10, spaceAfter=4)
+s_sec_side  = S("sSecS", fontName="Helvetica-Bold", fontSize=6.5,
+                 textColor=C_GOLD,  leading=9, spaceAfter=2,
+                 spaceBefore=7)
+s_side_body = S("sSB",   fontName="Helvetica", fontSize=7.2,
+                 textColor=colors.HexColor("#CBD5E0"), leading=10)
+s_side_bull = S("sSBull",fontName="Helvetica", fontSize=7.2,
+                 textColor=colors.HexColor("#CBD5E0"), leading=10,
+                 leftIndent=9, firstLineIndent=-7)
 
 # Main content styles
-s_sec_main  = S("sMSec", fontName="Helvetica-Bold", fontSize=8,
-                 textColor=C_TEAL,  leading=10,
-                 spaceBefore=8, spaceAfter=2)
-s_job_title = S("sJT",   fontName="Helvetica-Bold", fontSize=10,
-                 textColor=C_NAVY,  leading=13)
-s_company   = S("sCo",   fontName="Helvetica-Oblique", fontSize=8.5,
-                 textColor=C_TEAL,  leading=11, spaceAfter=2)
-s_dates     = S("sDt",   fontName="Helvetica", fontSize=8,
-                 textColor=C_LGRAY, leading=11, alignment=TA_RIGHT)
-s_body      = S("sBody", fontName="Helvetica", fontSize=9,
-                 textColor=C_GRAY,  leading=13)
-s_bullet    = S("sBull", fontName="Helvetica", fontSize=8.8,
-                 textColor=C_GRAY,  leading=12.5,
-                 leftIndent=12, firstLineIndent=-9, spaceAfter=1.5)
-s_summary   = S("sSum",  fontName="Helvetica", fontSize=9.2,
-                 textColor=C_GRAY,  leading=14, spaceAfter=4)
-s_italic    = S("sItal", fontName="Helvetica-Oblique", fontSize=8,
-                 textColor=C_LGRAY, leading=11, leftIndent=10)
-s_skill_cat = S("sSCat", fontName="Helvetica-Bold", fontSize=8,
-                 textColor=C_TEAL,  leading=11)
-s_skill_val = S("sSVal", fontName="Helvetica", fontSize=8,
+s_sec_main  = S("sMSec", fontName="Helvetica-Bold", fontSize=7,
+                 textColor=C_TEAL,  leading=9,
+                 spaceBefore=5, spaceAfter=1)
+s_job_title = S("sJT",   fontName="Helvetica-Bold", fontSize=8.5,
+                 textColor=C_NAVY,  leading=11)
+s_company   = S("sCo",   fontName="Helvetica-Oblique", fontSize=7.5,
+                 textColor=C_TEAL,  leading=10, spaceAfter=1)
+s_dates     = S("sDt",   fontName="Helvetica", fontSize=7.5,
+                 textColor=C_LGRAY, leading=10, alignment=TA_RIGHT)
+s_body      = S("sBody", fontName="Helvetica", fontSize=8,
                  textColor=C_GRAY,  leading=11)
+s_bullet    = S("sBull", fontName="Helvetica", fontSize=7.8,
+                 textColor=C_GRAY,  leading=10.5,
+                 leftIndent=11, firstLineIndent=-8, spaceAfter=1)
+s_summary   = S("sSum",  fontName="Helvetica", fontSize=8,
+                 textColor=C_GRAY,  leading=11.5, spaceAfter=2)
+s_italic    = S("sItal", fontName="Helvetica-Oblique", fontSize=7,
+                 textColor=C_LGRAY, leading=9, leftIndent=8)
+s_skill_cat = S("sSCat", fontName="Helvetica-Bold", fontSize=7.5,
+                 textColor=C_TEAL,  leading=10)
+s_skill_val = S("sSVal", fontName="Helvetica", fontSize=7.5,
+                 textColor=C_GRAY,  leading=10)
 
 
 def rule():
     return HRFlowable(width="100%", thickness=0.5, color=C_RULE,
-                      spaceAfter=4, spaceBefore=0)
+                      spaceAfter=2, spaceBefore=0)
 
 def section_heading(text):
     return KeepTogether([
         Paragraph(text.upper(), s_sec_main),
-        HRFlowable(width="100%", thickness=1.5, color=C_TEAL,
-                   spaceAfter=4, spaceBefore=0)
+        HRFlowable(width="100%", thickness=1.2, color=C_TEAL,
+                   spaceAfter=2, spaceBefore=0)
     ])
 
 def sidebar_section(text):
@@ -167,10 +167,10 @@ def build_pdf_resume(md: str, out_path: str):
     sidebar_story = []
 
     # Name block
-    sidebar_story.append(Spacer(1, 0.4*inch))
+    sidebar_story.append(Spacer(1, 0.22*inch))
     for part in name.split():
         sidebar_story.append(Paragraph(part, s_name))
-    sidebar_story.append(Spacer(1, 4))
+    sidebar_story.append(Spacer(1, 2))
     if subtitle:
         sidebar_story.append(Paragraph(subtitle, s_subtitle))
 
@@ -222,7 +222,7 @@ def build_pdf_resume(md: str, out_path: str):
 
     # ── Main content ──────────────────────────────────────────────────────────
     main_story = []
-    main_story.append(Spacer(1, 0.25*inch))
+    main_story.append(Spacer(1, 0.15*inch))
 
     for sec_name, sec_lines in sections.items():
         main_story.append(section_heading(sec_name))
@@ -312,7 +312,7 @@ def build_pdf_resume(md: str, out_path: str):
             main_story.append(Paragraph(text, s_summary))
             i += 1
 
-        main_story.append(Spacer(1, 6))
+        main_story.append(Spacer(1, 2))
 
     # ── Lay out two-column page ───────────────────────────────────────────────
     sidebar_x = MARGIN * 0.3
@@ -320,15 +320,17 @@ def build_pdf_resume(md: str, out_path: str):
     main_x    = SIDEBAR + MARGIN * 1.1
     content_h = H - MARGIN * 1.5
 
-    sidebar_frame = Frame(sidebar_x, MARGIN * 0.75,
+    content_h = H - MARGIN * 1.2
+
+    sidebar_frame = Frame(sidebar_x, MARGIN * 0.55,
                           sidebar_w, content_h,
-                          leftPadding=10, rightPadding=6,
+                          leftPadding=9, rightPadding=5,
                           topPadding=0, bottomPadding=0,
                           id="sidebar", showBoundary=0)
 
-    main_frame    = Frame(main_x, MARGIN * 0.75,
+    main_frame    = Frame(main_x, MARGIN * 0.55,
                           MAIN_W, content_h,
-                          leftPadding=4, rightPadding=4,
+                          leftPadding=3, rightPadding=3,
                           topPadding=0, bottomPadding=0,
                           id="main", showBoundary=0)
 
@@ -337,16 +339,33 @@ def build_pdf_resume(md: str, out_path: str):
                             frames=[sidebar_frame, main_frame],
                             onPage=page_bg)
 
+    from reportlab.platypus import FrameBreak
+
+    # Count pages first to warn if overflow
+    from io import BytesIO
+    from reportlab.platypus import BaseDocTemplate as BDT
+    test_doc = BDT(BytesIO(), pagesize=letter,
+                   pageTemplates=[PageTemplate(
+                       id="TwoCol2",
+                       frames=[
+                           Frame(sidebar_x, MARGIN*0.55, sidebar_w, content_h,
+                                 leftPadding=9, rightPadding=5, id="s2"),
+                           Frame(main_x, MARGIN*0.55, MAIN_W, content_h,
+                                 leftPadding=3, rightPadding=3, id="m2"),
+                       ], onPage=page_bg)],
+                   leftMargin=0, rightMargin=0, topMargin=0, bottomMargin=0)
+    test_doc.build(sidebar_story[:] + [FrameBreak()] + main_story[:])
+    pages = test_doc.page
+    if pages > 1:
+        print(f"⚠️  Resume is {pages} pages — consider trimming bullet points.")
+
     doc = BaseDocTemplate(out_path, pagesize=letter,
                           pageTemplates=[template],
                           leftMargin=0, rightMargin=0,
                           topMargin=0, bottomMargin=0)
-
-    # Combine: sidebar first (fills sidebar frame), then FrameBreak, then main
-    from reportlab.platypus import FrameBreak
     full_story = sidebar_story + [FrameBreak()] + main_story
     doc.build(full_story)
-    print(f"✓ PDF: {out_path}")
+    print(f"✓ PDF ({pages}p): {out_path}")
 
 
 # ── Word Cover Letter ─────────────────────────────────────────────────────────
