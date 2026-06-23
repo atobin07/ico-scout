@@ -85,15 +85,24 @@ class SectionHeading(Flowable):
     def draw(self):
         c = self.canv
         c.saveState()
+        # Subtle background band spanning full frame width
+        c.setFillColor(colors.Color(0.10, 0.48, 0.54, alpha=0.08))
+        c.rect(-MF_LP, 1, self._w + MF_LP + MF_RP, 15, fill=1, stroke=0)
+        # Gold left bar
         c.setFillColor(self.bar)
-        c.rect(0, 4, 4, 11, fill=1, stroke=0)
+        c.rect(0, 3, 5, 11, fill=1, stroke=0)
+        # Thin gold rule below bar (decorative notch)
+        c.setFillColor(colors.Color(0.79, 0.66, 0.30, alpha=0.50))
+        c.rect(0, 2, 18, 1, fill=1, stroke=0)
+        # Label
         c.setFont("Helvetica-Bold", 8)
         c.setFillColor(self.txt)
-        c.drawString(10, 5.5, self.text)
+        c.drawString(11, 5.5, self.text)
+        # Hairline rule
         c.setStrokeColor(colors.Color(
-            self.txt.red, self.txt.green, self.txt.blue, alpha=0.35))
+            self.txt.red, self.txt.green, self.txt.blue, alpha=0.22))
         c.setLineWidth(0.5)
-        c.line(0, 1.5, self._w, 1.5)
+        c.line(0, 1, self._w, 1)
         c.restoreState()
 
 
@@ -110,15 +119,23 @@ class SidebarSecHeader(Flowable):
     def draw(self):
         c = self.canv
         c.saveState()
-        # Subtle background bar (gold-tinted)
-        c.setFillColor(colors.Color(0.79, 0.66, 0.30, alpha=0.13))
-        c.rect(-SF_LP, 1, self._w + SF_LP, 13, fill=1, stroke=0)
-        # Gold left accent dot
+        # Full-width background bar (gold-tinted, slightly taller)
+        c.setFillColor(colors.Color(0.79, 0.66, 0.30, alpha=0.16))
+        c.rect(-SF_LP, 0, self._w + SF_LP + SF_RP, 15, fill=1, stroke=0)
+        # Gold left accent bar (taller, more prominent)
         c.setFillColor(C_GOLD)
-        c.rect(0, 4, 3, 7, fill=1, stroke=0)
+        c.rect(0, 2, 4, 11, fill=1, stroke=0)
+        # Diamond accent
+        c.setFillColor(C_GOLD2)
+        c.translate(7, 7.5)
+        c.rotate(45)
+        c.rect(-2, -2, 4, 4, fill=1, stroke=0)
+        c.rotate(-45)
+        c.translate(-7, -7.5)
+        # Label
         c.setFont("Helvetica-Bold", 7)
         c.setFillColor(C_GOLD)
-        c.drawString(7, 5, self.text)
+        c.drawString(14, 4.5, self.text)
         c.restoreState()
 
 
@@ -167,15 +184,21 @@ class SkillBar(Flowable):
         bw = self._w - self._IND
         c.saveState()
 
-        # Progress bar (at the bottom)
-        c.setFillColor(colors.HexColor("#112840"))
-        c.roundRect(self._IND, self._BOT, bw, self._BARH, 1.5, fill=1, stroke=0)
+        # Track (dark background)
+        c.setFillColor(colors.HexColor("#0A1F35"))
+        c.roundRect(self._IND, self._BOT, bw, self._BARH, 2, fill=1, stroke=0)
+        # Fill (gold)
+        fill_w = bw * self.fill
         c.setFillColor(self.color)
-        c.roundRect(self._IND, self._BOT, bw * self.fill, self._BARH, 1.5, fill=1, stroke=0)
+        c.roundRect(self._IND, self._BOT, fill_w, self._BARH, 2, fill=1, stroke=0)
+        # Shimmer highlight on top edge of fill
+        c.setFillColor(colors.Color(1, 1, 1, alpha=0.22))
+        c.roundRect(self._IND, self._BOT + self._BARH - 1.5,
+                    fill_w * 0.75, 1.5, 1, fill=1, stroke=0)
 
         # Text lines above bar (draw bottom-up)
         c.setFont(self._FONT, self._SIZE)
-        c.setFillColor(colors.HexColor("#A8C0D8"))
+        c.setFillColor(colors.HexColor("#B8CFDF"))
         text_base = self._BOT + self._BARH + self._GAP
         for i, line in enumerate(reversed(self._lines)):
             c.drawString(self._IND, text_base + i * self._LH, line)
@@ -262,112 +285,144 @@ def make_draw(data):
     def draw(canvas, doc):
         canvas.saveState()
 
-        # ── Header base ───────────────────────────────────────────────────────
+        # ── Header base (full navy) ───────────────────────────────────────────
         canvas.setFillColor(C_NAVY)
         canvas.rect(0, H - HDR_H, W, HDR_H, fill=1, stroke=0)
 
-        # Teal block — right 42% of header (above contact strip)
-        canvas.setFillColor(C_TEAL2)
-        canvas.rect(SPLIT_X, H - HDR_H + CTX_H, W - SPLIT_X, HDR_H - CTX_H,
-                    fill=1, stroke=0)
-
-        # Darker teal inner shadow on right edge of teal block
-        canvas.setFillColor(C_TEAL3)
-        canvas.rect(W - 28, H - HDR_H + CTX_H, 28, HDR_H - CTX_H, fill=1, stroke=0)
-
-        # ── Clip decorative elements to header ────────────────────────────────
+        # ── Clip entire header region for all decorative work ─────────────────
         canvas.saveState()
         clip = canvas.beginPath()
         clip.rect(0, H - HDR_H, W, HDR_H)
         canvas.clipPath(clip, stroke=0)
 
-        # Large translucent initials watermark inside teal block
-        canvas.setFont("Helvetica-Bold", 78)
-        canvas.setFillColor(colors.Color(1, 1, 1, alpha=0.06))
-        iw = canvas.stringWidth(initials, "Helvetica-Bold", 78)
-        canvas.drawString(W - iw - 14, H - HDR_H + CTX_H + 4, initials)
+        # Diagonal teal block — left edge angled at ~20° for dynamic look
+        diag_top = SPLIT_X + 30          # where the diagonal meets the top edge
+        diag_bot = SPLIT_X - 22          # where the diagonal meets the contact strip
+        tp = canvas.beginPath()
+        tp.moveTo(diag_bot, H - HDR_H + CTX_H)
+        tp.lineTo(diag_top, H)
+        tp.lineTo(W, H)
+        tp.lineTo(W, H - HDR_H + CTX_H)
+        tp.close()
+        canvas.setFillColor(C_TEAL2)
+        canvas.drawPath(tp, fill=1, stroke=0)
 
-        # Concentric rings centered in teal block
-        ring_cx = SPLIT_X + (W - SPLIT_X) * 0.42
-        ring_cy = H - HDR_H + CTX_H + (HDR_H - CTX_H) * 0.50
-        for r, lw, a in [(52, 1.5, 0.18), (38, 1.0, 0.13), (24, 0.8, 0.09)]:
+        # Darker teal edge shadow on right
+        canvas.setFillColor(C_TEAL3)
+        canvas.rect(W - 26, H - HDR_H + CTX_H, 26, HDR_H - CTX_H, fill=1, stroke=0)
+
+        # ── Decorative layer ─────────────────────────────────────────────────
+
+        # Translucent initials watermark — big, anchored right
+        canvas.setFont("Helvetica-Bold", 90)
+        canvas.setFillColor(colors.Color(1, 1, 1, alpha=0.055))
+        iw = canvas.stringWidth(initials, "Helvetica-Bold", 90)
+        canvas.drawString(W - iw - 10, H - HDR_H + CTX_H + 2, initials)
+
+        # Concentric rings (centered in right teal zone)
+        ring_cx = diag_bot + (W - diag_bot) * 0.38
+        ring_cy = H - HDR_H + CTX_H + (HDR_H - CTX_H) * 0.52
+        for r, lw, a in [(56, 1.8, 0.18), (40, 1.1, 0.12), (26, 0.7, 0.08)]:
             canvas.setStrokeColor(colors.Color(1, 1, 1, alpha=a))
             canvas.setLineWidth(lw)
             canvas.circle(ring_cx, ring_cy, r, fill=0, stroke=1)
 
-        # Dot grid — 5×4 dots in teal block left zone
-        canvas.setFillColor(colors.Color(1, 1, 1, alpha=0.12))
-        for col in range(5):
+        # 4×4 dot grid in teal transition zone
+        canvas.setFillColor(colors.Color(1, 1, 1, alpha=0.14))
+        gx0 = diag_bot + 14
+        gy0 = H - HDR_H + CTX_H + 8
+        for col in range(4):
             for row in range(4):
-                dx = SPLIT_X + 16 + col * 10
-                dy = H - HDR_H + CTX_H + 10 + row * 10
-                canvas.circle(dx, dy, 1.3, fill=1, stroke=0)
+                canvas.circle(gx0 + col * 11, gy0 + row * 11, 1.4, fill=1, stroke=0)
 
-        # Bezier sweep on navy side (subtle gold arc behind name)
-        canvas.setStrokeColor(colors.Color(0.79, 0.66, 0.30, alpha=0.10))
-        canvas.setLineWidth(28)
+        # Sweeping gold Bezier arc behind name (navy side)
+        canvas.setStrokeColor(colors.Color(0.79, 0.66, 0.30, alpha=0.12))
+        canvas.setLineWidth(32)
         p = canvas.beginPath()
-        p.moveTo(-6, H - HDR_H + CTX_H + 6)
-        p.curveTo(55, H - HDR_H + CTX_H + 55,
-                  170, H - HDR_H + CTX_H + 72,
-                  SPLIT_X - 10, H - HDR_H + CTX_H + 76)
+        p.moveTo(-8, H - HDR_H + CTX_H + 4)
+        p.curveTo(60,  H - HDR_H + CTX_H + 58,
+                  190, H - HDR_H + CTX_H + 78,
+                  diag_bot + 8, H - HDR_H + CTX_H + 82)
         canvas.drawPath(p, fill=0, stroke=1)
+
+        # Thin horizontal accent lines on navy side (subtle grid feel)
+        canvas.setStrokeColor(colors.Color(1, 1, 1, alpha=0.04))
+        canvas.setLineWidth(0.5)
+        for offset in range(8, 56, 14):
+            y = H - HDR_H + CTX_H + offset
+            canvas.line(0, y, diag_bot - 4, y)
+
+        # Gold diagonal accent line (echoes the teal split)
+        canvas.setStrokeColor(colors.Color(0.79, 0.66, 0.30, alpha=0.55))
+        canvas.setLineWidth(1.8)
+        canvas.line(diag_bot - 6, H - HDR_H + CTX_H,
+                    diag_top - 6, H)
 
         canvas.restoreState()  # end clip
 
-        # ── Gold vertical separator between navy and teal ─────────────────────
-        canvas.setFillColor(C_GOLD)
-        canvas.rect(SPLIT_X - GOLD_SEP / 2, H - HDR_H + CTX_H,
-                    GOLD_SEP, HDR_H - CTX_H, fill=1, stroke=0)
-
-        # ── Contact strip (full width, darker overlay) ────────────────────────
-        canvas.setFillColor(colors.Color(0, 0, 0, alpha=0.32))
+        # ── Contact strip (dark overlay, full width) ──────────────────────────
+        canvas.setFillColor(colors.Color(0, 0, 0, alpha=0.30))
         canvas.rect(0, H - HDR_H, W, CTX_H, fill=1, stroke=0)
-        # Gold micro-rule on top of contact strip
+        # Gold micro-rule above contact strip
         canvas.setFillColor(C_GOLD)
-        canvas.rect(0, H - HDR_H + CTX_H - 1, W, 1.5, fill=1, stroke=0)
+        canvas.rect(0, H - HDR_H + CTX_H - 0.5, W, 1.5, fill=1, stroke=0)
+        # Second thinner rule 4pt above
+        canvas.setFillColor(colors.Color(0.79, 0.66, 0.30, alpha=0.30))
+        canvas.rect(0, H - HDR_H + CTX_H + 3, W, 0.5, fill=1, stroke=0)
 
         # ── Header text ───────────────────────────────────────────────────────
-        # Contact
+        # Contact line
         parts = [p.strip() for p in data["contact"].split("|") if p.strip()]
-        contact_str = "    ◆    ".join(parts)
+        contact_str = "   ◆   ".join(parts)
         canvas.setFont("Helvetica", 7.5)
         canvas.setFillColor(colors.HexColor("#8AADCC"))
-        canvas.drawString(16, H - HDR_H + 5.5, contact_str)
+        canvas.drawString(16, H - HDR_H + 6, contact_str)
 
-        # Name — large, white, positioned in navy zone
-        name_y = H - HDR_H + CTX_H + 36
-        canvas.setFont("Helvetica-Bold", 34)
+        # Name
+        name_y = H - HDR_H + CTX_H + 34
+        canvas.setFont("Helvetica-Bold", 36)
         canvas.setFillColor(C_WHITE)
         canvas.drawString(16, name_y, data["name"])
 
-        # Short gold underline beneath name
+        # Gold underline — wider, two-stroke (thick + thin)
         canvas.setFillColor(C_GOLD)
-        canvas.rect(16, name_y - 4, 64, 2.5, fill=1, stroke=0)
+        canvas.rect(16, name_y - 5, 80, 3, fill=1, stroke=0)
+        canvas.setFillColor(colors.Color(0.79, 0.66, 0.30, alpha=0.40))
+        canvas.rect(16, name_y - 9, 44, 1.2, fill=1, stroke=0)
 
-        # Subtitle
+        # Subtitle / tagline
         if data["subtitle"]:
             canvas.setFont("Helvetica", 9.5)
             canvas.setFillColor(C_GOLD2)
-            canvas.drawString(18, H - HDR_H + CTX_H + 16, data["subtitle"])
+            canvas.drawString(18, H - HDR_H + CTX_H + 14, data["subtitle"])
 
-        # ── Sidebar ───────────────────────────────────────────────────────────
+        # ── Sidebar background ────────────────────────────────────────────────
         # Gold left strip
         canvas.setFillColor(C_GOLD)
         canvas.rect(0, 0, LSTRIP, H - HDR_H, fill=1, stroke=0)
 
-        # Gradient bands (top = lighter, bottom = darkest)
+        # Three navy gradient bands (bottom=dark, top=medium)
+        body_h = H - HDR_H
         for y_bot, y_top, col in [
-            (0,                   (H-HDR_H)*0.38, C_NAVY),
-            ((H-HDR_H)*0.38,      (H-HDR_H)*0.72, C_NAVY2),
-            ((H-HDR_H)*0.72,       H - HDR_H,     colors.HexColor("#0F2040")),
+            (0,          body_h * 0.35, colors.HexColor("#070F1F")),
+            (body_h*0.35, body_h * 0.70, C_NAVY),
+            (body_h*0.70, body_h,        C_NAVY2),
         ]:
             canvas.setFillColor(col)
             canvas.rect(LSTRIP, y_bot, SB_W - LSTRIP, y_top - y_bot, fill=1, stroke=0)
 
-        # Gold divider sidebar → main
+        # Subtle horizontal texture lines in sidebar
+        canvas.setStrokeColor(colors.Color(1, 1, 1, alpha=0.025))
+        canvas.setLineWidth(0.4)
+        for ty in range(20, int(body_h), 18):
+            canvas.line(LSTRIP + 4, ty, SB_W - 4, ty)
+
+        # Gold divider
         canvas.setFillColor(C_GOLD)
         canvas.rect(SB_W, 0, GOLD_DIV, H - HDR_H, fill=1, stroke=0)
+        # Softer echo line
+        canvas.setFillColor(colors.Color(0.79, 0.66, 0.30, alpha=0.18))
+        canvas.rect(SB_W + GOLD_DIV, 0, 3, H - HDR_H, fill=1, stroke=0)
 
         canvas.restoreState()
 
@@ -450,10 +505,10 @@ def build_sidebar(data, compact=False):
 # ══════════════════════════════════════════════════════════════════════════════
 
 def build_main(data, compact=False, max_bullets=None):
-    s_job  = S("jt",  fontName="Helvetica-Bold", fontSize=10,
-                textColor=C_NAVY,  leading=13)
-    s_co   = S("co",  fontName="Helvetica-Oblique", fontSize=8.3,
-                textColor=C_TEAL,  leading=11, spaceAfter=1)
+    s_job  = S("jt",  fontName="Helvetica-Bold", fontSize=10.5,
+                textColor=colors.HexColor("#09152A"),  leading=14)
+    s_co   = S("co",  fontName="Helvetica-Oblique", fontSize=8.5,
+                textColor=C_TEAL,  leading=12, spaceAfter=2)
     s_date = S("dt",  fontName="Helvetica-Bold", fontSize=8,
                 textColor=C_GOLD,  leading=11, alignment=TA_RIGHT)
     s_bull = S("bu",  fontName="Helvetica", fontSize=8.8,
@@ -515,11 +570,13 @@ def build_main(data, compact=False, max_bullets=None):
             card = Table([[block_inner]], colWidths=[MF_AVAIL])
             card.setStyle(TableStyle([
                 ("VALIGN",       (0,0),(-1,-1),"TOP"),
-                ("LEFTPADDING",  (0,0),(-1,-1),8),
+                ("LEFTPADDING",  (0,0),(-1,-1),9),
                 ("RIGHTPADDING", (0,0),(-1,-1),0),
                 ("TOPPADDING",   (0,0),(-1,-1),3),
-                ("BOTTOMPADDING",(0,0),(-1,-1),3),
-                ("LINEBEFORE",   (0,0),(0,-1), 2.5, C_TEAL),
+                ("BOTTOMPADDING",(0,0),(-1,-1),4),
+                ("LINEBEFORE",   (0,0),(0,-1), 3, C_TEAL),
+                ("BACKGROUND",   (0,0),(-1,-1), colors.Color(0.10, 0.48, 0.54, alpha=0.035)),
+                ("ROUNDEDCORNERS", [3]),
             ]))
             story.append(card)
             story.append(Spacer(1, 5 if not compact else 2))
