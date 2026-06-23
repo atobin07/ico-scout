@@ -26,6 +26,28 @@
 - Microsoft 365 / Microsoft tools specialist
 - Any coordinator role (operations, technical, project, program, logistics)
 
+## Job Search Platforms
+
+### Active (have account)
+- Indeed
+
+### To Set Up (free, no account yet)
+- LinkedIn Jobs
+- Dice
+- We Work Remotely
+- Remote.co
+- Glassdoor
+- USAJobs
+- Upwork (freelance — 0% cut on first $500, then 10%)
+- Contra (freelance — 0% commission)
+- Freelancer.com
+
+### Notes
+- Build out a separate routine for each platform once accounts are created
+- Upwork and Contra are highest priority for Airtable consulting gigs
+
+---
+
 ## Preferred Platforms & Tools (search keywords)
 
 ### Microsoft Suite
