@@ -229,45 +229,75 @@ def _draw_header_text(canvas, data, hdr_h):
     cx.drawString(16, H - hdr_h + 48, data["name"])
 
 
-def make_draw_executive(data):
+def make_draw_signature(data):
+    """Combined theme: executive circles + asymmetric diagonal slash + gradient sidebar."""
     hdr_h = E_HDR_H
     def draw(canvas, doc):
         canvas.saveState()
 
-        # Navy header bar
+        # ── Header ────────────────────────────────────────────────────────────
+        # Navy base
         canvas.setFillColor(C_NAVY)
         canvas.rect(0, H - hdr_h, W, hdr_h, fill=1, stroke=0)
 
-        # Decorative circles — top-right corner of header
+        # Teal diagonal slash — top-right
+        canvas.setFillColor(C_TEAL2)
+        p = canvas.beginPath()
+        p.moveTo(W * 0.52, H)
+        p.lineTo(W * 0.64, H - hdr_h)
+        p.lineTo(W,        H - hdr_h)
+        p.lineTo(W,        H)
+        p.close()
+        canvas.drawPath(p, fill=1, stroke=0)
+
+        # Thin gold accent slash layered on teal
+        canvas.setFillColor(C_GOLD)
+        p2 = canvas.beginPath()
+        p2.moveTo(W * 0.49, H)
+        p2.lineTo(W * 0.52, H - hdr_h)
+        p2.lineTo(W * 0.64, H - hdr_h)
+        p2.lineTo(W * 0.52, H)
+        p2.close()
+        canvas.drawPath(p2, fill=1, stroke=0)
+
+        # Decorative gold circles — anchored in teal zone (top-right)
         for cx, cy, r, a in [
-            (W - 33,  H - 6,  50, 0.13),
-            (W - 70,  H - 16, 37, 0.09),
-            (W - 14,  H - 47, 27, 0.07),
-            (W - 95,  H - 38, 20, 0.05),
+            (W - 28,  H - 8,  44, 0.18),
+            (W - 66,  H - 14, 30, 0.13),
+            (W - 12,  H - 48, 22, 0.10),
         ]:
-            fc = colors.Color(0.79, 0.66, 0.30, alpha=a)
-            sc = colors.Color(0.79, 0.66, 0.30, alpha=a * 1.6)
+            fc = colors.Color(0.97, 0.85, 0.45, alpha=a)
+            sc = colors.Color(0.97, 0.85, 0.45, alpha=a * 1.5)
             canvas.setFillColor(fc)
             canvas.setStrokeColor(sc)
-            canvas.setLineWidth(1.2)
+            canvas.setLineWidth(1.0)
             canvas.circle(cx, cy, r, fill=1, stroke=1)
 
-        # Gold bottom border
+        # Gold bottom rule across full width
         canvas.setFillColor(C_GOLD)
-        canvas.rect(0, H - hdr_h, W, 2.5, fill=1, stroke=0)
+        canvas.rect(0, H - hdr_h, W * 0.50, 3, fill=1, stroke=0)
 
-        # Header text
+        # Header text (name, subtitle, contact)
         _draw_header_text(canvas, data, hdr_h)
 
-        # Left gold strip (full sidebar height)
+        # ── Sidebar ───────────────────────────────────────────────────────────
+        # Gold left accent strip
         canvas.setFillColor(C_GOLD)
         canvas.rect(0, 0, E_LSTRIP, H - hdr_h, fill=1, stroke=0)
 
-        # Sidebar background
-        canvas.setFillColor(C_NAVY)
-        canvas.rect(E_LSTRIP, 0, E_SB_W - E_LSTRIP, H - hdr_h, fill=1, stroke=0)
+        # Gradient sidebar (3 shades darkest→lightest top→bottom)
+        bands = [
+            (H - hdr_h,  (H - hdr_h) * 0.66, colors.HexColor("#0F2040")),
+            ((H - hdr_h) * 0.66, (H - hdr_h) * 0.33, colors.HexColor("#0C1C34")),
+            ((H - hdr_h) * 0.33, 0,                   colors.HexColor("#0A1628")),
+        ]
+        for y_top, y_bot, col in bands:
+            canvas.setFillColor(col)
+            canvas.rect(E_LSTRIP, y_bot,
+                        E_SB_W - E_LSTRIP, y_top - y_bot,
+                        fill=1, stroke=0)
 
-        # Gold divider
+        # Gold divider between sidebar and main
         canvas.setFillColor(C_GOLD)
         canvas.rect(E_SB_W, 0, E_GOLD_W, H - hdr_h, fill=1, stroke=0)
 
@@ -275,61 +305,9 @@ def make_draw_executive(data):
     return draw
 
 
-def make_draw_asymmetric(data):
-    hdr_h = A_HDR_H
-    def draw(canvas, doc):
-        canvas.saveState()
-
-        # Navy header bg
-        canvas.setFillColor(C_NAVY)
-        canvas.rect(0, H - hdr_h, W, hdr_h, fill=1, stroke=0)
-
-        # Teal diagonal "slash" — top-right of header
-        canvas.setFillColor(C_TEAL2)
-        p = canvas.beginPath()
-        p.moveTo(W * 0.50, H)
-        p.lineTo(W * 0.62, H - hdr_h)
-        p.lineTo(W,        H - hdr_h)
-        p.lineTo(W,        H)
-        p.close()
-        canvas.drawPath(p, fill=1, stroke=0)
-
-        # Gold accent slash
-        canvas.setFillColor(C_GOLD)
-        p2 = canvas.beginPath()
-        p2.moveTo(W * 0.46, H)
-        p2.lineTo(W * 0.49, H - hdr_h)
-        p2.lineTo(W * 0.62, H - hdr_h)
-        p2.lineTo(W * 0.50, H)
-        p2.close()
-        canvas.drawPath(p2, fill=1, stroke=0)
-
-        # Gold bottom rule (left portion only, before slash starts)
-        canvas.setFillColor(C_GOLD)
-        canvas.rect(0, H - hdr_h, W * 0.46, 2.5, fill=1, stroke=0)
-
-        # Header text
-        _draw_header_text(canvas, data, hdr_h)
-
-        # Teal left strip
-        canvas.setFillColor(C_TEAL)
-        canvas.rect(0, 0, A_LSTRIP, H - hdr_h, fill=1, stroke=0)
-
-        # Sidebar (3-shade gradient effect)
-        for y0, y1, col in [
-            (0,        H * 0.33, colors.HexColor("#0A1628")),
-            (H * 0.33, H * 0.66, colors.HexColor("#0C1C34")),
-            (H * 0.66, H - hdr_h, colors.HexColor("#0F2040")),
-        ]:
-            canvas.setFillColor(col)
-            canvas.rect(A_LSTRIP, y0, A_SB_W - A_LSTRIP, y1 - y0, fill=1, stroke=0)
-
-        # Gold divider
-        canvas.setFillColor(C_GOLD)
-        canvas.rect(A_SB_W, 0, A_GOLD_W, H - hdr_h, fill=1, stroke=0)
-
-        canvas.restoreState()
-    return draw
+# Keep legacy names pointing to the combined draw so old code still works
+def make_draw_executive(data):  return make_draw_signature(data)
+def make_draw_asymmetric(data): return make_draw_signature(data)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -538,25 +516,20 @@ def asy_frames():
 #  THEME CONFIGS
 # ══════════════════════════════════════════════════════════════════════════════
 
+_SIGNATURE = dict(
+    sf_avail    = E_SF_AVAIL,
+    mf_avail    = E_MF_AVAIL,
+    bar_color   = C_GOLD,       # gold accent bars + skill bars
+    text_color  = C_TEAL,       # teal section label text
+    bullet_char = "◆",          # gold diamond bullets
+    make_draw   = make_draw_signature,
+    frames      = exec_frames,
+)
+
 THEMES = {
-    "executive": dict(
-        sf_avail    = E_SF_AVAIL,
-        mf_avail    = E_MF_AVAIL,
-        bar_color   = C_TEAL,
-        text_color  = C_TEAL,
-        bullet_char = "▸",
-        make_draw   = make_draw_executive,
-        frames      = exec_frames,
-    ),
-    "asymmetric": dict(
-        sf_avail    = A_SF_AVAIL,
-        mf_avail    = A_MF_AVAIL,
-        bar_color   = C_GOLD,
-        text_color  = C_NAVY,
-        bullet_char = "◆",
-        make_draw   = make_draw_asymmetric,
-        frames      = asy_frames,
-    ),
+    "executive":  _SIGNATURE,
+    "asymmetric": _SIGNATURE,
+    "signature":  _SIGNATURE,
 }
 
 
