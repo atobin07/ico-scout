@@ -26,22 +26,25 @@ University of Tennessee, Knoxville, TN — Aug 2019
 
 ## Professional Experience
 
-### Data Analyst / Project Manager | Ferguson Enterprises Inc., Remote | Mar 2022 – Jul 2024
-- Led enterprise data validation and reconciliation efforts, merging multiple source systems into a unified data pipeline and verifying accuracy, completeness, and consistency across datasets.
-- Utilized MS SQL Server and Azure to query and cross-validate large datasets, flagging discrepancies and coordinating resolution with technical and business teams.
-- Developed KPI frameworks and Power BI dashboards, validating business metrics against source data before stakeholder sign-off.
-- Served as primary liaison between business and engineering teams — gathering requirements, clarifying data issues, and driving formal acceptance of validated deliverables.
-- Led UAT for system integrations: authored test scenarios, tracked defects, and coordinated business acceptance sign-off.
-- Produced reconciliation reports, traceability artifacts, and audit-ready documentation for compliance reviews.
+### Freelance Data Analyst Contractor | Self-Employed | Jan 2026 – Present
+- Delivered freelance data analysis, validation, and reporting solutions across multiple client engagements.
+- Built production data applications with structured backends (Supabase/PostgreSQL) and automated data pipelines (GitHub Actions), ensuring data accuracy and integrity end-to-end.
 
-### Operations Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Current
+### Senior Data Analytics Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Designed data validation workflows and reporting frameworks ensuring accuracy across operational data.
 - Built role-based KPI dashboards enabling stakeholders to review and formally approve data outputs.
 - Implemented validation rules and conditional logic to enforce data quality at point of capture.
 
-### Logistics Analyst | Born Primitive, Virginia Beach, VA | Aug 2024 – Nov 2024
+### Supply Chain Analyst | Born Primitive, Virginia Beach, VA | Aug 2024 – Nov 2024
 - Validated KPIs (OTIF, SL, compliance) against carrier data across multiple systems; investigated discrepancies via root-cause analysis.
 - Created SOPs and validation procedures supporting audit readiness and supply chain governance.
+
+### Data Analyst / Project Manager | Ferguson Enterprises Inc., Remote | Mar 2022 – Jul 2024
+- Led enterprise data validation and reconciliation across source/target systems using MS SQL Server and Azure, verifying accuracy, completeness, and consistency before stakeholder sign-off.
+- Developed KPI frameworks and Power BI dashboards, validating business metrics against source data and expected reporting outputs.
+- Served as primary liaison between business and engineering teams — gathering requirements, clarifying data issues, and driving formal acceptance of validated deliverables.
+- Led UAT for system integrations: authored test scenarios, tracked defects, and coordinated business acceptance sign-off.
+- Produced reconciliation reports, traceability artifacts, and audit-ready documentation for compliance reviews.
 
 ### Smartsheet Administrator | SiteLogiQ, Remote (Contract) | Aug 2023 – Feb 2024
 - Designed automated data workflows and maintained documentation of validation processes and access controls.
