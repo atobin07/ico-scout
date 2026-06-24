@@ -44,13 +44,21 @@ University of Tennessee, Knoxville, TN — Aug 2019
 
 ## Professional Experience
 
-### Logistics Project Manager | Ferguson, Newport News, VA | Mar 2022 – Current
+### Freelance Developer & Logistics Analyst Contractor | Self-Employed | Jan 2026 – Present
+- Built **Container Tracker** — full-stack freight container tracking platform (React, Supabase, Vercel) with live shipping API integration, a 6-stage status pipeline (Origin → In Transit → Destination → Customs → Drayage → Delivered), and a fleet-wide dashboard for real-time visibility.
+- Delivered logistics data tools and operational reporting solutions for contract clients.
+
+### Supply Chain Analyst | Born Primitive, Virginia Beach, VA | Aug 2024 – Nov 2024
+- Monitored carrier performance against SLA requirements and recommended corrective actions.
+- Maintained customer scorecards tracking KPIs including OTIF, service levels, and compliance markers.
+- Managed inventory levels across multiple distribution stages and helped oversee inbound transport technology enhancements.
+- Created and documented SOPs for supply chain management processes.
+
+### Logistics Project Manager | Ferguson Enterprises, Remote | Mar 2022 – Jul 2024
 - Managed and directed reporting and tracking of shipments, financial analysis & reporting, and inventory control.
-- Coordinated logistics management functions for supplies, equipment and company assets.
-- Maintained and developed shipping database, including specifications, descriptions and dating.
-- Transcribed policy, consumer and claim data to worksheets and entered into the Trilogie system to prepare accurate reports.
-- Obtained supporting documentation from claimants and transferred to vendor partners.
-- Managed tax compliance for all orders passing through order software.
+- Coordinated logistics management functions for supplies, equipment, and company assets.
+- Maintained and developed shipping database including specifications, descriptions, and dating.
+- Managed tax compliance for all orders and obtained supporting documentation from claimants for vendor transfer.
 
 ### Warehouse Manager | ZenEvo Chocolate, Knoxville, TN | Jan 2021 – Dec 2021
 - Responsible for comprehensive inventory reporting.

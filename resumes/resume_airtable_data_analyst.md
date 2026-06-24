@@ -44,15 +44,24 @@ University of Tennessee, Knoxville, TN — Aug 2019
 
 ## Professional Experience
 
-### Operations Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2025
+### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
+- Designed and launched **Capitol Mirror** — full-stack SaaS (Next.js, Supabase, Stripe) tracking stock trades for all 538 Congress members; subscription tiers, automated data pipelines via GitHub Actions, and deep analytics dashboards.
+- Built **AdvisoryCloud 3.0** — SaaS platform (React 18, Supabase, PWA) with real-time messaging, role-based access, and full database schema; delivered from zero to live production MVP in 7 days.
+- Built **Container Tracker** — logistics tracking tool (React, Supabase, Vercel) with live shipping API integration and a 6-stage container status pipeline deployed to production.
+- Managed client data workflows, reporting automation, and dashboard development across multiple concurrent engagements.
+
+### Operations Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Architected complex Airtable relationships using advanced linked records, rollups, lookups, and formula fields to ensure accurate, normalized data structures.
 - Developed sophisticated Airtable Interfaces tailored to client workflows, including role-based views, dashboards, and permission-aware layouts.
 - Created branded, client-ready Airtable forms incorporating conditional logic, prefilled fields, and validation rules to improve data quality.
 - Utilized Airtable extensions (Interfaces, Automations, Charts, Page Designer, etc.) to enhance reporting, visualization, and operational efficiency.
 - Implemented custom scripts using the Scripting Extension to handle advanced logic, batch processing, and automation edge cases not supported natively.
-- Managed social media, search, and email marketing campaigns (Mailchimp, Klaviyo).
-- Monitored and optimized Meta Ads and Google Ads campaign performance.
-- Facilitated biweekly planning and refinement sessions.
+
+### Logistics Analyst | Born Primitive, Virginia Beach, VA | Aug 2024 – Nov 2024
+- Monitored carrier performance against agreement requirements and recommended actions to improve results.
+- Maintained customer scorecards to achieve KPIs such as OTIF, SL, and compliance markers.
+- Created and documented SOPs for successful supply chain management.
+- Helped oversee technology enhancements for inbound transport collection program.
 
 ### Data Analyst / Project Manager | Ferguson Enterprises Inc., Remote | Mar 2022 – Jul 2024
 - Led data integration projects, merging multiple data sources into a cohesive process that improved data consistency across the company.
@@ -63,13 +72,6 @@ University of Tennessee, Knoxville, TN — Aug 2019
 - Developed executive dashboards and KPI frameworks using Power BI.
 - Led cross-functional integration projects using Azure DevOps.
 - Tracked risk logs and maintained client reporting within scope and budget.
-
-### Logistics Analyst | Born Primitive, Virginia Beach, VA | Aug 2024 – Nov 2024
-- Monitored carrier performance against agreement requirements and recommended actions to improve results.
-- Maintained customer scorecards to achieve KPIs such as OTIF, SL, and compliance markers.
-- Created and documented SOPs for successful supply chain management.
-- Helped oversee technology enhancements for inbound transport collection program.
-- Performed cycle counts and physical inventory audits.
 
 ### Smartsheet Administrator | SiteLogiQ, Remote (Contract) | Aug 2023 – Feb 2024
 - Configured and customized Smartsheet workspaces, sheets, and templates to align with organizational requirements and improve workflow efficiency.

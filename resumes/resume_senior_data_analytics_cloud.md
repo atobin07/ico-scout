@@ -34,7 +34,13 @@ University of Tennessee, Knoxville, TN — Aug 2019
 
 ## Professional Experience
 
-### Senior Data Analytics Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Current
+### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
+- Architected and deployed **Capitol Mirror** — full-stack SaaS (Next.js 16, TypeScript, Supabase/PostgreSQL, Stripe) ingesting public government STOCK Act filings into a subscription analytics platform; automated daily GitHub Actions pipeline, Stripe billing, and DigitalOcean/PM2 production deployment.
+- Built **AdvisoryCloud 3.0** — cloud-native SaaS (React 18, Supabase, Vercel, Edge Functions/Deno) with 15+ database tables, row-level security, real-time messaging, and PWA deployment; zero to production in 7 days.
+- Built **Container Tracker** — logistics data tool (React, Supabase, Vercel) integrating live shipping APIs with a full-stack CRUD data pipeline and fleet analytics dashboard.
+- Managed infrastructure across Vercel, DigitalOcean, and Supabase Cloud with CI/CD pipelines and environment management.
+
+### Senior Data Analytics Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Analyzed system requirements to recommend technology solutions that meet business needs.
 - Directed the development of mobile applications to enhance customer engagement.
 - Coordinated with vendors for timely delivery of IT equipment and services.

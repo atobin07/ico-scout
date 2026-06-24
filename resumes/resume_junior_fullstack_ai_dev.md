@@ -41,7 +41,13 @@ University of Tennessee, Knoxville, TN — Aug 2019
 
 ## Professional Experience
 
-### Operations Manager / Systems Developer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2025
+### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
+- Built **AdvisoryCloud 3.0** — a mobile-first SaaS platform (React 18, Supabase, Tailwind, PWA) connecting founders with expert advisors; zero to live production MVP in 7 days with real-time messaging, 15+ database tables with RLS, and Supabase Edge Functions.
+- Built **Capitol Mirror** — a full-stack SaaS (Next.js, TypeScript, Supabase, Stripe) converting public STOCK Act government filings into a subscription data product covering all 538 Congress members; full Stripe paywall (Free / $30 / $65/mo), automated GitHub Actions data pipeline, and web push notifications.
+- Built **Container Tracker** — a full-stack logistics tool (React, Supabase, Vercel) for real-time freight container tracking across a 6-stage status pipeline; live shipping API integration, full CRUD persistence, and fleet-wide dashboard.
+- Deployed all projects to production (Vercel, DigitalOcean) with CI/CD pipelines, authentication, and real user data.
+
+### Operations Manager / Systems Developer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Built full Airtable app infrastructure from scratch: linked record architecture, role-based interfaces, automated workflows, and client-facing dashboards.
 - Implemented custom JavaScript scripts via Airtable Scripting Extension to handle advanced logic, batch processing, and automation edge cases.
 - Developed branded intake forms with conditional logic, prefilled fields, and validation rules — deployed to end users in production.

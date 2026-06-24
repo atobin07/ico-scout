@@ -35,7 +35,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 
 ## Professional Experience
 
-### Data Analyst | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Current
+### Freelance Data Analyst Contractor | Self-Employed | Jan 2026 – Present
+- Delivered freelance data analysis, reporting, and systems work across multiple client engagements.
+- Built and deployed production web applications using modern data backends (Supabase/PostgreSQL) and automated data pipelines.
+
+### Data Analyst | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Identified different types of relevant data to improve business performance with better analytics.
 - Leveraged available data to create charts and presented findings via written reports and in-person presentations.
 - Entered data by inputting alphabetic and numeric information using established procedures.

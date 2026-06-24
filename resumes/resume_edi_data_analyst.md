@@ -48,7 +48,12 @@ University of Tennessee, Knoxville, TN — Aug 2019
 
 ## Professional Experience
 
-### EDI Integrations, Project Manager | Ferguson Enterprises Inc., Remote | Mar 2022 – Current
+### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
+- Built **Capitol Mirror** — full-stack SaaS (Next.js, TypeScript, Supabase/PostgreSQL) automating ingestion of government STOCK Act filings via GitHub Actions pipeline; data product covering 538 Congress members with live API feeds and analytics.
+- Built **Container Tracker** — logistics tracking platform integrating live shipping APIs with a structured 6-stage data pipeline; full CRUD backend (Supabase) and production deployment.
+- Built **AdvisoryCloud 3.0** — SaaS platform (React, Supabase, Edge Functions) with real-time data sync, 15+ normalized database tables, and row-level security; production MVP in 7 days.
+
+### EDI Integrations, Project Manager | Ferguson Enterprises Inc., Remote | Mar 2022 – Jul 2024
 - Led end-to-end onboarding process for vendors to B2B platform, ensuring seamless integration and adherence to partner setups and processing requirements using EDI mapping process.
 - Applied SQL knowledge to query databases and extract relevant information for analysis and decision-making.
 - Utilized FTP, SFTP, and AS2 connections to facilitate secure data transmission and communication with trading partners.
