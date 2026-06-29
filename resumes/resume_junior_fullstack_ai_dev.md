@@ -29,7 +29,6 @@ Airtable consultant and junior full-stack developer specializing in building end
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration
 University of Tennessee, Knoxville, TN — Aug 2019
 
-**Masters of Business Administration** — University of Illinois (In progress, Dec 2026)
 
 ## Certifications
 - Google Analytics Certification

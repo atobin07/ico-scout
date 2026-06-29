@@ -36,7 +36,6 @@ Seasoned Data Analyst with a strong background in EDI & customer integration pro
 - Power BI / Tableau
 
 ## Education
-**Masters of Business Administration** — University of Illinois (Tentative Start March 2024, Dec 2026)
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration
 University of Tennessee, Knoxville, TN — Aug 2019
 

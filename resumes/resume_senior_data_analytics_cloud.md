@@ -22,7 +22,6 @@ Data-driven analyst and project manager with 10+ years delivering cloud-integrat
 - Time management
 
 ## Education
-**Masters of Business** — University of Illinois (Mar 2026)
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration
 University of Tennessee, Knoxville, TN — Aug 2019
 
