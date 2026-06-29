@@ -7,7 +7,14 @@
 Analytically driven data professional with hands-on experience building and evaluating AI-assisted systems, designing structured data workflows, and producing clear, evidence-based documentation for technical and non-technical audiences. Practiced at identifying inconsistencies, assessing output quality, and communicating findings through structured rubrics and written reports. Direct experience prompting and evaluating generative AI outputs across production environments.
 
 ## Core Skills
-AI-assisted development & prompt engineering · Generative AI evaluation & output review · Technical writing & structured documentation · Data QC: validation, discrepancy identification, flag-and-document workflows · Analytical judgment using rubrics and scorecards · Attention to detail · Research & fact-checking · SQL · Python · Advanced Excel · Cross-functional collaboration
+- AI-assisted development & prompt engineering
+- Generative AI evaluation & output review
+- Technical writing & structured documentation
+- Data QC: validation, discrepancy identification, flag-and-document workflows
+- Analytical judgment using rubrics and scorecards
+- Attention to detail & research/fact-checking
+- SQL · Python · Advanced Excel
+- Cross-functional collaboration
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration
