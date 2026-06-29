@@ -7,7 +7,15 @@
 Full-stack developer and systems integrator with a background in e-commerce operations, custom application development, and client-facing solution delivery. Experienced building production SaaS platforms, integrating third-party tools and APIs, and optimizing digital workflows for real business outcomes. Strong foundation in AI-assisted development, rapid prototyping, and delivering tailored technical solutions independently and asynchronously.
 
 ## Core Skills
-Shopify & e-commerce platform development · AI-assisted development & automation · Full-stack web development (React, Next.js, TypeScript) · Third-party API & systems integration · Client solution design & delivery · Supabase / PostgreSQL · Vercel deployment & CI/CD · No-code / low-code platforms (Airtable, Smartsheet) · SQL · Python · Advanced Excel · Async remote work
+- Shopify & e-commerce platform development
+- AI-assisted development & automation
+- Full-stack web development (React, Next.js, TypeScript)
+- Third-party API & systems integration
+- Client solution design & delivery
+- Supabase / PostgreSQL · Vercel · CI/CD
+- No-code / low-code (Airtable, Smartsheet)
+- SQL · Python · Advanced Excel
+- Async remote work
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration

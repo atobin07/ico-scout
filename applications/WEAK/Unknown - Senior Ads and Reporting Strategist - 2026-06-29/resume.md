@@ -7,7 +7,15 @@
 Analytically driven data professional with 10+ years turning complex performance data into clear, actionable insights for business stakeholders. Experienced building reporting infrastructure, developing KPI frameworks, and communicating data-backed strategy to clients and executives. Hands-on background in digital marketing including Google Ads, Meta campaigns, SEO, and email automation — combined with strong technical skills in data analysis, dashboard development, and performance reporting.
 
 ## Core Skills
-Google Ads · Meta Ads Manager · Campaign performance analysis · Paid media reporting & attribution · KPI frameworks & dashboard development · Data visualization (Power BI, Tableau) · Client communication & presentation · SQL / MS SQL Server · Advanced Excel · Python · Conversion tracking & analytics · Google Analytics · Cross-functional collaboration · Project management
+- Google Ads · Meta Ads Manager
+- Campaign performance analysis & optimization
+- Paid media reporting & attribution
+- KPI frameworks & dashboard development
+- Data visualization (Power BI, Tableau)
+- Client communication & presentation
+- Conversion tracking & Google Analytics
+- SQL / MS SQL Server · Advanced Excel · Python
+- Cross-functional collaboration
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration

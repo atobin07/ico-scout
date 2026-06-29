@@ -7,7 +7,15 @@
 Data analyst and project manager with 10+ years coordinating complex, multi-source data workflows across cross-functional teams. Experienced building reproducible data pipelines, implementing QC frameworks, maintaining documentation and metadata standards, and translating technical datasets into accessible reporting tools. Proven ability to manage competing priorities across distributed teams and deliver research-grade data products on deadline.
 
 ## Core Skills
-Data workflow coordination · QC frameworks (batch tracking, validation, integrity) · Metadata schemas & data dictionaries · SQL / MS SQL Server · Python scripting · R (basic) · Power BI · Tableau · REST APIs & data pipelines · Project management (JIRA, Smartsheet, Airtable) · Technical documentation & SOPs · Advanced Excel · Microsoft Azure · Supabase
+- Data workflow coordination & pipeline management
+- QC frameworks: batch tracking, validation, data integrity
+- Metadata schemas & data dictionaries
+- SQL / MS SQL Server · Python · R (basic)
+- Power BI · Tableau · Dashboard development
+- REST APIs & data pipeline integration
+- Project management (JIRA, Smartsheet, Airtable)
+- Technical documentation & SOPs
+- Advanced Excel · Microsoft Azure · Supabase
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration
