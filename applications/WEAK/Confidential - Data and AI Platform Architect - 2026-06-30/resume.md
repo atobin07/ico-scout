@@ -7,7 +7,15 @@
 Data engineer and full-stack developer with hands-on experience designing cloud-native data platforms, building automated ingestion pipelines, and deploying AI-enabled tools for business users. Proficient in Python, SQL, Azure, and Power BI — with direct experience building production-grade data pipelines, structured API integrations, and conversational AI applications. Strong focus on data governance, documentation, and building maintainable systems that non-technical stakeholders can use confidently.
 
 ## Core Skills
-Microsoft Azure (Data Factory, Data Lake, Azure OpenAI) · SQL (MS SQL Server, PostgreSQL) · Python scripting · Power BI · REST APIs & custom connectors · AI/LLM integration · ETL/ELT pipeline design · Git / GitHub / CI/CD · Power Automate · Data governance & documentation · Cross-functional collaboration
+- Microsoft Azure (Data Factory, Data Lake, Azure OpenAI)
+- SQL — MS SQL Server, PostgreSQL, schema design
+- Python — data processing, automation, API integration
+- Power BI — dashboards, data modeling, reporting
+- REST APIs & custom connectors
+- AI/LLM integration & conversational interfaces
+- ETL/ELT pipeline design & data quality monitoring
+- Git / GitHub / CI/CD · Power Automate
+- Data governance, documentation & lineage tracking
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration
