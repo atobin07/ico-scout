@@ -4,7 +4,7 @@
 (757) 289-1204 | atobin@alum.utk.edu | Virginia Beach, VA
 
 ## Professional Summary
-Detail-oriented data analyst with 10+ years collecting, cleaning, and analyzing business data to identify trends and support decision-making across sales, operations, and supply chain functions. Experienced building dashboards and reports in Power BI and Tableau, writing SQL queries, and communicating data findings clearly to both technical and non-technical stakeholders. Known for clean, well-documented reporting and strong business instincts.
+Detail-oriented data analyst with a strong foundation in collecting, cleaning, and analyzing business data to identify trends and support decision-making across sales, operations, and supply chain functions. Experienced building dashboards and reports in Power BI and Tableau, writing SQL queries, and communicating data findings clearly to both technical and non-technical stakeholders. Known for clean, well-documented reporting and strong business instincts.
 
 ## Core Skills
 - SQL / MS SQL Server / PostgreSQL — queries, joins, aggregations
