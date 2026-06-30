@@ -7,7 +7,15 @@
 Technology and data professional with hands-on experience designing and deploying AI-enabled solutions, building automated workflows, and driving adoption of modern tools across business teams. Experienced translating business requirements into practical, scalable implementations — from LLM-powered applications to no-code/low-code process automation. Strong communicator who builds stakeholder confidence and enables teams to adopt new technology effectively.
 
 ## Core Skills
-AI/LLM implementation & prompt engineering · Generative AI platforms (Claude API, Azure OpenAI) · Workflow automation (Power Automate, Airtable, Python) · No-code/low-code (Airtable, Smartsheet, Power Platform) · Data governance & metric documentation · SQL / PostgreSQL · REST APIs · Power BI · Tableau · Change management & technology adoption · Multi-initiative project management
+- AI/LLM implementation & prompt engineering
+- Generative AI platforms (Claude API, Azure OpenAI)
+- Workflow automation (Power Automate, Airtable, Python)
+- No-code/low-code (Airtable, Smartsheet, Power Platform)
+- Data governance & metric documentation
+- SQL / PostgreSQL · REST APIs
+- Power BI · Tableau
+- Change management & technology adoption
+- Multi-initiative project management
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration

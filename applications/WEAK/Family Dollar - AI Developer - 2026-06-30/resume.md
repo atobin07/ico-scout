@@ -7,7 +7,14 @@
 AI developer and data engineer with hands-on experience building and deploying production AI applications, designing automated data pipelines, and integrating LLM-powered workflows into real business systems. Proficient in Python and SQL, with direct experience implementing RAG-adjacent solutions, AI agent interfaces, and enterprise data governance. Committed to clean, well-documented, maintainable code and responsible AI practices.
 
 ## Core Skills
-AI/LLM development (Claude API, Azure OpenAI, agent workflows) · Python (data processing, automation, API integration) · RAG — ingestion pipelines, LLM grounding, retrieval · SQL / PostgreSQL / MS SQL Server · REST APIs & custom connectors · CI/CD (GitHub Actions, Vercel, PM2) · Data governance & quality monitoring · Power BI · Microsoft Azure · Git / GitHub
+- AI/LLM development (Claude API, Azure OpenAI, agent workflows)
+- Python — data processing, automation, API integration
+- RAG — ingestion pipelines, LLM grounding, retrieval
+- SQL / PostgreSQL / MS SQL Server
+- REST APIs & custom connectors
+- CI/CD (GitHub Actions, Vercel, PM2)
+- Data governance & quality monitoring
+- Power BI · Microsoft Azure · Git / GitHub
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration

@@ -7,7 +7,15 @@
 Operations and technology professional with a proven track record building practical, scalable solutions that drive measurable business outcomes. Experienced translating complex business problems into implemented tools — spanning workflow automation, data infrastructure, AI-enabled applications, and process improvement. Builder mentality with strong business acumen; comfortable working independently with senior leadership and managing multiple initiatives simultaneously across different business environments.
 
 ## Core Skills
-AI/LLM implementation · Workflow automation (Power Automate, Airtable, Python) · No-code/low-code (Airtable, Smartsheet, Power Platform) · Full-stack development (React, Next.js, TypeScript) · REST API integration · SQL / PostgreSQL · Python scripting · Power BI · Tableau · ETL pipelines · Multi-initiative project management · Process documentation & playbook development
+- AI/LLM implementation & agent workflows
+- Workflow automation (Power Automate, Airtable, Python)
+- No-code/low-code (Airtable, Smartsheet, Power Platform)
+- Full-stack development (React, Next.js, TypeScript)
+- REST API integration & data connectivity
+- SQL / PostgreSQL · Python scripting
+- Power BI · Tableau · ETL pipelines
+- Multi-initiative project management
+- Process documentation & playbook development
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration

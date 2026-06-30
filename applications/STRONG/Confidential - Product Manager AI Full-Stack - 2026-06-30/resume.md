@@ -7,7 +7,15 @@
 Product manager and full-stack developer with hands-on experience defining product roadmaps, building production AI-enabled applications, and bridging business requirements with technical execution. Proficient in Next.js, Python, and Azure — with direct experience designing AI agent workflows, deploying enterprise SaaS platforms, and evaluating technical architecture for business feasibility. Comfortable leading from specification through deployment in fast-moving environments.
 
 ## Core Skills
-Product roadmap definition · Full-stack development (Next.js, React, TypeScript, Node.js) · Python scripting & API integration · AI Agent / LLM integration (Claude API, Azure OpenAI) · Microsoft Azure · Supabase / PostgreSQL · REST APIs · No-code/low-code (Airtable, Smartsheet) · CI/CD & production deployment · Git / GitHub · Cross-functional communication
+- Product roadmap definition & architecture review
+- Full-stack development (Next.js, React, TypeScript, Node.js)
+- Python scripting & API integration
+- AI Agent / LLM integration (Claude API, Azure OpenAI)
+- Microsoft Azure · Supabase / PostgreSQL
+- REST APIs & custom connectors
+- No-code/low-code (Airtable, Smartsheet)
+- CI/CD & production deployment
+- Git / GitHub · Cross-functional communication
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration
