@@ -7,7 +7,14 @@
 Data analyst with 10+ years building trusted reporting infrastructure, writing validated SQL, and partnering with cross-functional business teams to turn data questions into actionable insights. Experienced with cloud data warehouses, BI tools, and ETL workflows — and a daily user of AI tools (Claude, Copilot) to accelerate SQL development, documentation, QA, and stakeholder support. Known for accuracy, clear communication, and a proactive, solution-driven approach to data problems.
 
 ## Core Skills
-SQL (CTEs, window functions, joins, validation) · Power BI · Tableau · dbt (data modeling) · ETL/ELT pipeline design · AI-assisted analytics (Claude, Copilot) · Data QA & metric documentation · Advanced Excel (XLOOKUP, VBA, Pivot Tables) · Python scripting · Microsoft Azure · Supabase / PostgreSQL · Cross-functional stakeholder support
+- SQL — CTEs, window functions, joins, aggregations, data validation
+- Power BI · Tableau — dashboard & stakeholder reporting
+- dbt — data modeling concepts & documentation
+- ETL/ELT pipeline design & data freshness monitoring
+- AI-assisted analytics (Claude, GitHub Copilot)
+- Data QA & metric documentation
+- Advanced Excel (XLOOKUP, VBA, Pivot Tables)
+- Python scripting · Microsoft Azure · Supabase / PostgreSQL
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration
