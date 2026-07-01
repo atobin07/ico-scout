@@ -34,10 +34,10 @@ University of Tennessee, Knoxville, TN — Aug 2019
 - Built **Capitol Mirror** and **Container Tracker** — production platforms with formal documentation, validation standards, and stakeholder-facing reporting throughout.
 
 ### Operations Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
-- Led cross-functional operations across marketing, logistics, analytics, and technology teams — consolidating inputs, resolving gaps, and ensuring alignment on deliverables and timelines.
-- Owned documentation of business processes, data definitions, and operational procedures; enforced consistency and quality standards across all outputs.
-- Coordinated internal reviews and approvals across leadership and department heads for operational initiatives, vendor contracts, and technology deployments.
-- Managed multiple concurrent initiatives simultaneously, maintaining clear ownership and accountability at each stage.
+- Authored and managed RFP responses and vendor proposals for operational initiatives across marketing, logistics, and technology — coordinating inputs from internal stakeholders and ensuring submissions met quality and deadline requirements.
+- Led cross-functional coordination across departments to consolidate subject-matter expert contributions, resolve content gaps, and produce polished final deliverables.
+- Owned proposal documentation standards: drafted executive summaries, cover letters, and structured response templates; enforced consistency and quality across all outputs.
+- Coordinated internal review and approval workflows with leadership prior to proposal submission.
 
 ### Data Analyst, Project Manager | Ferguson Enterprises Inc., Remote | Mar 2022 – Jul 2024
 - Managed cross-functional data integration projects across IT, Finance, and Operations — tracking requirements, coordinating stakeholder inputs, and delivering on schedule.
@@ -46,13 +46,13 @@ University of Tennessee, Knoxville, TN — Aug 2019
 - Coordinated internal review and sign-off processes for enterprise system changes, ensuring all stakeholders were aligned prior to deployment.
 
 ### Smartsheet Administrator | SiteLogiQ, Remote (Contract) | Aug 2023 – Feb 2024
-- Managed proposal and project tracking infrastructure for a multi-project portfolio; maintained documentation of workflows, configurations, and process standards.
-- Coordinated across internal teams to gather inputs, resolve inconsistencies, and ensure deliverables met quality and formatting standards.
-- Built and maintained shared templates, trackers, and content libraries used across the organization.
-- Provided stakeholder training and support; maintained documentation of system processes for governance and audit purposes.
+- Wrote and coordinated RFP and proposal responses for client-facing engagements — gathering inputs from cross-functional teams, drafting and refining response content, and managing submission timelines.
+- Built and maintained proposal trackers, shared content libraries, and response templates standardized across the organization.
+- Ensured all proposal deliverables met formatting, grammar, and quality standards prior to submission; coordinated internal review cycles with stakeholders.
+- Maintained documentation of proposal workflows, configurations, and governance procedures for audit and process improvement purposes.
 
 ### Smartsheet Analyst | Integrated Management Strategies, Remote (Contract) | May 2023 – Aug 2023
-- Supported a federal HHS government PMO contract — built and maintained project tracking infrastructure, coordinating across multiple workstreams and stakeholders.
-- Reviewed internal business procedures and identified process gaps; documented recommendations and implemented improvements in collaboration with program leadership.
-- Managed deliverable tracking, milestone reporting, and internal quality review workflows in a high-accountability government contracting environment.
-- Produced structured documentation aligned with PMO governance standards and submission requirements.
+- Wrote proposals and RFP responses in support of a federal HHS government PMO contract — drafting structured content, coordinating stakeholder inputs, and ensuring submissions met government submission requirements and quality standards.
+- Managed deliverable tracking, milestone reporting, and internal review workflows across a high-accountability government contracting environment.
+- Produced governance-ready documentation — process flows, requirement summaries, and response templates — aligned with PMO standards.
+- Identified and documented process gaps; delivered written recommendations to program leadership for review and approval.
