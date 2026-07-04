@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { SiteNav } from '@/components/marketing/SiteNav';
 import { SiteFooter } from '@/components/marketing/SiteFooter';
-import { DemoExperience } from '@/components/marketing/demo/DemoExperience';
+import { DemoTabs } from '@/components/marketing/demo/DemoTabs';
 
 export const metadata: Metadata = {
   title: 'Talk to the AI · CallCatch Live Demo',
@@ -34,13 +34,14 @@ export default function DemoPage({
             </p>
           </div>
 
-          <DemoExperience initialScenarioId={searchParams.scenario} />
+          <DemoTabs initialScenarioId={searchParams.scenario} />
 
           <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-ink-3">
-            This public demo runs entirely on-device using your browser’s speech
-            engine — no call is placed and no data leaves your device. In production,
-            CallCatch answers your real phone number with a natural AI voice via
-            Retell AI.
+            <strong className="text-ink-2">Live voice</strong> connects your
+            microphone to a real Retell AI agent that talks back and transcribes the
+            call in real time. <strong className="text-ink-2">Guided demo</strong>{' '}
+            runs the same booking flow on-device with no call placed. In production,
+            CallCatch answers your real phone number the same way, 24/7.
           </p>
         </div>
       </main>
