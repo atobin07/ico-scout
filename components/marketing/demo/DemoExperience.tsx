@@ -39,7 +39,9 @@ export function DemoExperience({ initialScenarioId }: { initialScenarioId?: stri
   const [seconds, setSeconds] = useState(0);
   const [speaking, setSpeaking] = useState(false);
   const [listening, setListening] = useState(false);
-  const [voiceOn, setVoiceOn] = useState(true);
+  // Guided demo is text-first. The browser's built-in voice is opt-in and
+  // clearly labelled — the real, natural voice lives on the Live voice tab.
+  const [voiceOn, setVoiceOn] = useState(false);
   const [micSupported, setMicSupported] = useState(false);
 
   const botRef = useRef<BotState>(initialState(scenarioId));
