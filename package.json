@@ -21,6 +21,7 @@
     "resend": "^4.0.0",
     "retell-client-js-sdk": "^2.0.8",
     "retell-sdk": "^5.43.0",
+    "server-only": "^0.0.1",
     "stripe": "^17.2.0"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { QuoteForm } from './QuoteForm';
+import { RoiQuote } from './RoiQuote';
 
 const PRICING_STEPS = [
   {
@@ -43,30 +43,28 @@ export function QuoteSection({
           </div>
         )}
 
-        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          {/* Model explainer */}
-          <div className="flex flex-col gap-4">
-            {PRICING_STEPS.map((s) => (
-              <div key={s.title} className="tape tape-signal rounded-2xl border border-border bg-navy p-6">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{s.icon}</span>
-                  <h3 className="text-lg font-700 text-ink-1">{s.title}</h3>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-ink-2">{s.body}</p>
+        {/* Two-part model explainer */}
+        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
+          {PRICING_STEPS.map((s) => (
+            <div key={s.title} className="tape tape-signal rounded-2xl border border-border bg-navy p-6">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{s.icon}</span>
+                <h3 className="text-lg font-700 text-ink-1">{s.title}</h3>
               </div>
-            ))}
-            <div className="rounded-2xl border border-dashed border-border-2 bg-navy/50 p-6">
-              <p className="text-sm leading-relaxed text-ink-2">
-                Most customers recover the entire cost with the first one or two jobs
-                the AI books. Tell us your volume below and we’ll send exact numbers.
-              </p>
+              <p className="mt-3 text-sm leading-relaxed text-ink-2">{s.body}</p>
             </div>
+          ))}
+          <div className="rounded-2xl border border-dashed border-border-2 bg-navy/50 p-6">
+            <p className="text-sm leading-relaxed text-ink-2">
+              Most customers recover the whole cost with the first one or two jobs the
+              AI books. Run your numbers below.
+            </p>
           </div>
+        </div>
 
-          {/* Quote form */}
-          <div>
-            <QuoteForm />
-          </div>
+        {/* Calculator + quote request */}
+        <div className="mt-8">
+          <RoiQuote />
         </div>
       </div>
     </section>

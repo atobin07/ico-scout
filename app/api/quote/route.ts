@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getResend, FROM_EMAIL } from '@/lib/resend';
+import { estimatePricing, pricingSummary } from '@/lib/pricing';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -10,22 +11,22 @@ interface QuotePayload {
   phone?: string;
   businessName?: string;
   trade?: string;
-  salesVolume?: string;
-  callsPerMonth?: string;
+  callsPerMonth?: number;
+  missedPct?: number;
+  avgJobValue?: number;
+  closeRate?: number;
+  estRecoveredAnnual?: number;
 }
 
-/** Where quote requests are emailed. Set QUOTE_NOTIFY_EMAIL in the environment. */
 function notifyEmail(): string | undefined {
   return process.env.QUOTE_NOTIFY_EMAIL || undefined;
 }
 
 function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
+
+const usd = (n: number) => `$${Math.round(n).toLocaleString()}`;
 
 export async function POST(req: Request) {
   let body: QuotePayload;
@@ -38,58 +39,74 @@ export async function POST(req: Request) {
   const name = body.name?.trim();
   const email = body.email?.trim();
   const phone = body.phone?.trim();
-  const salesVolume = body.salesVolume?.trim();
-
-  if (!name || !email || !phone || !salesVolume) {
-    return NextResponse.json(
-      { ok: false, error: 'Missing required fields' },
-      { status: 400 },
-    );
+  if (!name || !email || !phone) {
+    return NextResponse.json({ ok: false, error: 'Missing required fields' }, { status: 400 });
   }
 
-  const rows: [string, string][] = [
+  // ---- SERVER-ONLY: compute our cost, recommended price, and margin. ----
+  const callsPerMonth = Number(body.callsPerMonth) || 0;
+  const pricing = estimatePricing({ callsPerMonth });
+
+  // Prospect-facing context (safe) for the record.
+  const leadRows: [string, string][] = [
     ['Name', name],
     ['Business', body.businessName?.trim() || '—'],
     ['Email', email],
     ['Phone', phone],
     ['Trade', body.trade?.trim() || '—'],
-    ['Monthly sales volume', salesVolume],
-    ['Estimated calls / month', body.callsPerMonth?.trim() || '—'],
+    ['Calls / month', callsPerMonth ? callsPerMonth.toLocaleString() : '—'],
+    ['% missed', body.missedPct != null ? `${body.missedPct}%` : '—'],
+    ['Avg job value', body.avgJobValue != null ? usd(body.avgJobValue) : '—'],
+    ['Close rate', body.closeRate != null ? `${body.closeRate}%` : '—'],
+    ['Their est. recovered / yr', body.estRecoveredAnnual != null ? usd(body.estRecoveredAnnual) : '—'],
   ];
 
-  // Always log so the lead is recoverable from function logs even without email.
-  console.log('[quote] new lead:', JSON.stringify(Object.fromEntries(rows)));
+  // Internal pricing recommendation — NEVER returned to the client.
+  const priceRows: [string, string][] = [
+    ['Recommended plan', `${pricing.tier.name} — ${usd(pricing.tier.monthly)}/mo`],
+    ['Install fee', usd(pricing.installFee)],
+    ['Calls included', `${pricing.tier.includedCalls} (then ${usd(pricing.tier.overagePerCall)}/call)`],
+    ['Est. Retell cost', `${usd(pricing.estMonthlyCogs)}/mo (${usd(pricing.perCallCost)}/call)`],
+    ['Projected revenue', `${usd(pricing.monthlyRevenue)}/mo`],
+    ['Gross profit', `${usd(pricing.grossProfit)}/mo`],
+    ['Margin', `${Math.round(pricing.marginPct * 100)}%`],
+    pricing.recommendedByOverage ? ['⚠ Volume', 'Exceeds Scale bucket — expect overage'] : ['', ''],
+  ].filter(([k]) => k) as [string, string][];
+
+  console.log('[quote] lead:', JSON.stringify(Object.fromEntries(leadRows)));
+  console.log('[quote] pricing:', pricingSummary(pricing));
 
   const to = notifyEmail();
   if (process.env.RESEND_API_KEY && to) {
+    const table = (rows: [string, string][]) =>
+      `<table style="border-collapse:collapse;font-family:sans-serif;font-size:14px">${rows
+        .map(
+          ([k, v]) =>
+            `<tr><td style="padding:5px 12px;color:#667"><b>${escapeHtml(k)}</b></td><td style="padding:5px 12px">${escapeHtml(v)}</td></tr>`,
+        )
+        .join('')}</table>`;
+
     const html = `
       <h2 style="font-family:sans-serif">New CallCatch quote request</h2>
-      <table style="font-family:sans-serif;border-collapse:collapse">
-        ${rows
-          .map(
-            ([k, v]) =>
-              `<tr><td style="padding:6px 12px;color:#555"><b>${escapeHtml(k)}</b></td><td style="padding:6px 12px">${escapeHtml(v)}</td></tr>`,
-          )
-          .join('')}
-      </table>
+      ${table(leadRows)}
+      <h3 style="font-family:sans-serif;margin-top:20px;color:#1B54E8">Internal pricing (do not forward)</h3>
+      ${table(priceRows)}
     `;
     try {
       await getResend().emails.send({
         from: FROM_EMAIL,
         to,
         replyTo: email,
-        subject: `New quote request — ${name}${body.businessName ? ` (${body.businessName})` : ''}`,
+        subject: `Quote: ${name}${body.businessName ? ` (${body.businessName})` : ''} — rec. ${pricing.tier.name}, ${Math.round(pricing.marginPct * 100)}% margin`,
         html,
       });
     } catch (err) {
-      // Don't fail the user's submission if email delivery hiccups — it's logged.
       console.error('[quote] email send failed', err);
     }
   } else {
-    console.warn(
-      '[quote] RESEND_API_KEY or QUOTE_NOTIFY_EMAIL not set — lead only logged, not emailed.',
-    );
+    console.warn('[quote] RESEND_API_KEY / QUOTE_NOTIFY_EMAIL not set — lead + pricing only logged.');
   }
 
+  // Client gets acknowledgement ONLY — no cost/margin/plan data.
   return NextResponse.json({ ok: true });
 }
