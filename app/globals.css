@@ -6,6 +6,18 @@
   color-scheme: dark;
 }
 
+html {
+  scroll-behavior: smooth;
+  /* Offset in-page anchor jumps so the sticky nav doesn't cover section headings. */
+  scroll-padding-top: 84px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 html,
 body {
   background-color: #060b14;

@@ -5,10 +5,12 @@ import { useEffect, useState } from 'react';
 import { Logo, Button } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
+// Absolute (`/#…`) so section links also work from /quote, /demo, etc.,
+// not just when already on the homepage.
 const LINKS = [
-  { href: '#problem', label: 'The Problem' },
-  { href: '#how', label: 'How it works' },
-  { href: '#demo', label: 'Live demo' },
+  { href: '/#problem', label: 'The Problem' },
+  { href: '/#how', label: 'How it works' },
+  { href: '/#demo', label: 'Live demo' },
   { href: '/quote', label: 'Pricing' },
 ];
 

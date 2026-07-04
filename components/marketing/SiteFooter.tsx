@@ -17,7 +17,7 @@ export function SiteFooter() {
             Product
           </div>
           <div className="mt-3 flex flex-col gap-2 text-sm text-ink-2">
-            <Link href="#how" className="hover:text-ink-1">How it works</Link>
+            <Link href="/#how" className="hover:text-ink-1">How it works</Link>
             <Link href="/demo" className="hover:text-ink-1">Live demo</Link>
             <Link href="/quote" className="hover:text-ink-1">Pricing</Link>
           </div>
