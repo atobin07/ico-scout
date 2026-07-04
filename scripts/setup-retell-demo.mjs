@@ -16,13 +16,28 @@
  * anywhere except Retell.
  */
 import Retell from 'retell-sdk';
+import { readFileSync } from 'node:fs';
 
-const apiKey = process.env.RETELL_API_KEY;
+/** Fallback: read RETELL_API_KEY from .env.local so shell syntax doesn't matter. */
+function keyFromEnvFile() {
+  try {
+    const raw = readFileSync(new URL('../.env.local', import.meta.url), 'utf8');
+    const line = raw.split(/\r?\n/).find((l) => l.trim().startsWith('RETELL_API_KEY='));
+    const val = line?.split('=').slice(1).join('=').trim().replace(/^["']|["']$/g, '');
+    return val || undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+const apiKey = process.env.RETELL_API_KEY || keyFromEnvFile();
 if (!apiKey) {
   console.error(
     '\n✖ RETELL_API_KEY is not set.\n\n' +
-      '  Run it like this (paste your real key):\n' +
-      '    RETELL_API_KEY=key_xxx node scripts/setup-retell-demo.mjs\n',
+      '  Provide it one of these ways:\n\n' +
+      '  • Put it in .env.local:   RETELL_API_KEY=key_xxx   then run:  npm run setup:retell\n' +
+      '  • PowerShell:   $env:RETELL_API_KEY="key_xxx"; npm run setup:retell\n' +
+      '  • macOS/Linux:  RETELL_API_KEY=key_xxx npm run setup:retell\n',
   );
   process.exit(1);
 }
