@@ -29,8 +29,8 @@ export default function LoginPage() {
         </Button>
         <p className="mt-4 text-center text-xs text-ink-2">
           No account?{' '}
-          <Link href="/auth/signup" className="text-sky hover:underline">
-            Start free trial
+          <Link href="/quote" className="text-sky hover:underline">
+            Get a quote
           </Link>
         </p>
       </Card>

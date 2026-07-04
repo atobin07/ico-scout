@@ -254,12 +254,13 @@ export function FinalCTA() {
           Stop losing jobs to voicemail.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-lg text-ink-2">
-          Set up your AI receptionist in minutes. 14-day free trial, no card required.
+          Tell us your call volume and we’ll send a custom quote — a one-time install
+          and a flat monthly price that pays for itself.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link href="/auth/signup">
+          <Link href="/quote">
             <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              Start catching calls →
+              Get a quote →
             </Button>
           </Link>
           <Link href="/demo">

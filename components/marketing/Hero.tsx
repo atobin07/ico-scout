@@ -36,9 +36,9 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/auth/signup">
+            <Link href="/quote">
               <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                Start catching calls →
+                Get a quote →
               </Button>
             </Link>
             <Link href="/demo">

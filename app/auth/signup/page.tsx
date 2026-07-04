@@ -10,9 +10,13 @@ export default function SignupPage() {
           <Logo />
           <Badge tone="signal">Phase 9</Badge>
         </div>
-        <h1 className="text-xl font-800 text-ink-1">Start your free trial</h1>
+        <h1 className="text-xl font-800 text-ink-1">Set up your account</h1>
         <p className="mt-1 text-sm text-ink-2">
-          3 steps: business details → phone number → AI script.
+          For approved customers. Need pricing first?{' '}
+          <Link href="/quote" className="text-sky hover:underline">
+            Get a quote
+          </Link>
+          .
         </p>
         <ol className="mt-6 space-y-2 text-sm text-ink-2">
           <li>1. Business name, owner, email, trade type</li>

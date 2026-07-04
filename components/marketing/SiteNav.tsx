@@ -9,7 +9,7 @@ const LINKS = [
   { href: '#problem', label: 'The Problem' },
   { href: '#how', label: 'How it works' },
   { href: '#demo', label: 'Live demo' },
-  { href: '/pricing', label: 'Pricing' },
+  { href: '/quote', label: 'Pricing' },
 ];
 
 export function SiteNav() {
@@ -51,9 +51,9 @@ export function SiteNav() {
           <Link href="/auth/login" className="text-sm text-ink-2 hover:text-ink-1">
             Sign in
           </Link>
-          <Link href="/auth/signup">
+          <Link href="/quote">
             <Button variant="primary" size="sm">
-              Start free trial
+              Get a quote
             </Button>
           </Link>
         </div>
@@ -80,9 +80,9 @@ export function SiteNav() {
                 {l.label}
               </Link>
             ))}
-            <Link href="/auth/signup" onClick={() => setOpen(false)} className="mt-2">
+            <Link href="/quote" onClick={() => setOpen(false)} className="mt-2">
               <Button variant="primary" size="sm" className="w-full">
-                Start free trial
+                Get a quote
               </Button>
             </Link>
           </div>
