@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: #060b14;
+  color: #e8f0ff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* Tabular figures for all data/stats rendered in mono */
+.font-mono {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Thin dispatch-console scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0c1525;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a2d44;
+  border-radius: 6px;
+  border: 2px solid #0c1525;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #243d58;
+}
+
+/* 3px left-rail status tape used on call cards */
+.tape {
+  position: relative;
+}
+.tape::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 3px;
+}
+.tape-live::before {
+  background: #00d97e;
+}
+.tape-signal::before {
+  background: #1b54e8;
+}
+.tape-warn::before {
+  background: #f5a623;
+}
+.tape-danger::before {
+  background: #e24b4a;
+}
+.tape-idle::before {
+  background: #243d58;
+}
