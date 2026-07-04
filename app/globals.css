@@ -68,3 +68,119 @@ body {
 .tape-idle::before {
   background: #243d58;
 }
+
+/* ---- Marketing visual utilities ---- */
+
+/* Blueprint grid texture — subtle dispatch-console backdrop */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(26, 45, 68, 0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 45, 68, 0.35) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Radial signal glow, fades to transparent */
+.glow-signal {
+  background: radial-gradient(
+    60% 50% at 50% 0%,
+    rgba(27, 84, 232, 0.28) 0%,
+    rgba(27, 84, 232, 0.08) 35%,
+    transparent 70%
+  );
+}
+.glow-live {
+  background: radial-gradient(
+    50% 50% at 70% 30%,
+    rgba(0, 217, 126, 0.18) 0%,
+    transparent 70%
+  );
+}
+
+/* Frosted panel */
+.glass {
+  background: linear-gradient(180deg, rgba(17, 30, 48, 0.72), rgba(12, 21, 37, 0.72));
+  backdrop-filter: blur(12px);
+}
+
+/* Gradient hairline top border for feature cards */
+.card-sheen {
+  position: relative;
+}
+.card-sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(79, 163, 255, 0.5),
+    transparent
+  );
+}
+
+/* Voice waveform bars */
+.wave-bar {
+  width: 3px;
+  border-radius: 3px;
+  background: currentColor;
+  animation: wave 1s ease-in-out infinite;
+}
+@keyframes wave {
+  0%,
+  100% {
+    height: 20%;
+  }
+  50% {
+    height: 100%;
+  }
+}
+
+/* Marquee for logo/trust strip */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 26s linear infinite;
+}
+
+/* Slow float for hero call card */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Sequential reveal used by the hero conversation (pure CSS) */
+@keyframes convo-in {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-bar,
+  .marquee-track,
+  .animate-float,
+  .animate-pulse-live,
+  .animate-pulse-ring {
+    animation: none !important;
+  }
+}
