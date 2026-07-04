@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui';
 import { cn, formatUsd } from '@/lib/utils';
+import { primeVoices, speakText, cancelSpeech } from '@/lib/tts';
 import {
   SCENARIOS,
   scenarioById,
@@ -48,10 +49,11 @@ export function DemoExperience({ initialScenarioId }: { initialScenarioId?: stri
   const voiceOnRef = useRef(voiceOn);
   voiceOnRef.current = voiceOn;
 
-  /* ---- feature detection ---- */
+  /* ---- feature detection + preload TTS voices ---- */
   useEffect(() => {
     const Ctor = window.SpeechRecognition ?? window.webkitSpeechRecognition;
     setMicSupported(Boolean(Ctor));
+    primeVoices();
   }, []);
 
   /* ---- call timer ---- */
@@ -66,23 +68,13 @@ export function DemoExperience({ initialScenarioId }: { initialScenarioId?: stri
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages, booking]);
 
-  /* ---- text-to-speech ---- */
+  /* ---- text-to-speech (best available natural voice) ---- */
   const speak = useCallback((text: string) => {
-    if (!voiceOnRef.current || typeof window === 'undefined' || !window.speechSynthesis) return;
-    const clean = text.replace(/[✓•]/g, '').trim();
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(clean);
-    u.rate = 1.03;
-    u.pitch = 1;
-    const voices = window.speechSynthesis.getVoices();
-    const preferred =
-      voices.find((v) => /en-US/i.test(v.lang) && /female|samantha|google us/i.test(v.name)) ??
-      voices.find((v) => /en-US/i.test(v.lang)) ??
-      voices[0];
-    if (preferred) u.voice = preferred;
-    u.onstart = () => setSpeaking(true);
-    u.onend = () => setSpeaking(false);
-    window.speechSynthesis.speak(u);
+    if (!voiceOnRef.current) return;
+    speakText(text, {
+      onStart: () => setSpeaking(true),
+      onEnd: () => setSpeaking(false),
+    });
   }, []);
 
   const pushMsg = useCallback((role: 'agent' | 'caller', text: string) => {
@@ -255,12 +247,12 @@ export function DemoExperience({ initialScenarioId }: { initialScenarioId?: stri
 
         <div className="rounded-2xl border border-border bg-navy p-5">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-ink-2">AI voice</span>
+            <span className="text-sm text-ink-2">Browser voice</span>
             <button
               onClick={() => {
                 const next = !voiceOn;
                 setVoiceOn(next);
-                if (!next && typeof window !== 'undefined') window.speechSynthesis?.cancel();
+                if (!next) cancelSpeech();
               }}
               className={cn(
                 'relative h-6 w-11 rounded-full transition-colors',
@@ -279,8 +271,10 @@ export function DemoExperience({ initialScenarioId }: { initialScenarioId?: stri
           </div>
           <p className="mt-3 text-xs leading-relaxed text-ink-3">
             {micSupported
-              ? 'Tap the mic and talk, or type. The AI will answer out loud.'
-              : 'Your browser doesn’t support voice input — type to chat. The AI still answers out loud.'}
+              ? 'Tap the mic and talk, or type. This uses your browser’s built-in voice.'
+              : 'Your browser doesn’t support voice input — type to chat.'}{' '}
+            For the real, human-sounding AI voice, switch to the{' '}
+            <span className="text-live">Live voice</span> tab.
           </p>
         </div>
 
