@@ -1,14 +1,13 @@
 import Link from 'next/link';
-import { Logo, Card, Button, Badge } from '@/components/ui';
+import { Logo, Card, Button } from '@/components/ui';
 
-/** 3-step onboarding. Full build in Phase 9. */
+/** Account setup for approved customers. */
 export default function SignupPage() {
   return (
     <main className="grid min-h-screen place-items-center bg-midnight px-4">
       <Card className="w-full max-w-md p-6" tape="live">
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6">
           <Logo />
-          <Badge tone="signal">Phase 9</Badge>
         </div>
         <h1 className="text-xl font-800 text-ink-1">Set up your account</h1>
         <p className="mt-1 text-sm text-ink-2">
@@ -23,8 +22,8 @@ export default function SignupPage() {
           <li>2. Phone &amp; address — becomes your CallCatch number</li>
           <li>3. Customize your AI greeting &amp; responses</li>
         </ol>
-        <Button variant="primary" className="mt-6 w-full" disabled>
-          Create account (Phase 9)
+        <Button variant="primary" className="mt-6 w-full">
+          Create account
         </Button>
         <p className="mt-4 text-center text-xs text-ink-2">
           Already have an account?{' '}
