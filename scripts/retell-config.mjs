@@ -96,6 +96,35 @@ export const AGENT_TUNING = {
   max_call_duration_ms: 600000, // 10 min guard (protects your Retell spend)
 };
 
+/** Per-call analysis fields Retell extracts into custom_analysis_data. The
+ *  webhook reads these to create the customer + appointment. */
+export const POST_CALL_ANALYSIS = [
+  { type: 'boolean', name: 'booked', description: 'True if the caller booked/scheduled a service appointment on this call.' },
+  { type: 'string', name: 'customer_name', description: "The caller's full name, if given." },
+  { type: 'string', name: 'customer_phone', description: "The caller's callback phone number, if given." },
+  { type: 'string', name: 'job_type', description: 'The service the caller needs (e.g. "AC repair", "leak repair").' },
+  { type: 'string', name: 'address', description: 'The service address given by the caller, if any.' },
+  { type: 'string', name: 'appointment_time', description: 'The date/time window agreed for the visit, in plain language.' },
+  { type: 'number', name: 'estimated_value', description: 'A rough estimated dollar value of the job, if inferable. Otherwise leave empty.' },
+];
+
+/** Greeting for a specific client business. */
+export function clientBeginMessage(businessName) {
+  return `Thanks for calling ${businessName}, this is Sarah — how can I help you today?`;
+}
+
+/** Human-sounding receptionist prompt customized for a client business. */
+export function clientPrompt({ businessName, trade }) {
+  const tradeLine = trade
+    ? `${businessName} is a ${trade} company.`
+    : `${businessName} is a home-services company (HVAC, plumbing, electrical).`;
+  return GENERAL_PROMPT
+    .replace(
+      "You're Sarah, the receptionist at a home-services company that does HVAC,\nplumbing, and electrical work.",
+      `You're Sarah, the receptionist at ${businessName}. ${tradeLine}`,
+    );
+}
+
 /** Rank voices: prefer natural ElevenLabs female en-US. */
 export function pickVoice(voices, forcedId) {
   if (forcedId) {

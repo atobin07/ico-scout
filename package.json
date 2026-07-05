@@ -9,7 +9,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "setup:retell": "node scripts/setup-retell-demo.mjs",
-    "tune:retell": "node scripts/tune-retell-voice.mjs"
+    "tune:retell": "node scripts/tune-retell-voice.mjs",
+    "onboard:client": "node scripts/onboard-client.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
