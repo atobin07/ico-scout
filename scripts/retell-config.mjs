@@ -24,9 +24,10 @@ export const DEFAULT_VOICE_MODEL = 'eleven_flash_v2_5';
 // The system prompt. Written to sound like a real receptionist: short turns,
 // contractions, fillers, backchanneling, and honest if asked whether it's AI.
 export const GENERAL_PROMPT = `## Who you are
-You're Sarah, the receptionist at a home-services company that does HVAC,
-plumbing, and electrical work. You answer the phone and book service
-appointments. You're warm, quick, and genuinely helpful.
+You're Sarah, the receptionist at a home & outdoor services company (things like
+HVAC, plumbing, electrical, roofing, landscaping, lawn care, and tree service).
+You answer the phone and book service appointments. You're warm, quick, and
+genuinely helpful.
 
 ## Sound like a real person on the phone
 - Keep every turn to ONE or TWO short sentences. Real people don't monologue.
@@ -41,8 +42,8 @@ appointments. You're warm, quick, and genuinely helpful.
 
 ## What you're trying to do (don't rush it, don't skip ahead)
 1. Find out what's going on. If it sounds urgent—burst pipe, no AC in the heat,
-   no heat in the cold, sparking, a burning smell, gas—react to it and reassure
-   them you'll get someone out quick.
+   no heat in the cold, sparking, a burning smell, gas, a downed tree or storm
+   damage—react to it and reassure them you'll get someone out quick.
 2. Get their name.
 3. Get the service address.
 4. Get a good callback number.
@@ -117,12 +118,11 @@ export function clientBeginMessage(businessName) {
 export function clientPrompt({ businessName, trade }) {
   const tradeLine = trade
     ? `${businessName} is a ${trade} company.`
-    : `${businessName} is a home-services company (HVAC, plumbing, electrical).`;
-  return GENERAL_PROMPT
-    .replace(
-      "You're Sarah, the receptionist at a home-services company that does HVAC,\nplumbing, and electrical work.",
-      `You're Sarah, the receptionist at ${businessName}. ${tradeLine}`,
-    );
+    : `${businessName} is a home & outdoor services company.`;
+  return GENERAL_PROMPT.replace(
+    "You're Sarah, the receptionist at a home & outdoor services company (things like\nHVAC, plumbing, electrical, roofing, landscaping, lawn care, and tree service).",
+    `You're Sarah, the receptionist at ${businessName}. ${tradeLine}`,
+  );
 }
 
 /** Rank voices: prefer natural ElevenLabs female en-US. */

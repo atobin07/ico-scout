@@ -31,7 +31,7 @@ function SectionHeading({
 /* -------------------------------- problem -------------------------------- */
 
 const PROBLEM_STATS = [
-  { value: '62%', label: 'of calls to home service businesses go unanswered', tone: 'text-danger' },
+  { value: '62%', label: 'of calls to service businesses go unanswered', tone: 'text-danger' },
   { value: '85%', label: 'of callers never leave a voicemail — they just hang up', tone: 'text-warn' },
   { value: '78%', label: 'of customers hire the first business that answers', tone: 'text-live' },
 ];
@@ -43,7 +43,7 @@ export function ProblemSection() {
         <SectionHeading
           eyebrow="The problem"
           title="Every missed call is a job your competitor books"
-          sub="You're on a roof, under a sink, or driving between jobs. The phone rings. Nobody answers. That customer calls the next guy."
+          sub="You're on a roof, behind a mower, up a tree, or driving between jobs. The phone rings. Nobody answers. That customer calls the next guy."
         />
         <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-3">
           {PROBLEM_STATS.map((s) => (
@@ -78,7 +78,7 @@ const STEPS = [
   },
   {
     n: '03',
-    title: 'You get a summary text while you’re still on the roof',
+    title: 'You get a summary text while you’re still on the job',
     body: 'Job type, customer details, estimated value, and a recording — texted to you the moment the call ends. Zero admin.',
     icon: '💬',
   },
@@ -200,11 +200,11 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "I'm a one-man shop. CallCatch is my receptionist, my scheduler, and my answering service for less than a slow week of missed calls.",
+      "Storm season buries us in calls we can't answer from the bucket truck. CallCatch catches every one and books the cleanups. Game changer for my crew.",
     name: 'Tyler Osei',
-    role: 'Coreline Electric',
+    role: 'Summit Tree & Landscaping',
     initials: 'TO',
-    trade: 'Electrical',
+    trade: 'Tree Service',
   },
 ];
 

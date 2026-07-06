@@ -3,8 +3,7 @@
 import { useMemo, useState } from 'react';
 import { Button } from '@/components/ui';
 import { cn, formatUsd } from '@/lib/utils';
-
-const TRADES = ['HVAC', 'Plumbing', 'Electrical', 'Roofing', 'Other'];
+import { TRADE_OPTIONS as TRADES } from '@/types';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 

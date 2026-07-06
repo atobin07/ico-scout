@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div>
           <Logo />
           <p className="mt-3 max-w-xs text-sm text-ink-2">
-            The AI receptionist for home service businesses. Every call answered,
+            The AI receptionist for home &amp; outdoor service businesses. Every call answered,
             every job booked — 24/7.
           </p>
         </div>

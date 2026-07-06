@@ -6,7 +6,14 @@
  * "answer → qualify → book" flow. Phase 3 swaps this for live Retell AI.
  */
 
-export type Trade = 'HVAC' | 'Plumbing' | 'Electrical' | 'Roofing';
+export type Trade =
+  | 'HVAC'
+  | 'Plumbing'
+  | 'Electrical'
+  | 'Roofing'
+  | 'Tree Service'
+  | 'Lawn Care'
+  | 'Landscaping';
 export type Accent = 'live' | 'signal' | 'warn' | 'danger';
 
 export interface Scenario {
@@ -55,6 +62,17 @@ export const SCENARIOS: Scenario[] = [
     estValue: 725,
     accent: 'signal',
     company: 'Coreline Electric',
+  },
+  {
+    id: 'tree',
+    trade: 'Tree Service',
+    label: 'Storm Tree Damage',
+    blurb: 'Limb down after last night’s storm',
+    opener: 'A big limb came down on my driveway in the storm and I need it cleared.',
+    jobType: 'Emergency limb removal',
+    estValue: 850,
+    accent: 'live',
+    company: 'Summit Tree & Land',
   },
 ];
 
