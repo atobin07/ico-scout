@@ -5,7 +5,6 @@ import {
   ProblemSection,
   HowItWorks,
   DemoTeaser,
-  Testimonials,
   FinalCTA,
 } from '@/components/marketing/HomeSections';
 import { QuoteSection } from '@/components/marketing/QuoteSection';
@@ -21,7 +20,6 @@ export default function HomePage() {
         <ProblemSection />
         <HowItWorks />
         <DemoTeaser />
-        <Testimonials />
         <QuoteSection />
         <FinalCTA />
       </main>

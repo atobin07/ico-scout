@@ -179,69 +179,6 @@ export function DemoTeaser() {
   );
 }
 
-/* ------------------------------ testimonials ----------------------------- */
-
-const TESTIMONIALS = [
-  {
-    quote:
-      'We were missing 20+ calls a week during jobs. CallCatch booked $14K in work its first month. It literally pays for itself in a day.',
-    name: 'Marcus Bell',
-    role: 'Owner, Bell Comfort HVAC',
-    initials: 'MB',
-    trade: 'HVAC',
-  },
-  {
-    quote:
-      'After-hours pipe bursts used to go to voicemail. Now the AI books the emergency and texts me. I show up, I get paid. Simple.',
-    name: 'Diego Ramirez',
-    role: 'Rapid Response Plumbing',
-    initials: 'DR',
-    trade: 'Plumbing',
-  },
-  {
-    quote:
-      "Storm season buries us in calls we can't answer from the bucket truck. CallCatch catches every one and books the cleanups. Game changer for my crew.",
-    name: 'Tyler Osei',
-    role: 'Summit Tree & Landscaping',
-    initials: 'TO',
-    trade: 'Tree Service',
-  },
-];
-
-export function Testimonials() {
-  return (
-    <section className="border-t border-border bg-navy/40 py-20">
-      <div className="mx-auto max-w-6xl px-5">
-        <SectionHeading
-          eyebrow="Proof"
-          title="Home service pros are catching every call"
-        />
-        <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
-            <figure
-              key={t.name}
-              className="flex flex-col justify-between rounded-2xl border border-border bg-navy p-7"
-            >
-              <blockquote className="text-sm leading-relaxed text-ink-1">
-                “{t.quote}”
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-signal/20 font-mono text-sm font-600 text-sky">
-                  {t.initials}
-                </div>
-                <div>
-                  <div className="text-sm font-600 text-ink-1">{t.name}</div>
-                  <div className="text-xs text-ink-2">{t.role}</div>
-                </div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* -------------------------------- final CTA ------------------------------ */
 
 export function FinalCTA() {
