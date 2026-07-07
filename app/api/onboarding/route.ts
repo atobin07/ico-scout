@@ -13,6 +13,8 @@ interface OnboardingPayload {
   services?: string;
   serviceArea?: string;
   hours?: string;
+  voiceGender?: string;
+  tone?: string;
   greeting?: string;
   specialInstructions?: string;
   availability?: string;
@@ -49,6 +51,8 @@ export async function POST(req: Request) {
     ['Services', body.services ?? '—'],
     ['Service area', body.serviceArea ?? '—'],
     ['Hours', body.hours ?? '—'],
+    ['Voice preference', body.voiceGender || 'No preference'],
+    ['Tone', body.tone ?? '—'],
     ['Greeting', body.greeting ?? '—'],
     ['Special instructions', body.specialInstructions ?? '—'],
     ['Availability', body.availability ?? '—'],

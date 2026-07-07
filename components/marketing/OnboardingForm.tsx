@@ -16,6 +16,8 @@ const initial = {
   services: '',
   serviceArea: '',
   hours: '',
+  voiceGender: '',
+  tone: '',
   greeting: '',
   specialInstructions: '',
   availability: '',
@@ -105,6 +107,22 @@ export function OnboardingForm() {
       </Section>
 
       <Section title="How it should sound" step="3">
+        <Field label="Voice">
+          <Select
+            value={form.voiceGender}
+            onChange={set('voiceGender')}
+            placeholder="No preference"
+            options={['Female', 'Male']}
+          />
+        </Field>
+        <Field label="Personality / tone">
+          <Select
+            value={form.tone}
+            onChange={set('tone')}
+            placeholder="Select…"
+            options={['Warm & friendly', 'Professional & polished', 'Casual & down-to-earth', 'Energetic & upbeat']}
+          />
+        </Field>
         <Field label="How should it greet callers?" full>
           <Input
             value={form.greeting}
