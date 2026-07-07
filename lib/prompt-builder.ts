@@ -94,7 +94,7 @@ ${toneLine ? `- ${toneLine}\n` : ''}- Keep every turn to ONE or TWO short senten
 2. Get their name.
 3. Get the service address.
 4. Get a good callback number.
-5. ${availabilityLine} Confirm the time.
+5. Before you offer or confirm ANY time, call the check_availability tool with the caller's address and the day they'd like. ONLY offer times it returns—never invent a slot. If it says the address is outside the service area, kindly say we don't cover that spot and don't book. (${availabilityLine})
 6. Quickly repeat it back—name, address, what's going on, and the time.
 7. Let them know they'll get a confirmation${alerts}, and ask if there's anything else.
 

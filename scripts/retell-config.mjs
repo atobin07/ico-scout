@@ -47,8 +47,11 @@ genuinely helpful.
 2. Get their name.
 3. Get the service address.
 4. Get a good callback number.
-5. Offer the soonest reasonable time and confirm it. Emergencies: "within the
-   next couple hours." Otherwise a same-day or next-morning window.
+5. Before you offer or confirm ANY appointment time, use the check_availability
+   tool with the caller's address and the day they'd like. ONLY offer the times
+   it returns—never invent a slot. If it says the address is outside the service
+   area, kindly tell them we don't cover that spot and DON'T book; offer to take
+   their details instead. For emergencies, still check, then offer the soonest slot.
 6. Quickly repeat it back—name, address, what's going on, and the time.
 7. Let them know they'll get a text to confirm, and ask if there's anything else.
 
@@ -96,6 +99,40 @@ export const AGENT_TUNING = {
   reminder_trigger_ms: 10000,
   max_call_duration_ms: 600000, // 10 min guard (protects your Retell spend)
 };
+
+/**
+ * The scheduling-guardrail tool. Retell calls this custom function before the
+ * agent confirms a booking so it can check the service area + realistic times.
+ * @param {string} siteUrl e.g. https://www.callcatchai.online
+ */
+export function bookingGuardrailTool(siteUrl) {
+  const base = (siteUrl || 'https://www.callcatchai.online').replace(/\/$/, '');
+  return {
+    type: 'custom',
+    name: 'check_availability',
+    url: `${base}/api/retell/check-availability`,
+    description:
+      "Check whether a caller's address is inside the service area and get realistic open appointment times. ALWAYS call this before offering or confirming a time. Use the returned `message` to decide what to say; only offer times in `available_slots`.",
+    speak_during_execution: true,
+    execution_message_description: 'Let me check the schedule for you real quick…',
+    speak_after_execution: true,
+    parameters: {
+      type: 'object',
+      properties: {
+        address: { type: 'string', description: 'The service address the caller gave (street, city).' },
+        preferred_day: {
+          type: 'string',
+          description: 'The day they want, in plain words: "today", "tomorrow", a weekday, or YYYY-MM-DD.',
+        },
+        preferred_window: {
+          type: 'string',
+          description: 'Optional: "morning", "afternoon", or "evening" if they said so.',
+        },
+      },
+      required: ['address'],
+    },
+  };
+}
 
 /** Per-call analysis fields Retell extracts into custom_analysis_data. The
  *  webhook reads these to create the customer + appointment. */

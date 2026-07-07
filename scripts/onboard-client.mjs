@@ -24,6 +24,7 @@ import {
   clientPrompt,
   clientBeginMessage,
   pickVoice,
+  bookingGuardrailTool,
 } from './retell-config.mjs';
 
 function envFile(key) {
@@ -51,7 +52,29 @@ const client = {
   areaCode: env('CLIENT_AREA_CODE'),
   city: env('CLIENT_CITY'),
   state: env('CLIENT_STATE'),
+  // Scheduling guardrail config
+  baseAddress: env('CLIENT_BASE_ADDRESS'),
+  serviceRadius: env('CLIENT_SERVICE_RADIUS'), // miles
+  openHour: env('CLIENT_OPEN_HOUR'),
+  closeHour: env('CLIENT_CLOSE_HOUR'),
+  jobMinutes: env('CLIENT_JOB_MINUTES'),
+  timezone: env('CLIENT_TIMEZONE'),
 };
+const mapboxToken = env('NEXT_PUBLIC_MAPBOX_TOKEN') || env('MAPBOX_TOKEN');
+
+async function geocode(address) {
+  if (!mapboxToken || !address) return null;
+  try {
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${mapboxToken}&limit=1&country=us`;
+    const r = await fetch(url);
+    if (!r.ok) return null;
+    const d = await r.json();
+    const c = d?.features?.[0]?.center;
+    return c ? { lng: c[0], lat: c[1] } : null;
+  } catch {
+    return null;
+  }
+}
 
 if (!apiKey || !client.name || !client.email) {
   console.error(
@@ -73,11 +96,30 @@ async function main() {
   const voice = pickVoice(voices, process.env.VOICE_ID);
   console.log(`  voice: ${voice.voice_name} (${voice.voice_id})`);
 
-  console.log('→ Creating LLM…');
+  // Geocode the base address so the guardrail can enforce the service area.
+  const base = await geocode(client.baseAddress);
+  if (client.baseAddress && !base) {
+    console.warn('  ⚠ Could not geocode base address (check NEXT_PUBLIC_MAPBOX_TOKEN). Service-area limit will be off until set.');
+  }
+  const scheduling = {
+    base_address: client.baseAddress ?? null,
+    base_lat: base?.lat ?? null,
+    base_lng: base?.lng ?? null,
+    service_radius_miles: client.serviceRadius ? Number(client.serviceRadius) : null,
+    open_hour: client.openHour ? Number(client.openHour) : 8,
+    close_hour: client.closeHour ? Number(client.closeHour) : 18,
+    job_duration_minutes: client.jobMinutes ? Number(client.jobMinutes) : 90,
+    buffer_minutes: 30,
+    max_per_day: 8,
+    timezone: client.timezone || 'America/Chicago',
+  };
+
+  console.log('→ Creating LLM (with scheduling guardrail tool)…');
   const llm = await retell.llm.create({
     model: process.env.RETELL_MODEL || DEFAULT_MODEL,
     general_prompt: clientPrompt({ businessName: client.name, trade: client.trade }),
     begin_message: clientBeginMessage(client.name),
+    general_tools: [bookingGuardrailTool(siteUrl)],
   });
 
   console.log('→ Creating agent (tuned, webhook + booking analysis)…');
@@ -125,6 +167,8 @@ async function main() {
         retell_phone_number: phoneNumber,
         ai_script: clientPrompt({ businessName: client.name, trade: client.trade }),
         subscription_status: 'active',
+        timezone: scheduling.timezone,
+        settings: { scheduling },
       },
       { onConflict: 'owner_email' },
     );
