@@ -25,6 +25,7 @@ import {
   clientBeginMessage,
   pickVoice,
   bookingGuardrailTool,
+  playbookJobMinutes,
 } from './retell-config.mjs';
 
 function envFile(key) {
@@ -108,7 +109,7 @@ async function main() {
     service_radius_miles: client.serviceRadius ? Number(client.serviceRadius) : null,
     open_hour: client.openHour ? Number(client.openHour) : 8,
     close_hour: client.closeHour ? Number(client.closeHour) : 18,
-    job_duration_minutes: client.jobMinutes ? Number(client.jobMinutes) : 90,
+    job_duration_minutes: client.jobMinutes ? Number(client.jobMinutes) : playbookJobMinutes(client.trade),
     buffer_minutes: 30,
     max_per_day: 8,
     timezone: client.timezone || 'America/Chicago',

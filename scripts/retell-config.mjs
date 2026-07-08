@@ -4,7 +4,63 @@
  * one place.
  */
 
+import { readFileSync } from 'node:fs';
+
 export const AGENT_NAME = 'CallCatch Demo Receptionist';
+
+/**
+ * Trade-specific playbooks (single source of truth in data/trade-playbooks.json).
+ * HVAC asks different intake questions than a tree service, so we inject a
+ * per-trade section into each client's prompt when we build their agent.
+ */
+const PLAYBOOKS = (() => {
+  try {
+    return JSON.parse(readFileSync(new URL('../data/trade-playbooks.json', import.meta.url), 'utf8'));
+  } catch {
+    return {};
+  }
+})();
+
+/** Normalize a trade string to a playbook key (mirrors lib/trade-playbooks.ts). */
+export function playbookKey(trade) {
+  const t = (trade ?? '').toLowerCase().trim();
+  if (!t) return 'general';
+  if (PLAYBOOKS[t]) return t;
+  if (/tree|arborist|stump/.test(t)) return 'tree service';
+  if (/lawn|mow/.test(t)) return 'lawn care';
+  if (/landscap|hardscape/.test(t)) return 'landscaping';
+  if (/pest|exterm|termite/.test(t)) return 'pest control';
+  if (/pool|spa/.test(t)) return 'pool service';
+  if (/clean|maid|janitor/.test(t)) return 'cleaning';
+  if (/hvac|heat|air|ac\b|cooling/.test(t)) return 'hvac';
+  if (/plumb|drain|pipe|water/.test(t)) return 'plumbing';
+  if (/electric|panel|wiring/.test(t)) return 'electrical';
+  if (/roof|gutter/.test(t)) return 'roofing';
+  return 'general';
+}
+
+export function getPlaybook(trade) {
+  return PLAYBOOKS[playbookKey(trade)] ?? PLAYBOOKS.general ?? null;
+}
+
+/** Default appointment length (minutes) for a trade, from its playbook. */
+export function playbookJobMinutes(trade) {
+  return getPlaybook(trade)?.jobMinutes ?? 90;
+}
+
+/** Prompt section teaching the agent how to intake this specific trade. */
+export function playbookPromptSection(trade) {
+  const p = getPlaybook(trade);
+  if (!p) return '';
+  const lines = [`## When it's a ${p.label} call, make sure you find out`];
+  (p.questions ?? []).forEach((q) => lines.push(`- ${q}`));
+  if (p.emergencies?.length) {
+    lines.push(`Treat these as urgent and reassure them you'll rush someone out: ${p.emergencies.join('; ')}.`);
+  }
+  if (p.jobTypes?.length) lines.push(`Common jobs you'll book: ${p.jobTypes.join(', ')}.`);
+  if (p.notes) lines.push(p.notes);
+  return lines.join('\n');
+}
 
 // A human name + natural phone greeting. No "How may I assist you today".
 export const BEGIN_MESSAGE =
@@ -156,9 +212,17 @@ export function clientPrompt({ businessName, trade }) {
   const tradeLine = trade
     ? `${businessName} is a ${trade} company.`
     : `${businessName} is a home & outdoor services company.`;
-  return GENERAL_PROMPT.replace(
+  const base = GENERAL_PROMPT.replace(
     "You're Sarah, the receptionist at a home & outdoor services company (things like\nHVAC, plumbing, electrical, roofing, landscaping, lawn care, and tree service).",
     `You're Sarah, the receptionist at ${businessName}. ${tradeLine}`,
+  );
+  // Append the trade-specific intake playbook so the agent asks the right
+  // questions and treats the right things as emergencies for this trade.
+  const section = playbookPromptSection(trade);
+  if (!section) return base;
+  return base.replace(
+    '\nKeep the whole thing moving—aim to have them booked in under a minute.',
+    `\n${section}\n\nKeep the whole thing moving—aim to have them booked in under a minute.`,
   );
 }
 

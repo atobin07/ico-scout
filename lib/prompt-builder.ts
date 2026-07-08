@@ -5,6 +5,8 @@
  * copy-paste prompt for the Retell dashboard.
  */
 
+import { playbookPromptSection } from './trade-playbooks';
+
 export interface IntakeForPrompt {
   businessName?: string;
   ownerName?: string;
@@ -79,6 +81,9 @@ export function buildPromptFromIntake(intake: IntakeForPrompt): BuiltPrompt {
 
   const alerts = intake.alertsTo?.trim() ? ` (${intake.alertsTo.trim().toLowerCase()})` : '';
 
+  // Trade-specific intake playbook (HVAC asks different questions than tree service).
+  const playbook = `\n${playbookPromptSection(trade)}\n`;
+
   const generalPrompt = `## Who you are
 ${identity} You answer the phone and book service appointments. You're warm, quick, and genuinely helpful.
 ${context.length ? context.join(' ') + '\n' : ''}
@@ -100,7 +105,7 @@ ${toneLine ? `- ${toneLine}\n` : ''}- Keep every turn to ONE or TWO short senten
 
 ## Pricing
 ${pricingLine}
-${special}
+${special}${playbook}
 ## Handling tricky moments
 - If asked "is this a real person?"—be honest and light: "I'm the AI assistant for the office, but I can get you booked right now just like the front desk would." Never pretend to be a human.
 - If they want a human: "I'll take all your details now and have someone follow up—what's going on?"

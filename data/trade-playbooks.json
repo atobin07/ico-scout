@@ -1,0 +1,142 @@
+{
+  "hvac": {
+    "label": "HVAC",
+    "questions": [
+      "Is it the heating or the cooling that's out?",
+      "What kind of system is it—furnace, central AC, heat pump, or mini-split—and roughly how old?",
+      "Any strange noises, burning or gas smells, or water around the unit?",
+      "Is anyone in the home especially sensitive to the temperature, like elderly folks or an infant?"
+    ],
+    "emergencies": ["no heat in freezing weather", "no AC in extreme heat", "a gas or burning smell", "water pouring from the unit", "carbon-monoxide worries"],
+    "jobTypes": ["AC repair", "furnace repair", "no-cool or no-heat diagnostic", "maintenance tune-up", "install or replacement estimate"],
+    "jobMinutes": 90,
+    "notes": "For install/replacement, book a free estimate visit rather than quoting a price."
+  },
+  "plumbing": {
+    "label": "Plumbing",
+    "questions": [
+      "What's going on—a leak, a clog, no hot water, or no water at all?",
+      "Where in the home is it happening?",
+      "Is water actively spreading, or is it contained?",
+      "Have you been able to shut the water off?"
+    ],
+    "emergencies": ["a burst pipe or active flooding", "a sewage backup", "no water to the home", "a water heater leaking or smelling like gas"],
+    "jobTypes": ["leak repair", "drain clearing", "water heater repair or replacement", "fixture install", "repipe estimate"],
+    "jobMinutes": 90,
+    "notes": "If water is actively spreading, calmly tell them how to shut off the main while you book."
+  },
+  "electrical": {
+    "label": "Electrical",
+    "questions": [
+      "What's not working—a single outlet, a whole room, or the whole house?",
+      "Any burning smell, sparks, or buzzing?",
+      "Did a breaker trip, and does it trip again when you reset it?",
+      "Is this a repair or a new install?"
+    ],
+    "emergencies": ["sparks, smoke, or a burning smell", "exposed or downed wires", "a panel that's hot to the touch", "losing power to part of the house"],
+    "jobTypes": ["panel or breaker work", "outlet or switch repair", "no-power diagnostic", "lighting", "EV charger or generator estimate"],
+    "jobMinutes": 90,
+    "notes": "Sparks or burning smell = urgent; advise cutting power to that circuit if safe."
+  },
+  "roofing": {
+    "label": "Roofing",
+    "questions": [
+      "Is this a leak, storm damage, or are you after a full-replacement estimate?",
+      "Where is the leak showing up inside?",
+      "What type of roof is it—shingle, metal, or flat—and roughly how old?",
+      "Is it actively leaking right now?"
+    ],
+    "emergencies": ["an active leak during rain", "storm or wind damage", "a tree or limb through the roof", "missing shingles exposing the deck"],
+    "jobTypes": ["leak repair", "storm-damage inspection", "emergency tarp or patch", "full-replacement estimate", "gutter work"],
+    "jobMinutes": 120,
+    "notes": "Most roofing calls are estimate/inspection visits—book those, don't quote."
+  },
+  "tree service": {
+    "label": "Tree Service",
+    "questions": [
+      "What do you need—removal, trimming, or storm cleanup?",
+      "Roughly how big is the tree, or how many are we talking about?",
+      "Is it close to the house, a fence, or any power lines?",
+      "Is anything blocking access for our equipment, and do you want the stump ground and debris hauled away?"
+    ],
+    "emergencies": ["a tree or large limb down on a house, car, or driveway", "a tree on power lines", "a leaning or split tree threatening a structure", "storm debris blocking access"],
+    "jobTypes": ["tree removal", "limb or storm cleanup", "trimming and pruning", "stump grinding", "lot-clearing estimate"],
+    "jobMinutes": 120,
+    "notes": "Always ask about power-line proximity (may need the utility) and whether a permit could be required. Larger jobs are estimate visits."
+  },
+  "lawn care": {
+    "label": "Lawn Care",
+    "questions": [
+      "Are you looking for a one-time cleanup or recurring service?",
+      "Roughly how big is the property?",
+      "What do you need—mowing, edging, fertilization, or weed control?",
+      "Any gate code or dogs we should know about for access?"
+    ],
+    "emergencies": [],
+    "jobTypes": ["recurring mowing", "one-time cleanup", "fertilization program", "aeration", "weed control"],
+    "jobMinutes": 45,
+    "notes": "Lean toward recurring plans—ask if they'd like weekly or biweekly service."
+  },
+  "landscaping": {
+    "label": "Landscaping",
+    "questions": [
+      "What's the project—design and install, hardscape like a patio or wall, plantings, or a cleanup?",
+      "Roughly what size or scope are we talking about?",
+      "Do you have a budget range in mind?",
+      "Is this a spot you'd like us to come out and quote?"
+    ],
+    "emergencies": [],
+    "jobTypes": ["design consult", "plantings and beds", "hardscape estimate", "cleanup", "irrigation"],
+    "jobMinutes": 60,
+    "notes": "Most landscaping calls are consult/estimate visits—book those."
+  },
+  "pest control": {
+    "label": "Pest Control",
+    "questions": [
+      "What kind of pest are you seeing—ants, roaches, rodents, termites, wasps, or bed bugs?",
+      "Where in or around the home?",
+      "How long has it been going on?",
+      "Is anyone getting bitten or stung, and are you after a one-time treatment or ongoing service?"
+    ],
+    "emergencies": ["a wasp or hornet nest with someone allergic nearby", "rodents in the living space", "an aggressive or spreading infestation"],
+    "jobTypes": ["general pest treatment", "rodent control", "termite inspection", "wasp or bee removal", "recurring plan"],
+    "jobMinutes": 45,
+    "notes": "Offer a recurring plan; ask about kids and pets for treatment safety."
+  },
+  "pool service": {
+    "label": "Pool Service",
+    "questions": [
+      "Is this cleaning and maintenance, a repair like the pump or heater, or an opening/closing?",
+      "Is the water green, or is a piece of equipment failing?",
+      "One-time visit or recurring service?",
+      "What's the address so we can check we cover your area?"
+    ],
+    "emergencies": ["pump or equipment failure", "a major leak draining the pool", "a green pool right before an event"],
+    "jobTypes": ["cleaning", "chemical balancing", "pump or filter repair", "heater repair", "opening or closing", "recurring service"],
+    "jobMinutes": 60
+  },
+  "cleaning": {
+    "label": "Cleaning",
+    "questions": [
+      "Is this for a home or an office?",
+      "How many bedrooms and bathrooms, or roughly the square footage?",
+      "Is it a one-time deep clean, a move-in/move-out, or recurring?",
+      "Any special requests, focus areas, or pets we should know about?"
+    ],
+    "emergencies": [],
+    "jobTypes": ["standard clean", "deep clean", "move in/out clean", "recurring service", "post-construction"],
+    "jobMinutes": 120,
+    "notes": "Offer recurring (weekly/biweekly/monthly)."
+  },
+  "general": {
+    "label": "General",
+    "questions": [
+      "What do you need done?",
+      "Is this an emergency or can it wait a day or two?",
+      "What's the service address?"
+    ],
+    "emergencies": ["anything causing damage right now", "a safety hazard"],
+    "jobTypes": ["service call", "estimate visit"],
+    "jobMinutes": 90
+  }
+}
