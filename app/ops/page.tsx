@@ -1,7 +1,8 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { isOpsAuthed } from '@/lib/ops-auth';
 import { createServiceSupabase } from '@/lib/supabase';
-import { Logo, StatBlock, Card, CardHeader, Badge, FeedRow } from '@/components/ui';
+import { StatBlock, Card, CardHeader, Badge, FeedRow } from '@/components/ui';
+import { OpsNav } from '@/components/dashboard/OpsNav';
 import { formatUsd, formatDuration } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
@@ -23,10 +24,7 @@ function fmtTime(ts?: string) {
 }
 
 export default async function OpsPage() {
-  const pass = cookies().get('ccops')?.value;
-  if (!process.env.ADMIN_PASSCODE || pass !== process.env.ADMIN_PASSCODE) {
-    redirect('/ops/login');
-  }
+  if (!isOpsAuthed()) redirect('/ops/login');
 
   let calls: Row[] = [];
   let appts: Row[] = [];
@@ -63,13 +61,7 @@ export default async function OpsPage() {
 
   return (
     <div className="min-h-screen bg-midnight">
-      <header className="flex items-center justify-between border-b border-border bg-navy px-6 py-3">
-        <div className="flex items-center gap-3">
-          <Logo />
-          <Badge tone="signal">Ops console</Badge>
-        </div>
-        <span className="font-mono text-xs text-ink-3">live</span>
-      </header>
+      <OpsNav active="/ops" />
 
       <main className="mx-auto max-w-6xl px-6 py-6">
         {configError && (
