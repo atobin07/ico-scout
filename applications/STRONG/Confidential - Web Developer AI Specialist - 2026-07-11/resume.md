@@ -30,9 +30,9 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & AI Specialist | Self-Employed | Jan 2026 – Present
+- Built and deployed multiple production client websites coded in Next.js, version-controlled via GitHub, backed by Supabase, and hosted on Vercel: **PrimeLayer Solutions** (primelayer.solutions), **Kizuna Performance** (kizunaperformance.com), **CallCatch AI** (callcatchai.online), and **Herera Spreadsheets** (hereraspreadsheets.com).
 - Built **Capitol Mirror** — production AI-enabled SaaS (Next.js, TypeScript, Supabase/PostgreSQL, Stripe) with automated GitHub Actions ingestion pipeline, LLM-powered natural language data interface, Stripe billing (Free / $30 / $65/mo tiers), and DigitalOcean/PM2 production deployment; implemented schema validation, data quality controls, and row-level security throughout.
 - Built **AdvisoryCloud 3.0** — full-stack SaaS (React 18, Supabase/PostgreSQL, Edge Functions/Deno, Tailwind, PWA) with 15+ normalized database tables, real-time messaging, role-based access, and AI-assisted workflows; zero to production in 7 days.
-- Built **Container Tracker** — full-stack logistics platform (React, Supabase, Vercel) with live shipping API integration, 6-stage ETL pipeline, and fleet analytics dashboard.
 - Integrated Claude and Azure OpenAI APIs across all production projects — building AI agent workflows, conversational data interfaces, and automated content processing using Claude Code as the primary development environment.
 - Managed all deployment infrastructure via GitHub Actions, Vercel, DigitalOcean, and Azure with environment management and CI/CD throughout.
 
