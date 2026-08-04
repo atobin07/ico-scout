@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getResend, FROM_EMAIL } from '@/lib/resend';
 import { buildPromptFromIntake } from '@/lib/prompt-builder';
+import { saveLead } from '@/lib/leads';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -68,6 +69,18 @@ export async function POST(req: Request) {
   console.log('[onboarding] new intake:', JSON.stringify(Object.fromEntries(rows)));
   console.log('[onboarding] retell begin message:', built.beginMessage);
   console.log('[onboarding] retell prompt:\n' + built.generalPrompt);
+
+  // Durably record the intake so no client is lost if email isn't configured.
+  await saveLead({
+    kind: 'onboarding',
+    name: body.ownerName?.trim() || null,
+    businessName: body.businessName?.trim() || null,
+    email: body.email?.trim() || null,
+    phone: body.cellPhone?.trim() || null,
+    trade: body.trade?.trim() || null,
+    message: body.services?.trim() || null,
+    payload: { ...body },
+  });
 
   const to = process.env.QUOTE_NOTIFY_EMAIL;
   if (process.env.RESEND_API_KEY && to) {

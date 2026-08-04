@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getResend, FROM_EMAIL } from '@/lib/resend';
 import { estimatePricing, pricingSummary } from '@/lib/pricing';
+import { saveLead } from '@/lib/leads';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -75,6 +76,26 @@ export async function POST(req: Request) {
 
   console.log('[quote] lead:', JSON.stringify(Object.fromEntries(leadRows)));
   console.log('[quote] pricing:', pricingSummary(pricing));
+
+  // Durably record the lead first — never depends on email being configured.
+  // We store only the prospect-facing fields, never our internal pricing.
+  await saveLead({
+    kind: 'quote',
+    name,
+    businessName: body.businessName?.trim() || null,
+    email,
+    phone,
+    trade: body.trade?.trim() || null,
+    message: body.callsPerMonth ? `${body.callsPerMonth} calls/mo` : null,
+    payload: {
+      businessName: body.businessName?.trim() || null,
+      callsPerMonth,
+      missedPct: body.missedPct ?? null,
+      avgJobValue: body.avgJobValue ?? null,
+      closeRate: body.closeRate ?? null,
+      estRecoveredAnnual: body.estRecoveredAnnual ?? null,
+    },
+  });
 
   const to = notifyEmail();
   if (process.env.RESEND_API_KEY && to) {
