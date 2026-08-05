@@ -41,4 +41,4 @@ University of Tennessee, Knoxville, TN — Aug 2019
 - Led cross-functional documentation projects with hard submission deadlines — built project plans, coordinated SME input across departments, performed quality reviews, and delivered compliant final outputs on time.
 
 ### Smartsheet Administrator | SiteLogiQ, Remote (Contract) | Aug 2023 – Feb 2024
-- Developed contract deliverables and platform configuration proposals for client engagements; maintained detailed documentation of all agreed-upon configurations, workflow logic, and process standards.
+- Supported government contract proposal development for a Smartsheet-focused consulting practice; drafted and organized proposal content, coordinated with stakeholders on compliance requirements, and maintained documentation of configurations and deliverables tied to contract scope.
