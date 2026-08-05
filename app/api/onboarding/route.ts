@@ -3,6 +3,7 @@ import { getResend, FROM_EMAIL } from '@/lib/resend';
 import { buildPromptFromIntake } from '@/lib/prompt-builder';
 import { saveLead } from '@/lib/leads';
 import { pushLeadToAirtable } from '@/lib/airtable';
+import { sendLeadSms } from '@/lib/notify';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -92,6 +93,14 @@ export async function POST(req: Request) {
       phone: body.cellPhone?.trim() || null,
       trade: body.trade?.trim() || null,
       notes: body.services?.trim() || null,
+    }),
+    sendLeadSms({
+      kind: 'onboarding',
+      name: body.ownerName?.trim() || null,
+      businessName: body.businessName?.trim() || null,
+      trade: body.trade?.trim() || null,
+      phone: body.cellPhone?.trim() || null,
+      email: body.email?.trim() || null,
     }),
   ]);
 

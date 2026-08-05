@@ -3,6 +3,7 @@ import { getResend, FROM_EMAIL } from '@/lib/resend';
 import { estimatePricing, pricingSummary } from '@/lib/pricing';
 import { saveLead } from '@/lib/leads';
 import { pushLeadToAirtable } from '@/lib/airtable';
+import { sendLeadSms } from '@/lib/notify';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -108,6 +109,14 @@ export async function POST(req: Request) {
       phone,
       trade: body.trade?.trim() || null,
       notes: body.callsPerMonth ? `${body.callsPerMonth} calls/mo` : null,
+    }),
+    sendLeadSms({
+      kind: 'quote',
+      name,
+      businessName: body.businessName?.trim() || null,
+      trade: body.trade?.trim() || null,
+      phone,
+      email,
     }),
   ]);
 
