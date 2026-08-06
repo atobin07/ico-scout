@@ -4,7 +4,37 @@
  * /supabase/migrations/001_initial_schema.sql
  */
 
-export type TradeType = 'HVAC' | 'Plumbing' | 'Electrical' | 'Roofing' | 'General';
+/**
+ * Curated trade options for the UI. `trade_type` in the DB is stored as free
+ * text (no CHECK constraint) so new verticals can be added without a migration.
+ */
+export type TradeType =
+  | 'HVAC'
+  | 'Plumbing'
+  | 'Electrical'
+  | 'Roofing'
+  | 'Landscaping'
+  | 'Lawn Care'
+  | 'Tree Service'
+  | 'Pest Control'
+  | 'Pool Service'
+  | 'Cleaning'
+  | 'General';
+
+/** Trade options shown in dropdowns across the app. */
+export const TRADE_OPTIONS: string[] = [
+  'HVAC',
+  'Plumbing',
+  'Electrical',
+  'Roofing',
+  'Landscaping',
+  'Lawn Care',
+  'Tree Service',
+  'Pest Control',
+  'Pool Service',
+  'Cleaning',
+  'Other',
+];
 
 export type SubscriptionStatus = 'trial' | 'active' | 'past_due' | 'cancelled';
 

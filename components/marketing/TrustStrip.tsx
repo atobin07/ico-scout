@@ -1,6 +1,7 @@
 const ITEMS = [
-  'HVAC', 'Plumbing', 'Electrical', 'Roofing', 'Garage Doors',
-  'Appliance Repair', 'Landscaping', 'Pest Control', 'Locksmith', 'Pool Service',
+  'HVAC', 'Plumbing', 'Electrical', 'Roofing', 'Landscaping', 'Lawn Care',
+  'Tree Service', 'Garage Doors', 'Pest Control', 'Pool Service',
+  'Appliance Repair', 'Locksmith',
 ];
 
 export function TrustStrip() {

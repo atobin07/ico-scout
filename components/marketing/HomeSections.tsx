@@ -31,7 +31,7 @@ function SectionHeading({
 /* -------------------------------- problem -------------------------------- */
 
 const PROBLEM_STATS = [
-  { value: '62%', label: 'of calls to home service businesses go unanswered', tone: 'text-danger' },
+  { value: '62%', label: 'of calls to service businesses go unanswered', tone: 'text-danger' },
   { value: '85%', label: 'of callers never leave a voicemail — they just hang up', tone: 'text-warn' },
   { value: '78%', label: 'of customers hire the first business that answers', tone: 'text-live' },
 ];
@@ -43,7 +43,7 @@ export function ProblemSection() {
         <SectionHeading
           eyebrow="The problem"
           title="Every missed call is a job your competitor books"
-          sub="You're on a roof, under a sink, or driving between jobs. The phone rings. Nobody answers. That customer calls the next guy."
+          sub="You're on a roof, behind a mower, up a tree, or driving between jobs. The phone rings. Nobody answers. That customer calls the next guy."
         />
         <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-3">
           {PROBLEM_STATS.map((s) => (
@@ -78,7 +78,7 @@ const STEPS = [
   },
   {
     n: '03',
-    title: 'You get a summary text while you’re still on the roof',
+    title: 'You get a summary text while you’re still on the job',
     body: 'Job type, customer details, estimated value, and a recording — texted to you the moment the call ends. Zero admin.',
     icon: '💬',
   },
@@ -179,69 +179,6 @@ export function DemoTeaser() {
   );
 }
 
-/* ------------------------------ testimonials ----------------------------- */
-
-const TESTIMONIALS = [
-  {
-    quote:
-      'We were missing 20+ calls a week during jobs. CallCatch booked $14K in work its first month. It literally pays for itself in a day.',
-    name: 'Marcus Bell',
-    role: 'Owner, Bell Comfort HVAC',
-    initials: 'MB',
-    trade: 'HVAC',
-  },
-  {
-    quote:
-      'After-hours pipe bursts used to go to voicemail. Now the AI books the emergency and texts me. I show up, I get paid. Simple.',
-    name: 'Diego Ramirez',
-    role: 'Rapid Response Plumbing',
-    initials: 'DR',
-    trade: 'Plumbing',
-  },
-  {
-    quote:
-      "I'm a one-man shop. CallCatch is my receptionist, my scheduler, and my answering service for less than a slow week of missed calls.",
-    name: 'Tyler Osei',
-    role: 'Coreline Electric',
-    initials: 'TO',
-    trade: 'Electrical',
-  },
-];
-
-export function Testimonials() {
-  return (
-    <section className="border-t border-border bg-navy/40 py-20">
-      <div className="mx-auto max-w-6xl px-5">
-        <SectionHeading
-          eyebrow="Proof"
-          title="Home service pros are catching every call"
-        />
-        <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
-            <figure
-              key={t.name}
-              className="flex flex-col justify-between rounded-2xl border border-border bg-navy p-7"
-            >
-              <blockquote className="text-sm leading-relaxed text-ink-1">
-                “{t.quote}”
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-signal/20 font-mono text-sm font-600 text-sky">
-                  {t.initials}
-                </div>
-                <div>
-                  <div className="text-sm font-600 text-ink-1">{t.name}</div>
-                  <div className="text-xs text-ink-2">{t.role}</div>
-                </div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* -------------------------------- final CTA ------------------------------ */
 
 export function FinalCTA() {
@@ -254,12 +191,13 @@ export function FinalCTA() {
           Stop losing jobs to voicemail.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-lg text-ink-2">
-          Set up your AI receptionist in minutes. 14-day free trial, no card required.
+          Tell us your call volume and we’ll send a custom quote — a one-time install
+          and a flat monthly price that pays for itself.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link href="/auth/signup">
+          <Link href="/quote">
             <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              Start catching calls →
+              Get a quote →
             </Button>
           </Link>
           <Link href="/demo">

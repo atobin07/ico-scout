@@ -15,7 +15,7 @@ export function Hero() {
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-border-2 bg-navy/60 px-3 py-1 text-xs text-ink-2">
             <span className="h-1.5 w-1.5 rounded-full bg-live animate-pulse-live" />
-            Answering calls live for home service pros
+            Answering calls live for home &amp; outdoor service pros
           </div>
 
           <h1 className="mt-5 text-[2.75rem] font-900 leading-[1.02] tracking-tightest text-ink-1 sm:text-6xl">
@@ -29,16 +29,17 @@ export function Hero() {
           </h1>
 
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-ink-2">
-            The average home service business misses{' '}
+            The average service business misses{' '}
             <span className="font-mono font-semibold text-warn">$120K</span> a year in
             revenue from unanswered calls. CallCatch picks up in under a second,
-            qualifies the lead, and books the job — while you’re still on the roof.
+            qualifies the lead, and books the job — while you’re still on the roof
+            or on the mower.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/auth/signup">
+            <Link href="/quote">
               <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                Start catching calls →
+                Get a quote →
               </Button>
             </Link>
             <Link href="/demo">

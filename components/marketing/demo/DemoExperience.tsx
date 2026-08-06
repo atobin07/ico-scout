@@ -466,7 +466,7 @@ export function DemoExperience({ initialScenarioId }: { initialScenarioId?: stri
                 <Button variant="ghost" onClick={reset}>
                   Try again
                 </Button>
-                <Link href="/auth/signup">
+                <Link href="/quote">
                   <Button variant="primary">Get this for my business →</Button>
                 </Link>
               </div>

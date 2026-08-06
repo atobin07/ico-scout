@@ -5,10 +5,9 @@ import {
   ProblemSection,
   HowItWorks,
   DemoTeaser,
-  Testimonials,
   FinalCTA,
 } from '@/components/marketing/HomeSections';
-import { PricingSection } from '@/components/marketing/PricingSection';
+import { QuoteSection } from '@/components/marketing/QuoteSection';
 import { SiteFooter } from '@/components/marketing/SiteFooter';
 
 export default function HomePage() {
@@ -21,8 +20,7 @@ export default function HomePage() {
         <ProblemSection />
         <HowItWorks />
         <DemoTeaser />
-        <Testimonials />
-        <PricingSection />
+        <QuoteSection />
         <FinalCTA />
       </main>
       <SiteFooter />

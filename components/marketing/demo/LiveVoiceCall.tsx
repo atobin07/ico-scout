@@ -251,7 +251,7 @@ export function LiveVoiceCall() {
               <Button variant="ghost" onClick={() => setPhase('idle')}>
                 Call again
               </Button>
-              <Link href="/auth/signup">
+              <Link href="/quote">
                 <Button variant="primary">Get this for my business →</Button>
               </Link>
             </div>
