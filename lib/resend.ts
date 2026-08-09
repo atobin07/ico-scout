@@ -1,6 +1,7 @@
 /**
  * Resend transactional email client. Templates wired in Phases 3 & 10.
  */
+import 'server-only'; // RESEND_API_KEY must never reach the browser bundle
 import { Resend } from 'resend';
 
 let _resend: Resend | null = null;
