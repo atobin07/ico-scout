@@ -14,7 +14,7 @@ export function getResend(): Resend {
 }
 
 /** The address all CallCatch email is sent from. */
-export const FROM_EMAIL = 'CallCatch <sales@callcatchai.online>';
+export const FROM_EMAIL = 'CallCatch <contact@callcatchai.online>';
 
-/** Where lead / booking notifications land. Defaults to sales@, overridable via env. */
-export const NOTIFY_EMAIL = process.env.QUOTE_NOTIFY_EMAIL || 'sales@callcatchai.online';
+/** Where lead / booking notifications land. Defaults to contact@, overridable via env. */
+export const NOTIFY_EMAIL = process.env.QUOTE_NOTIFY_EMAIL || 'contact@callcatchai.online';
