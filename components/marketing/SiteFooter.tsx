@@ -28,7 +28,7 @@ export function SiteFooter() {
           </div>
           <div className="mt-3 flex flex-col gap-2 text-sm text-ink-2">
             <Link href="/quote" className="hover:text-ink-1">Get a quote</Link>
-            <a href="mailto:contact@callcatchai.online" className="hover:text-ink-1">contact@callcatchai.online</a>
+            <a href="mailto:sales@callcatchai.online" className="hover:text-ink-1">sales@callcatchai.online</a>
             <Link href="/auth/login" className="hover:text-ink-1">Sign in</Link>
           </div>
         </div>
