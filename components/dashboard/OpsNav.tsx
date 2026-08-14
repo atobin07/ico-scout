@@ -4,9 +4,8 @@ import { cn } from '@/lib/utils';
 
 const TABS = [
   { href: '/ops', label: 'Leads' },
-  { href: '/ops/calls', label: 'Calls' },
-  { href: '/ops/dispatch', label: 'Dispatch' },
   { href: '/ops/analytics', label: 'Analytics' },
+  { href: '/ops/traffic', label: 'Traffic' },
 ];
 
 export function OpsNav({ active }: { active: string }) {
