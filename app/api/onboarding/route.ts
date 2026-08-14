@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getResend, FROM_EMAIL } from '@/lib/resend';
+import { getResend, FROM_EMAIL, NOTIFY_EMAIL } from '@/lib/resend';
 import { buildPromptFromIntake } from '@/lib/prompt-builder';
 import { saveLead } from '@/lib/leads';
 import { pushLeadToAirtable } from '@/lib/airtable';
@@ -104,7 +104,7 @@ export async function POST(req: Request) {
     }),
   ]);
 
-  const to = process.env.QUOTE_NOTIFY_EMAIL;
+  const to = NOTIFY_EMAIL;
   if (process.env.RESEND_API_KEY && to) {
     const pre = 'style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:#0C1525;color:#E8F0FF;padding:14px 16px;border-radius:10px;line-height:1.5"';
     const html = `

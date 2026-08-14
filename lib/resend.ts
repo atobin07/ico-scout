@@ -1,6 +1,7 @@
 /**
  * Resend transactional email client. Templates wired in Phases 3 & 10.
  */
+import 'server-only'; // RESEND_API_KEY must never reach the browser bundle
 import { Resend } from 'resend';
 
 let _resend: Resend | null = null;
@@ -12,4 +13,8 @@ export function getResend(): Resend {
   return _resend;
 }
 
-export const FROM_EMAIL = 'CallCatch <alerts@callcatchai.online>';
+/** The address all CallCatch email is sent from. */
+export const FROM_EMAIL = 'CallCatch <contact@callcatchai.online>';
+
+/** Where lead / booking notifications land. Defaults to contact@, overridable via env. */
+export const NOTIFY_EMAIL = process.env.QUOTE_NOTIFY_EMAIL || 'contact@callcatchai.online';

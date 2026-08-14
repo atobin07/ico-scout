@@ -3,6 +3,7 @@
  * `createWebCall` powers the public browser voice demo (real mic + AI voice
  * + live transcript). Agent/recording helpers are fleshed out in Phase 3.
  */
+import 'server-only'; // RETELL_API_KEY must never reach the browser bundle
 import Retell from 'retell-sdk';
 import type { Business } from '@/types';
 

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getResend, FROM_EMAIL } from '@/lib/resend';
+import { getResend, FROM_EMAIL, NOTIFY_EMAIL } from '@/lib/resend';
 import { estimatePricing, pricingSummary } from '@/lib/pricing';
 import { saveLead } from '@/lib/leads';
 import { pushLeadToAirtable } from '@/lib/airtable';
@@ -19,10 +19,6 @@ interface QuotePayload {
   avgJobValue?: number;
   closeRate?: number;
   estRecoveredAnnual?: number;
-}
-
-function notifyEmail(): string | undefined {
-  return process.env.QUOTE_NOTIFY_EMAIL || undefined;
 }
 
 function escapeHtml(s: string): string {
@@ -120,7 +116,7 @@ export async function POST(req: Request) {
     }),
   ]);
 
-  const to = notifyEmail();
+  const to = NOTIFY_EMAIL;
   if (process.env.RESEND_API_KEY && to) {
     const table = (rows: [string, string][]) =>
       `<table style="border-collapse:collapse;font-family:sans-serif;font-size:14px">${rows
