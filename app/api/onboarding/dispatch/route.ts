@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getResend, FROM_EMAIL } from '@/lib/resend';
+import { getResend, FROM_EMAIL, NOTIFY_EMAIL } from '@/lib/resend';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
 
   console.log('[onboarding/dispatch] setup request:', JSON.stringify(Object.fromEntries(rows)));
 
-  const to = process.env.QUOTE_NOTIFY_EMAIL;
+  const to = NOTIFY_EMAIL;
   if (process.env.RESEND_API_KEY && to) {
     const html = `
       <h2 style="font-family:sans-serif">Dispatch & analytics setup request</h2>
