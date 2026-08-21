@@ -5,11 +5,11 @@
 **Date Found:** 2026-08-21
 **Fit:** WEAK
 
-## Why WEAK
-- **No OpenText experience:** Alexander has zero exposure to OpenText Content Server, Extended ECM, or any OpenText platform — this is a highly specialized enterprise content management stack
-- **No Salesforce/SAP/ServiceNow development:** The bonus skills (Salesforce dev, SAP dev, ServiceNow dev) are also gaps; Alexander has integration-adjacent experience (EDI with SAP-adjacent tools, Salesforce-adjacent automation) but no direct development in these platforms
-- **Highly specialized role:** OpenText is a niche enterprise ECM ecosystem; experience doesn't transfer easily from general data integration or SQL work
-- **General integration skills have some relevance:** Experience with enterprise platform integrations, data flows, cross-system connectivity, and technical documentation could provide a baseline, but the platform-specific gap is too wide for a strong application
+## Why WEAK (revised)
+- **OpenText Content Server experience confirmed:** Alexander used OpenText Content Server for document management and content workflows at Ferguson, ZenEvo, University of Tennessee, and in freelance work — core platform familiarity is real
+- **Extended ECM / enablers gap:** Extended ECM Platform and the Salesforce, SAP, ServiceNow enablers are gaps — Content Server experience transfers but the deeper platform engineering stack is still a learning curve
+- **No Salesforce/SAP/ServiceNow development:** Bonus skills are gaps; enterprise integration background (EDI, SAP-adjacent tools) provides some footing
+- **Filed WEAK due to enabler/extended stack gap** — stronger than originally assessed given the Content Server experience across all positions
 
 ## Role Summary
 OpenText developer/engineer role at ClearInfo requiring hands-on experience with OpenText Content Server, Extended ECM Platform, and enablers for Salesforce, SAP, and ServiceNow. Bonus: development skills in Salesforce, SAP, and/or ServiceNow. No further details provided on location, seniority level, or full responsibilities.

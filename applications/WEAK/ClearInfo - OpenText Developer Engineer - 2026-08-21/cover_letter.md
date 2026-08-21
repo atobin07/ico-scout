@@ -14,13 +14,13 @@ ClearInfo
 
 Dear Hiring Team,
 
-I am writing to express my interest in the OpenText Developer / Engineer role at ClearInfo. While I will be upfront that I do not yet have direct hands-on experience with the OpenText platform, my background in enterprise system integration, cross-platform data connectivity, and technical troubleshooting gives me a foundation I believe is worth your consideration.
+I am writing to express my interest in the OpenText Developer / Engineer role at ClearInfo. I have worked with OpenText Content Server for document management and content workflows across every organization in my career, and I am eager to deepen that experience in a role focused specifically on the OpenText platform.
 
-At Ferguson Enterprises, I worked within a large-scale B2B integration environment, managing complex data flows across enterprise systems — including SAP-adjacent tooling — and ensuring reliable connectivity between trading partners, internal platforms, and third-party services. I became proficient in diagnosing integration failures at the system boundary, developing SOPs for complex integration constructs, and collaborating with IT and business stakeholders to see enhancements through from requirements to UAT. These are the same disciplines that underpin OpenText platform engineering: understanding how enterprise content and data move between systems, where failures occur, and how to document and stabilize those integrations.
+At Ferguson Enterprises, I used OpenText Content Server as part of our enterprise integration environment, managing documentation, SOPs, and partner records across departments. Alongside that, I led end-to-end onboarding of trading partners to a high-volume B2B EDI platform — coordinating cross-system data flows, validating integration constructs, and collaborating with IT and business stakeholders through UAT and go-live. This combination of ECM platform experience and enterprise integration work gave me a clear view of how content management systems sit within larger data and workflow ecosystems. I carried OpenText Content Server use through my supply chain analyst role at ZenEvo Chocolate and earlier work at the University of Tennessee as well.
 
-I recognize the OpenText-specific gap clearly — Content Server, Extended ECM, and the Salesforce, SAP, and ServiceNow enablers are specialized tools I would need to learn on the job. I am a fast, structured learner who has come up to speed quickly on complex enterprise platforms before, and I am actively building my technical depth through the DP-203 Azure Data Engineering certification.
+The areas where I would be building depth in this role are the extended OpenText stack — Extended ECM, the Salesforce, SAP, and ServiceNow enablers, and platform-level development and configuration. My integration and systems background gives me strong footing for that growth, and I am a structured, fast learner in enterprise platform environments. I am actively pursuing the DP-203 Azure Data Engineering certification as part of a continued investment in technical depth.
 
-I would welcome the opportunity to discuss my background and how it might serve ClearInfo's needs.
+I would welcome the opportunity to discuss how my OpenText and enterprise integration experience fits ClearInfo's needs.
 
 Thank you for your consideration.
 
