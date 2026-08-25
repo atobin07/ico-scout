@@ -45,7 +45,7 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
-- Designed and launched **Capitol Mirror** — full-stack SaaS (Next.js, Supabase, Stripe) tracking stock trades for all 538 Congress members; subscription tiers, automated data pipelines via GitHub Actions, and deep analytics dashboards.
+- Designed and deployed expert-level C-suite KPI dashboards for client organizations; built multi-layered financial and operational performance reporting with automated data pipelines, real-time metrics, and executive-ready visualization frameworks.
 - Built **AdvisoryCloud 3.0** — SaaS platform (React 18, Supabase, PWA) with real-time messaging, role-based access, and full database schema; delivered from zero to live production MVP in 7 days.
 - Built **Container Tracker** — logistics tracking tool (React, Supabase, Vercel) with live shipping API integration and a 6-stage container status pipeline deployed to production.
 - Managed client data workflows, reporting automation, and dashboard development across multiple concurrent engagements.

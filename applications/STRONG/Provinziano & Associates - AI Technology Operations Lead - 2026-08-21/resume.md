@@ -24,7 +24,7 @@ University of Tennessee, Knoxville, TN — Aug 2019
 
 ### Freelance Developer & Data Analyst | Self-Employed | Jan 2026 – Present
 - Deployed and integrated Anthropic Claude API across client workflows; built prompt libraries, configured context management, and implemented AI-assisted automation pipelines for production use.
-- Built **Capitol Mirror** — full-stack SaaS (Next.js, Supabase, Stripe) with automated data pipeline, subscription tiers, and push notifications; live in production.
+- Developed expert-level C-suite KPI dashboards and executive reporting infrastructure; built automated data pipelines feeding real-time financial and operational metrics into leadership decision-making frameworks.
 - Built **AdvisoryCloud 3.0** — mobile-first SaaS (React 18, Supabase) with real-time messaging and 15+ database tables with RLS; zero to production in 7 days.
 - Maintained technical documentation on AI configurations, integration architecture, and deployment best practices.
 

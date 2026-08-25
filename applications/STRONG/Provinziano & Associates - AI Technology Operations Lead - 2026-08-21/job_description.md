@@ -7,7 +7,7 @@
 
 ## Why STRONG
 - **AI/LLM fluency:** Hands-on daily experience with Claude API, prompt engineering, context management, and AI-assisted development — exactly what the role centers on
-- **API integration & tooling:** Built full-stack SaaS products (Capitol Mirror, AdvisoryCloud, Container Tracker) using APIs, Supabase, Vercel, GitHub Actions — the "lightweight back-end and integrations" profile they describe
+- **API integration & tooling:** Built full-stack SaaS products (AdvisoryCloud, Container Tracker) using APIs, Supabase, Vercel, GitHub Actions — the "lightweight back-end and integrations" profile they describe
 - **Internal advisor experience:** Cross-functional stakeholder communication, training, and implementation at Ferguson and Catalyzt; translating technical concepts for non-technical audiences
 - **Vendor management:** Managed trading partner relationships and EDI platform vendors at Ferguson
 - **Pre-law / legal studies degree:** Direct academic background in law — a rare and compelling differentiator for a legal tech AI role; the JD explicitly welcomes candidates "willing to develop legal knowledge"
