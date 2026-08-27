@@ -1,39 +1,48 @@
 # ALEXANDER TOBIN
+**Options Analyst & Independent Trader**
 (757) 289-1204 | atobin@alum.utk.edu | Virginia Beach, VA
 
-## Professional Summary
-Independent options trader and consultant with 15 years of experience researching, structuring, and executing multi-leg options strategies across equities, ETFs, and index products. Deep command of options pricing, the Greeks, implied vs. realized volatility, skew and term structure, and margin mechanics under both Reg-T and portfolio margin frameworks. Founder of primelayertrades.com — an active options research and trade idea platform. Specializes in defined-risk and margin-eligible short-premium strategies: verticals, condors, calendars, diagonals, and covered structures. Every trade idea arrives with a complete plan — entry, exit, maximum loss, and adjustment conditions — and a clear thesis defending why the trade, why now, and what invalidates it.
-
-## Core Trading Skills
-- Options Pricing & Greeks (Delta, Gamma, Theta, Vega, Rho) · IV/RV Analysis · Skew & Term Structure
-- Multi-Leg Strategy Construction: Verticals · Iron Condors · Calendars · Diagonals · Covered Structures
-- Defined-Risk Trade Construction · Short-Premium Strategies · Margin-Eligible Trade Structuring
-- Reg-T & Portfolio Margin Mechanics · Position Sizing & Risk Parameterization
-- Trade Thesis Development · Entry/Exit/Adjustment Planning · Stop Conditions
-- Technical Analysis · Market Regime Assessment · Earnings & Event-Driven Strategies
-- Written Trade Idea Communication · P&L Attribution · Performance Tracking
-
-## Trading Experience
-
-### Founder & Lead Options Analyst | primelayertrades.com | 2020 – Present
-- Operate an active options research and trade idea platform; research, structure, and publish fully specified multi-leg options strategies across equities, ETFs, and index products.
-- Generate written trade ideas with complete plans: underlying, structure, strikes, expirations, net debit/credit targets, entry/exit levels, maximum loss, adjustment triggers, and invalidation conditions.
-- Specialize in short-premium and defined-risk structures in appropriate market regimes — iron condors, credit spreads, calendars, diagonals, and covered positions — with sizing rationale consistent with margin requirements.
-- Maintain rigorous P&L tracking and idea attribution; analyze winners and losers to refine process and improve idea quality over time.
-- Apply IV rank/percentile, skew analysis, and term structure assessment to identify favorable risk/reward environments for each strategy type.
-
-### Independent Options Trader | Self-Directed | 2011 – Present
-- 15 years of active options trading across individual equities, ETFs, and index products; developed deep fluency in options pricing dynamics, volatility behavior, and multi-leg strategy construction through direct market engagement.
-- Built and refined a disciplined, repeatable idea-generation process grounded in defined-risk trade construction, systematic entry/exit rules, and consistent max-loss framing before every position.
-- Extensive experience managing positions through earnings events, volatility regime shifts, and adverse moves — including mechanical adjustment and stop protocols.
-
-## Professional Background
-### Freelance Data Analyst & Systems Consultant | Self-Employed | Jan 2026 – Present
-- Deliver financial modeling, analytics infrastructure, and executive reporting for client organizations across multiple industries; analytical rigor and written communication discipline applied directly to trade idea development at primelayertrades.com.
-
-### Data Analyst / Project Manager | Ferguson Enterprises Inc., Remote | Mar 2022 – Jul 2024
-- Led financial analysis, modeling, and executive reporting for a multi-location operation; quantitative discipline and P&L accountability developed across high-stakes financial environments.
+## Core Skills
+- Options Pricing & Greeks
+- IV/RV · Skew · Term Structure
+- Iron Condors · Credit Spreads
+- Calendars · Diagonals
+- Short-Premium Strategies
+- Defined-Risk Construction
+- Reg-T & Portfolio Margin
+- Position Sizing & Risk Control
+- Entry/Exit/Adjustment Plans
+- Earnings & Event-Driven Trades
+- P&L Tracking & Attribution
+- Market Regime Assessment
+- Written Trade Communication
 
 ## Education
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration
 University of Tennessee, Knoxville, TN — Aug 2019
+
+## Certifications
+- 15 Years Active Options Trading
+- primelayertrades.com — Founder
+- Google Project Management Certification
+- Google Analytics Certification
+
+## Trading Experience
+
+### Founder & Lead Options Analyst | primelayertrades.com | 2020 – Present
+- Research, structure, and publish fully specified multi-leg options strategies across equities, ETFs, and index products; every idea includes underlying, structure, strikes, expirations, net debit/credit targets, entry/exit levels, maximum loss, adjustment triggers, and invalidation conditions.
+- Specialize in short-premium and defined-risk structures — iron condors, credit spreads, calendars, diagonals, covered positions — with sizing rationale consistent with margin requirements and the trade's volatility regime.
+- Apply IV rank/percentile, skew analysis, and term structure assessment to identify favorable risk/reward environments; maintain rigorous P&L tracking and idea attribution to continuously refine the process.
+
+### Independent Options Trader | Self-Directed | 2011 – Present
+- 15 years of active options trading across equities, ETFs, and index products; deep command of pricing dynamics, volatility behavior, and multi-leg strategy construction built through direct market engagement.
+- Disciplined, repeatable idea-generation process: defined-risk construction, systematic entry/exit rules, max-loss framing before every position, and mechanical adjustment protocols under Reg-T and portfolio margin.
+- Fluency in the Greeks as live risk management tools — dynamic position monitoring throughout the life of every trade, not just entry-point reference values.
+
+## Professional Background
+
+### Freelance Data Analyst & Consultant | Self-Employed | Jan 2026 – Present
+- Deliver financial modeling, analytics infrastructure, and executive reporting for clients including callcathai.online, primelayertrades.com, and hereraspreadsheets.com; quantitative rigor and written communication discipline applied directly to options trade idea development.
+
+### Data Analyst / Project Manager | Ferguson Enterprises Inc., Remote | Mar 2022 – Jul 2024
+- Led financial analysis, P&L reporting, and variance analysis for a multi-location ecommerce operation; reported to CFO, VP of Finance, and EVP of Sales; applied the same structured, evidence-based analytical framework that drives trade idea generation at primelayertrades.com.
