@@ -25,10 +25,10 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Data Engineer & Developer | Self-Employed | Jan 2026 – Present
-- Built cloud-native data pipelines and full-stack SaaS applications on AWS, GCP, and Azure; engineered automated ETL workflows feeding real-time dashboards and executive reporting systems for client organizations.
-- Developed **AdvisoryCloud 3.0** — production SaaS (React 18, Supabase, Vercel, Edge Functions) with 15+ database tables, row-level security, real-time data pipelines, and CI/CD deployment.
-- Built **Container Tracker** — logistics data platform integrating live shipping APIs with a full CRUD data pipeline and operational analytics dashboard.
-- Designed and delivered expert-level C-suite KPI dashboards and executive reporting infrastructure; built multi-dimensional performance frameworks with automated pipelines and real-time visualization layers.
+- **callcathai.online** — Engineered PySpark and Python data pipelines on AWS (S3, Redshift) for AI-driven call analytics; built automated ETL workflows ingesting raw call data into structured reporting layers for executive dashboards.
+- **primelayertrades.com** — Designed and deployed cloud data infrastructure on GCP (BigQuery) and AWS; built Java-based data processing jobs and automated ingestion pipelines for trading and financial data with real-time KPI reporting.
+- **hereraspreadsheets.com** — Built full-stack data platform (Supabase, Vercel, Python) with automated data pipelines, advanced SQL reporting layers, and C-suite KPI dashboards for operational and financial performance tracking.
+- Designed and delivered expert-level C-suite KPI dashboards and executive reporting infrastructure across client engagements; built multi-dimensional performance frameworks with automated pipelines and real-time visualization layers.
 
 ### Operations Manager / Data Systems Developer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Engineered PySpark and Python data pipelines for operational and financial data processing across a multi-location environment; built automated ETL workflows reducing reporting cycle time.
