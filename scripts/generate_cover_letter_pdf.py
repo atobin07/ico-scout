@@ -66,24 +66,24 @@ def generate(folder):
         body_lines.append(ln)
 
     # Styles
-    s_normal = ParagraphStyle("normal", fontName=F_REG, fontSize=10.5, leading=16,
+    s_normal = ParagraphStyle("normal", fontName=F_REG, fontSize=9.5, leading=14,
                                textColor=C_GRAY, spaceAfter=0, spaceBefore=0)
-    s_bold_head = ParagraphStyle("bhead", fontName=F_BOLD, fontSize=10.5, leading=16,
-                                  textColor=C_TEAL, spaceAfter=4, spaceBefore=8)
-    s_contact = ParagraphStyle("contact", fontName=F_SEMI, fontSize=10, leading=14,
+    s_bold_head = ParagraphStyle("bhead", fontName=F_BOLD, fontSize=9.5, leading=14,
+                                  textColor=C_TEAL, spaceAfter=2, spaceBefore=5)
+    s_contact = ParagraphStyle("contact", fontName=F_SEMI, fontSize=9, leading=13,
                                 textColor=C_NAVY)
-    s_small = ParagraphStyle("small", fontName=F_REG, fontSize=9.5, leading=13,
+    s_small = ParagraphStyle("small", fontName=F_REG, fontSize=8.5, leading=12,
                               textColor=C_LGRAY)
-    s_sig = ParagraphStyle("sig", fontName=F_SEMI, fontSize=10.5, leading=15,
+    s_sig = ParagraphStyle("sig", fontName=F_SEMI, fontSize=9.5, leading=14,
                             textColor=C_NAVY)
 
     doc = SimpleDocTemplate(
         out_path,
         pagesize=letter,
-        leftMargin=1.0*inch,
-        rightMargin=1.0*inch,
-        topMargin=0.85*inch,
-        bottomMargin=0.75*inch,
+        leftMargin=0.75*inch,
+        rightMargin=0.75*inch,
+        topMargin=0.6*inch,
+        bottomMargin=0.5*inch,
     )
 
     story = []
@@ -121,9 +121,9 @@ def generate(folder):
             else:
                 if header_block:
                     story += make_header(header_block)
-                    story.append(Spacer(1, 10))
+                    story.append(Spacer(1, 6))
                     story.append(HRFlowable(width="100%", thickness=1.5,
-                                            color=C_TEAL, spaceAfter=10))
+                                            color=C_TEAL, spaceAfter=6))
                     header_done = True
             i += 1
             continue
@@ -135,10 +135,10 @@ def generate(folder):
                     for dl in date_block:
                         if dl:
                             story.append(Paragraph(dl, s_small))
-                    story.append(Spacer(1, 14))
+                    story.append(Spacer(1, 8))
                 date_done = True
                 story.append(Paragraph(stripped, s_normal))
-                story.append(Spacer(1, 12))
+                story.append(Spacer(1, 8))
             else:
                 date_block.append(stripped)
             i += 1
@@ -154,7 +154,7 @@ def generate(folder):
 
         # Signature block
         if stripped.lower() in ("sincerely,", "regards,", "best,"):
-            story.append(Spacer(1, 18))
+            story.append(Spacer(1, 10))
             story.append(Paragraph(stripped, s_normal))
             i += 1
             continue
@@ -167,7 +167,7 @@ def generate(folder):
 
         # Empty line
         if not stripped:
-            story.append(Spacer(1, 8))
+            story.append(Spacer(1, 5))
             i += 1
             continue
 
@@ -176,7 +176,7 @@ def generate(folder):
         i += 1
 
     # Footer rule
-    story.append(Spacer(1, 20))
+    story.append(Spacer(1, 8))
     story.append(HRFlowable(width="100%", thickness=0.5, color=C_TEAL, spaceAfter=6))
     story.append(Paragraph(
         "(757) 289-1204  ·  atobin@alum.utk.edu  ·  Virginia Beach, VA  ·  primelayertrades.com",
