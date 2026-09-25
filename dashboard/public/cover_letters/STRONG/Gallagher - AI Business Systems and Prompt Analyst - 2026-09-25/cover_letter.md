@@ -14,7 +14,7 @@ I am writing to apply for the AI Business Systems and Prompt Analyst role at Gal
 
 **Prompt Engineering and AI Agent Development**
 
-I am a hands-on practitioner of LLM prompt design, not a theorist. In my current freelance practice supporting callcathai.online, primelayertrades.com, and hereraspreadsheets.com, I have designed, versioned, tested, and optimized prompts (system, user, and tool-call) for document processing, data extraction, summarization, classification, and decision support workflows — in production environments used by real business users. I understand context management, grounding, RAG patterns, and function calling, and I apply responsible AI practices including output validation, bias awareness, and auditability. I use Claude Code, GitHub Copilot, Microsoft Copilot, and GPT-4 daily — these are not resume line items, they are the tools I work in.
+I am a hands-on practitioner of LLM prompt design, not a theorist. In my current freelance practice supporting callcatchai.online, primelayertrades.com, and hereraspreadsheets.com, I have designed, versioned, tested, and optimized prompts (system, user, and tool-call) for document processing, data extraction, summarization, classification, and decision support workflows — in production environments used by real business users. I understand context management, grounding, RAG patterns, and function calling, and I apply responsible AI practices including output validation, bias awareness, and auditability. I use Claude Code, GitHub Copilot, Microsoft Copilot, and GPT-4 daily — these are not resume line items, they are the tools I work in.
 
 **Microsoft Power Platform and No-Code AI Solutions**
 

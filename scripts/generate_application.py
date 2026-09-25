@@ -628,9 +628,11 @@ def build_main(data, compact=False, max_bullets=None, stretch=1.0):
                 textColor=C_GRAY,  leading=(14 if not compact else 12) * stretch,
                 leftIndent=10, firstLineIndent=-8,
                 spaceAfter=(4 if not compact else 2) * stretch)
-    s_sum  = S("su",  fontName=F_REG, fontSize=9.5 if not compact else 8.5,
-                textColor=C_LGRAY, leading=(14.5 if not compact else 12) * stretch,
-                spaceAfter=(4 if not compact else 2) * stretch)
+    s_sum  = S("su",  fontName=F_REG, fontSize=10 if not compact else 8.5,
+                textColor=colors.HexColor("#C8D8E8"),
+                leading=(15.5 if not compact else 12) * stretch,
+                spaceAfter=(6 if not compact else 2) * stretch,
+                leftIndent=8, rightIndent=8)
 
     story   = [sp(10)]
     job_idx = 0
@@ -650,14 +652,15 @@ def build_main(data, compact=False, max_bullets=None, stretch=1.0):
         for ln in sec["items"]:
             ls = ln.strip()
             if not ls: continue
+            if ls == "---": continue  # skip markdown horizontal rules
             if ls.startswith("|") and "---" not in ls:
                 table_rows.append(ls); continue
             if table_rows:
                 story.append(_skills_table(table_rows)); table_rows = []
             # In compact mode cap summary to 2 sentences
             if compact:
-                sentences = [s.strip() for s in ls.replace(". ", ".|").split("|") if s.strip()]
-                ls = ". ".join(sentences[:2]) + ("." if sentences else "")
+                sentences = [s.strip().rstrip('.') for s in ls.replace(". ", ".|").split("|") if s.strip()]
+                ls = ". ".join(sentences[:2]) + "."
             story.append(Paragraph(rich(ls), s_sum))
         if table_rows:
             story.append(_skills_table(table_rows))

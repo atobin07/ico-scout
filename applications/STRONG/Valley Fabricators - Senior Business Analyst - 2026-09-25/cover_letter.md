@@ -14,7 +14,7 @@ I am writing to apply for the Senior Business Analyst role at Valley Fabricators
 
 **BI Development and Dashboard Excellence**
 
-Throughout my career, I have built production-grade Power BI and Tableau dashboards for some of the most demanding stakeholders — CFOs, VPs of Finance, and EVP-level Sales leaders at Ferguson Enterprises, and C-suite leadership across my current freelance practice serving callcathai.online, primelayertrades.com, and hereraspreadsheets.com. My dashboards are not cosmetic; they are built on clean data models, optimized SQL queries, and ETL pipelines that hold up over time. I know how to gather ambiguous requirements from business leaders and translate them into technical specifications that a data engineering team can build against.
+Throughout my career, I have built production-grade Power BI and Tableau dashboards for some of the most demanding stakeholders — CFOs, VPs of Finance, and EVP-level Sales leaders at Ferguson Enterprises, and C-suite leadership across my current freelance practice serving callcatchai.online, primelayertrades.com, and hereraspreadsheets.com. My dashboards are not cosmetic; they are built on clean data models, optimized SQL queries, and ETL pipelines that hold up over time. I know how to gather ambiguous requirements from business leaders and translate them into technical specifications that a data engineering team can build against.
 
 **SQL, Python, R, and ETL Expertise**
 

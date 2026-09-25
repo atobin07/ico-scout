@@ -14,7 +14,7 @@ I am writing to apply for the Data Analyst position within CBRE's Data Science &
 
 **SQL, Python, and Data Pipeline Experience**
 
-I have used SQL as a core analytical tool for 10+ years — developing and maintaining complex multi-source queries, building ETL pipelines, and supporting data integrity validation across enterprise environments. At Ferguson Enterprises, I maintained SQL data infrastructure (MS Azure and MS SQL Server) supporting a large-scale ecommerce operation, writing queries that pulled and curated data from multiple systems to support business intelligence reporting and operational decisions. In my current freelance practice — serving clients including callcathai.online, primelayertrades.com, and hereraspreadsheets.com — I build and maintain data automation systems, low-code reporting solutions, and supporting workflows consistent with CBRE's described responsibilities.
+I have used SQL as a core analytical tool for 10+ years — developing and maintaining complex multi-source queries, building ETL pipelines, and supporting data integrity validation across enterprise environments. At Ferguson Enterprises, I maintained SQL data infrastructure (MS Azure and MS SQL Server) supporting a large-scale ecommerce operation, writing queries that pulled and curated data from multiple systems to support business intelligence reporting and operational decisions. In my current freelance practice — serving clients including callcatchai.online, primelayertrades.com, and hereraspreadsheets.com — I build and maintain data automation systems, low-code reporting solutions, and supporting workflows consistent with CBRE's described responsibilities.
 
 **Dashboards, Reporting Systems, and Data Storytelling**
 

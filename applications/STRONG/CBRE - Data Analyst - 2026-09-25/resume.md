@@ -39,7 +39,7 @@ University of Tennessee, Knoxville, TN — Aug 2019
 
 ## Professional Experience
 
-### Freelance Data Analyst Contractor | callcathai.online · primelayertrades.com · hereraspreadsheets.com | Jan 2026 – Present
+### Freelance Data Analyst Contractor | callcatchai.online · primelayertrades.com · hereraspreadsheets.com | Jan 2026 – Present
 - Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
 - Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
 - Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.

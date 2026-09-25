@@ -63,7 +63,7 @@ for fpath in files:
     if new_content == content:
         # Try broader fallback match
         FALLBACK = re.compile(
-            r'(###\s+[^\n]*(Freelance|callcathai|primelayertrades|Self-Employed)[^\n]*Jan 2026[^\n]*\n)((?:[ \t]*[-•]\s+.+\n?)*)',
+            r'(###\s+[^\n]*(Freelance|callcatchai|primelayertrades|Self-Employed)[^\n]*Jan 2026[^\n]*\n)((?:[ \t]*[-•]\s+.+\n?)*)',
             re.MULTILINE
         )
         new_content = FALLBACK.sub(replace_freelance, content)

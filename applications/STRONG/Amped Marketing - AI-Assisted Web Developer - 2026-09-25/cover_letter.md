@@ -18,7 +18,7 @@ I use Claude Code for architecture decisions, component scaffolding, and refacto
 
 **Production Delivery**
 
-In my freelance practice — callcathai.online, primelayertrades.com, hereraspreadsheets.com — I have built and shipped production web applications including AdvisoryCloud 3.0 (React 18, Supabase, PWA, deployed to Vercel with CI/CD, real users, real data) and a full-stack logistics tracking application — both built from Figma wireframes to live production in days, not weeks. I have managed WordPress and Shopify builds for all three clients: theme customization, plugin integration, storefront configuration, and ongoing maintenance. I run full QA cycles — Lighthouse, cross-browser, mobile responsiveness, semantic markup review — before every client delivery.
+In my freelance practice — callcatchai.online, primelayertrades.com, hereraspreadsheets.com — I have built and shipped production web applications including AdvisoryCloud 3.0 (React 18, Supabase, PWA, deployed to Vercel with CI/CD, real users, real data) and a full-stack logistics tracking application — both built from Figma wireframes to live production in days, not weeks. I have managed WordPress and Shopify builds for all three clients: theme customization, plugin integration, storefront configuration, and ongoing maintenance. I run full QA cycles — Lighthouse, cross-browser, mobile responsiveness, semantic markup review — before every client delivery.
 
 **Agency Pace**
 

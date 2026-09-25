@@ -14,7 +14,7 @@ I am writing to apply for the Business Intelligence Analyst position at Infinx. 
 
 **BI Development and Reporting Systems**
 
-I build BI infrastructure that actually gets used. In my current freelance practice serving callcathai.online, primelayertrades.com, and hereraspreadsheets.com, I have designed and deployed expert-level C-suite KPI dashboards with multi-dimensional financial and operational performance reporting — real-time data integration, automated pipelines, and MIS-style reporting that executives review every day. At Ferguson Enterprises, I developed Power BI dashboards and KPI frameworks for CFO- and VP-level stakeholders, monitoring revenue, supply chain, and ecommerce performance across a multi-location enterprise operation. I know how to translate stakeholder requirements into reporting deliverables that are both analytically sound and presentation-ready.
+I build BI infrastructure that actually gets used. In my current freelance practice serving callcatchai.online, primelayertrades.com, and hereraspreadsheets.com, I have designed and deployed expert-level C-suite KPI dashboards with multi-dimensional financial and operational performance reporting — real-time data integration, automated pipelines, and MIS-style reporting that executives review every day. At Ferguson Enterprises, I developed Power BI dashboards and KPI frameworks for CFO- and VP-level stakeholders, monitoring revenue, supply chain, and ecommerce performance across a multi-location enterprise operation. I know how to translate stakeholder requirements into reporting deliverables that are both analytically sound and presentation-ready.
 
 **SQL, Data Quality, and Performance Metrics**
 

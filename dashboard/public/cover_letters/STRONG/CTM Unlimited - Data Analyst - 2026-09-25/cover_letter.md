@@ -14,7 +14,7 @@ I am writing to express my strong interest in the Data Analyst contract role sup
 
 **Recurring Reporting Across Evolving Data**
 
-The description of this role resonates directly with work I do daily. In my freelance practice supporting callcathai.online, primelayertrades.com, and hereraspreadsheets.com, I maintain executive KPI dashboards that pull from multiple data sources on different schedules — each with varying levels of maturity and completeness. I built the reconciliation and validation logic that keeps those reports accurate regardless of what changes upstream. At Ferguson Enterprises, I managed recurring Power BI reporting for CFO-level stakeholders across a large ecommerce and supply chain operation — same discipline: keep the numbers clean, keep the cadence reliable, and surface quality issues before they reach leadership. That is exactly what this role requires.
+The description of this role resonates directly with work I do daily. In my freelance practice supporting callcatchai.online, primelayertrades.com, and hereraspreadsheets.com, I maintain executive KPI dashboards that pull from multiple data sources on different schedules — each with varying levels of maturity and completeness. I built the reconciliation and validation logic that keeps those reports accurate regardless of what changes upstream. At Ferguson Enterprises, I managed recurring Power BI reporting for CFO-level stakeholders across a large ecommerce and supply chain operation — same discipline: keep the numbers clean, keep the cadence reliable, and surface quality issues before they reach leadership. That is exactly what this role requires.
 
 **Survey Analytics, Adoption Metrics, and Change Reporting**
 

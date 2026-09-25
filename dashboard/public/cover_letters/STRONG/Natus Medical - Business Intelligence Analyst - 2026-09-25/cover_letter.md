@@ -14,7 +14,7 @@ I am writing to apply for the Business Intelligence Analyst role at Natus Medica
 
 **Commercial Analytics — Beyond Reporting**
 
-In my current freelance practice serving callcathai.online, primelayertrades.com, and hereraspreadsheets.com, I build C-suite commercial analytics frameworks that go past the numbers. When revenue trends or product adoption metrics shift, my job is to determine WHY — digging into customer behavior, pipeline data, pricing dynamics, and market signals to surface the driver and recommend a response. I have built TAM/SAM models, adoption curve projections, and win/loss analysis frameworks for founders and executives who need to make resource and roadmap decisions, not just review reports. That structured, inquiry-first approach is exactly what you have described.
+In my current freelance practice serving callcatchai.online, primelayertrades.com, and hereraspreadsheets.com, I build C-suite commercial analytics frameworks that go past the numbers. When revenue trends or product adoption metrics shift, my job is to determine WHY — digging into customer behavior, pipeline data, pricing dynamics, and market signals to surface the driver and recommend a response. I have built TAM/SAM models, adoption curve projections, and win/loss analysis frameworks for founders and executives who need to make resource and roadmap decisions, not just review reports. That structured, inquiry-first approach is exactly what you have described.
 
 **Dashboard and KPI Infrastructure**
 
