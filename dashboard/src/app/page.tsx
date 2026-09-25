@@ -3,6 +3,31 @@
 import { useState, useEffect } from 'react'
 import data from '../../public/data.json'
 
+const TAGLINES = [
+  "Every application is a step closer.",
+  "Opportunities don't wait — neither do you.",
+  "The right role is out there. Keep going.",
+  "Consistency beats perfection every time.",
+  "You've got this. One app at a time.",
+  "Today's effort is tomorrow's offer.",
+  "Show up. Stand out. Get hired.",
+]
+
+const GREETINGS = [
+  "Good morning, Erin! You are an absolute force of nature — brilliant, driven, and unstoppable. Today is going to be a great one. 💛",
+  "Hey Erin! Just a reminder: the world is genuinely better with you in it. Your energy, your heart, your hustle — they shine. Go get it today! ✨",
+  "Erin, you radiate strength even when you don't feel it. Whatever today holds, you are more than ready for it. We're rooting for you! 🌟",
+  "Good day, Erin! You are the kind of person who makes every room brighter. Don't forget how much you're capable of — it's a lot. 🚀",
+  "Erin! Today is a new chance to do something amazing. And knowing you, you absolutely will. Let's make it count! 🌈",
+  "Hi Erin! Your persistence is a superpower. Every single day you show up — and that matters more than you know. Keep shining! ☀️",
+  "Erin, you are doing so much better than you think. Take a breath, trust yourself, and go make today incredible. You've got it! 💪",
+]
+
+function getDailyIndex(arr: string[]) {
+  const day = Math.floor(Date.now() / 86400000)
+  return day % arr.length
+}
+
 type Application = {
   company: string
   title: string
@@ -62,8 +87,8 @@ export default function Home() {
       {/* Sidebar */}
       <aside className="w-56 bg-gray-900 border-r border-gray-800 flex flex-col flex-shrink-0">
         <div className="p-4 border-b border-gray-800">
-          <div className="text-xs font-bold uppercase tracking-widest text-teal-400 mb-1">ICO Scout</div>
-          <div className="text-xs text-gray-500">Alexander Tobin</div>
+          <div className="text-xs font-bold uppercase tracking-widest text-teal-400 mb-1">Job Application Engine</div>
+          <div className="text-xs text-gray-500 italic">{TAGLINES[getDailyIndex(TAGLINES)]}</div>
         </div>
 
         <div className="p-3 border-b border-gray-800 space-y-1">
@@ -125,6 +150,11 @@ export default function Home() {
       {/* Main content */}
       <main className="flex-1 overflow-auto">
         <div className="p-6">
+          {/* Erin's daily greeting */}
+          <div className="mb-6 px-4 py-3 rounded-lg bg-gradient-to-r from-teal-900/40 to-blue-900/30 border border-teal-800/40 text-sm text-teal-100">
+            {GREETINGS[getDailyIndex(GREETINGS)]}
+          </div>
+
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
