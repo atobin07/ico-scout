@@ -42,6 +42,13 @@ type Application = {
 
 const apps: Application[] = (data as any).applications
 
+function daysInFeed(dateStr: string): number {
+  const added = new Date(dateStr + 'T00:00:00')
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return Math.floor((today.getTime() - added.getTime()) / 86400000)
+}
+
 function getAppliedKey(app: Application) {
   return `applied::${app.company}::${app.title}::${app.date}`
 }
@@ -79,14 +86,25 @@ export default function Home() {
 
   const dates = Array.from(new Set(apps.map(a => a.date))).sort((a, b) => b.localeCompare(a))
 
-  const filtered = apps.filter(a => {
-    if (selectedDate !== 'all' && a.date !== selectedDate) return false
-    if (fitFilter !== 'ALL' && a.fit !== fitFilter) return false
-    const isApplied = !!applied[getAppliedKey(a)]
-    if (showAppliedOnly && !isApplied) return false
-    if (showUnAppliedOnly && isApplied) return false
-    return true
-  })
+  const filtered = apps
+    .filter(a => {
+      if (selectedDate !== 'all' && a.date !== selectedDate) return false
+      if (fitFilter !== 'ALL' && a.fit !== fitFilter) return false
+      const isApplied = !!applied[getAppliedKey(a)]
+      if (showAppliedOnly && !isApplied) return false
+      if (showUnAppliedOnly && isApplied) return false
+      return true
+    })
+    .sort((a, b) => {
+      const aApplied = !!applied[getAppliedKey(a)]
+      const bApplied = !!applied[getAppliedKey(b)]
+      // Unapplied always above applied
+      if (aApplied !== bApplied) return aApplied ? 1 : -1
+      // Among unapplied: oldest (most days waiting) first
+      if (!aApplied) return a.date.localeCompare(b.date)
+      // Among applied: newest first
+      return b.date.localeCompare(a.date)
+    })
 
   const strongCount = filtered.filter(a => a.fit === 'STRONG').length
   const weakCount = filtered.filter(a => a.fit === 'WEAK').length
@@ -189,7 +207,8 @@ export default function Home() {
                   <th className="px-4 py-3 text-gray-400 font-medium">Company</th>
                   <th className="px-4 py-3 text-gray-400 font-medium">Role</th>
                   <th className="px-4 py-3 text-gray-400 font-medium w-20">Fit</th>
-                  <th className="px-4 py-3 text-gray-400 font-medium w-28">Date</th>
+                  <th className="px-4 py-3 text-gray-400 font-medium w-28">Date Added</th>
+                  <th className="px-4 py-3 text-gray-400 font-medium w-20">Days</th>
                   <th className="px-4 py-3 text-gray-400 font-medium w-28">Posted</th>
                   <th className="px-4 py-3 text-gray-400 font-medium w-24">Apply</th>
                   <th className="px-4 py-3 text-gray-400 font-medium w-24">Resume</th>
@@ -199,7 +218,7 @@ export default function Home() {
               <tbody>
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={9} className="px-4 py-12 text-center text-gray-500">No applications found</td>
+                    <td colSpan={10} className="px-4 py-12 text-center text-gray-500">No applications found</td>
                   </tr>
                 )}
                 {filtered.map((app, i) => {
@@ -226,6 +245,13 @@ export default function Home() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-gray-400 text-xs">{app.date}</td>
+                      <td className="px-4 py-3 text-xs">
+                        {!isApplied ? (() => {
+                          const d = daysInFeed(app.date)
+                          const color = d === 0 ? 'text-teal-400' : d <= 2 ? 'text-yellow-400' : 'text-red-400'
+                          return <span className={`font-bold ${color}`}>{d === 0 ? 'Today' : `${d}d`}</span>
+                        })() : <span className="text-gray-600">—</span>}
+                      </td>
                       <td className="px-4 py-3 text-gray-400 text-xs">{app.postedAge || '—'}</td>
                       <td className="px-4 py-3">
                         {app.applyUrl ? (
