@@ -218,7 +218,7 @@ export default function Home() {
                         {app.coverLetterPath ? (
                           <a
                             href={`/${app.coverLetterPath}`}
-                            download
+                            download={`Tobin_${app.company}_CoverLetter.md`}
                             className="inline-flex items-center gap-1 px-2 py-1 bg-purple-900 hover:bg-purple-800 text-white text-xs rounded transition-colors"
                           >
                             Letter ↓
