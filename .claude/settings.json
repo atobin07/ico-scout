@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions",
+    "allow": [
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "mcp__Google_Drive__create_file",
+      "mcp__Google_Drive__search_files",
+      "mcp__Google_Drive__list_recent_files",
+      "mcp__Google_Drive__get_file_metadata",
+      "mcp__Google_Drive__read_file_content",
+      "mcp__Google_Drive__update_file",
+      "mcp__Indeed__search_jobs",
+      "mcp__Indeed__get_job_details",
+      "mcp__Indeed__get_resume",
+      "mcp__Vercel__create_deployment",
+      "mcp__Vercel__get_deployment",
+      "mcp__Vercel__update_project",
+      "mcp__Vercel__list_deployments",
+      "mcp__Vercel__list_projects",
+      "mcp__Vercel__get_project",
+      "mcp__github__push_files",
+      "mcp__github__create_or_update_file",
+      "mcp__Claude_Code_Remote__create_trigger",
+      "mcp__Claude_Code_Remote__list_triggers",
+      "mcp__Claude_Code_Remote__fire_trigger"
+    ]
+  }
+}
