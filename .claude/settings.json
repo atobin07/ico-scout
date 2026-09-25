@@ -10,7 +10,13 @@
       "mcp__Google_Drive__update_file",
       "mcp__Indeed__search_jobs",
       "mcp__Indeed__get_job_details",
-      "mcp__Indeed__get_resume"
+      "mcp__Indeed__get_resume",
+      "mcp__Vercel__create_deployment",
+      "mcp__Vercel__get_deployment",
+      "mcp__Vercel__update_project",
+      "mcp__Vercel__list_deployments",
+      "mcp__Vercel__list_projects",
+      "mcp__Vercel__get_project"
     ]
   }
 }
