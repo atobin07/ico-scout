@@ -205,7 +205,7 @@ export default function Home() {
                         {app.hasPdf ? (
                           <a
                             href={`/${app.resumePath}`}
-                            download
+                            download={`Tobin_${app.company}_Resume.pdf`}
                             className="inline-flex items-center gap-1 px-2 py-1 bg-navy-700 hover:bg-blue-700 bg-blue-900 hover:bg-blue-800 text-white text-xs rounded transition-colors"
                           >
                             PDF ↓
