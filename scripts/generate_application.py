@@ -556,12 +556,16 @@ def build_sidebar(data, compact=False):
         story.append(SidebarSecHeader(sn, SF_AVAIL))
 
         if sn in ("Core Skills", "Technical Skills", "Skills"):
+            skill_count = 0
+            max_skills = 6 if compact else 12
             for ln in sec["items"]:
+                if skill_count >= max_skills: break
                 ls = ln.strip()
                 if ls.startswith("- "):
                     sk = strip_md(ls[2:]).strip()
                     story.append(SkillBar(sk, SF_AVAIL, fill=_skill_fill(sk), color=C_GOLD))
                     story.append(Spacer(1, 5))
+                    skill_count += 1
                 elif ls.startswith("|") and "---" not in ls:
                     cells = [c.strip() for c in ls.split("|")[1:-1]]
                     if not cells: continue
@@ -621,8 +625,8 @@ def build_main(data, compact=False, max_bullets=None):
                 textColor=C_GRAY,  leading=13 if not compact else 11.5,
                 leftIndent=10, firstLineIndent=-8,
                 spaceAfter=3 if not compact else 1)
-    s_sum  = S("su",  fontName=F_REG, fontSize=9,
-                textColor=C_LGRAY, leading=13.5, spaceAfter=3)
+    s_sum  = S("su",  fontName=F_REG, fontSize=8.5 if compact else 9,
+                textColor=C_LGRAY, leading=12 if compact else 13.5, spaceAfter=2 if compact else 3)
 
     story   = [Spacer(1, 8)]
     job_idx = 0
@@ -646,12 +650,17 @@ def build_main(data, compact=False, max_bullets=None):
                 table_rows.append(ls); continue
             if table_rows:
                 story.append(_skills_table(table_rows)); table_rows = []
+            # In compact mode cap summary to 2 sentences
+            if compact:
+                sentences = [s.strip() for s in ls.replace(". ", ".|").split("|") if s.strip()]
+                ls = ". ".join(sentences[:2]) + ("." if sentences else "")
             story.append(Paragraph(rich(ls), s_sum))
         if table_rows:
             story.append(_skills_table(table_rows))
 
-        # Jobs
-        for job in sec["jobs"]:
+        # Jobs — in compact mode cap to 4 most recent
+        job_list = sec["jobs"][:4] if compact else sec["jobs"]
+        for job in job_list:
             cap      = (max_bullets or {}).get(job_idx)
             CARD_LP  = 9
             INNER_W  = MF_AVAIL - CARD_LP   # actual usable width inside the card
@@ -673,10 +682,10 @@ def build_main(data, compact=False, max_bullets=None):
                 ("BOTTOMPADDING", (0,0),(-1,-1),2),
             ]))
 
-            # Cap bullets: 4 by default, fewer when compacting
-            DEFAULT_B = 4 if not compact else 3
-            raw_bullets = job["bullets"] if cap is None else job["bullets"][:cap]
-            bullets = raw_bullets[:DEFAULT_B] if cap is None else raw_bullets
+            # Cap bullets: always apply DEFAULT_B, further trimmed by max_bullets
+            DEFAULT_B = 4 if not compact else 2
+            effective_cap = DEFAULT_B if cap is None else min(DEFAULT_B, cap)
+            bullets = job["bullets"][:effective_cap]
             bullet_items = []
             for b in bullets:
                 bullet_items.append(Paragraph(
@@ -777,14 +786,34 @@ def auto_fit(data, draw_fn):
               for i, job in enumerate(
                   j for s in data["sections"] for j in s.get("jobs", []))}
 
-    for _ in range(80):
+    for _ in range(200):
+        trimmed = False
         for ji in range(n_jobs - 1, -1, -1):
             if max_b.get(ji, 0) > 0:
-                max_b[ji] -= 1; break
+                max_b[ji] -= 1; trimmed = True; break
+        if not trimmed:
+            break
         sb = build_sidebar(data, compact=True)
         mn = build_main(data, compact=True, max_bullets=max_b)
         if _test_pages(sb, mn, draw_fn) == 1:
             return True, max_b
+
+    # Bullets exhausted — trim summary sentences one at a time
+    for sec in data["sections"]:
+        if sec["name"] in SIDEBAR_SECTIONS: continue
+        if sec["items"]:
+            while sec["items"]:
+                # Remove last sentence from last summary item
+                last = sec["items"][-1]
+                sentences = [s.strip() for s in last.replace(". ", ".|").split("|") if s.strip()]
+                if len(sentences) > 1:
+                    sec["items"][-1] = ". ".join(sentences[:-1]) + "."
+                else:
+                    sec["items"].pop()
+                sb = build_sidebar(data, compact=True)
+                mn = build_main(data, compact=True, max_bullets=max_b)
+                if _test_pages(sb, mn, draw_fn) == 1:
+                    return True, max_b
 
     return True, max_b
 
