@@ -7,7 +7,10 @@
       "mcp__Google_Drive__list_recent_files",
       "mcp__Google_Drive__get_file_metadata",
       "mcp__Google_Drive__read_file_content",
-      "mcp__Google_Drive__update_file"
+      "mcp__Google_Drive__update_file",
+      "mcp__Indeed__search_jobs",
+      "mcp__Indeed__get_job_details",
+      "mcp__Indeed__get_resume"
     ]
   }
 }
