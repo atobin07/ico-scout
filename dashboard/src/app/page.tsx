@@ -46,6 +46,16 @@ function getAppliedKey(app: Application) {
   return `applied::${app.company}::${app.title}::${app.date}`
 }
 
+async function downloadAs(url: string, filename: string) {
+  const res = await fetch(url)
+  const blob = await res.blob()
+  const a = document.createElement('a')
+  a.href = URL.createObjectURL(blob)
+  a.download = filename
+  a.click()
+  URL.revokeObjectURL(a.href)
+}
+
 export default function Home() {
   const [selectedDate, setSelectedDate] = useState<string>('all')
   const [fitFilter, setFitFilter] = useState<'ALL' | 'STRONG' | 'WEAK'>('ALL')
@@ -233,26 +243,24 @@ export default function Home() {
                       </td>
                       <td className="px-4 py-3">
                         {app.hasPdf ? (
-                          <a
-                            href={`/${app.resumePath}`}
-                            download={`Tobin_${app.company}_Resume.pdf`}
-                            className="inline-flex items-center gap-1 px-2 py-1 bg-navy-700 hover:bg-blue-700 bg-blue-900 hover:bg-blue-800 text-white text-xs rounded transition-colors"
+                          <button
+                            onClick={() => downloadAs(`/${app.resumePath}`, `Tobin_${app.company}_Resume.pdf`)}
+                            className="inline-flex items-center gap-1 px-2 py-1 bg-blue-900 hover:bg-blue-800 text-white text-xs rounded transition-colors"
                           >
                             PDF ↓
-                          </a>
+                          </button>
                         ) : (
                           <span className="text-gray-600 text-xs">No PDF</span>
                         )}
                       </td>
                       <td className="px-4 py-3">
                         {app.coverLetterPath ? (
-                          <a
-                            href={`/${app.coverLetterPath}`}
-                            download={`Tobin_${app.company}_CoverLetter.md`}
+                          <button
+                            onClick={() => downloadAs(`/${app.coverLetterPath}`, `Tobin_${app.company}_CoverLetter.md`)}
                             className="inline-flex items-center gap-1 px-2 py-1 bg-purple-900 hover:bg-purple-800 text-white text-xs rounded transition-colors"
                           >
                             Letter ↓
-                          </a>
+                          </button>
                         ) : (
                           <span className="text-gray-600 text-xs">—</span>
                         )}
