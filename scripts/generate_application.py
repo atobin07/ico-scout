@@ -614,21 +614,25 @@ def build_sidebar(data, compact=False):
 #  MAIN STORY
 # ══════════════════════════════════════════════════════════════════════════════
 
-def build_main(data, compact=False, max_bullets=None):
-    s_job  = S("jt",  fontName=F_BOLD, fontSize=10.5,
-                textColor=colors.HexColor("#09152A"),  leading=14)
-    s_co   = S("co",  fontName=F_ITALIC, fontSize=8.5,
-                textColor=C_TEAL,  leading=12, spaceAfter=2)
-    s_date = S("dt",  fontName=F_BOLD, fontSize=8,
-                textColor=C_GOLD,  leading=11, alignment=TA_RIGHT)
-    s_bull = S("bu",  fontName=F_REG, fontSize=8.5,
-                textColor=C_GRAY,  leading=13 if not compact else 11.5,
-                leftIndent=10, firstLineIndent=-8,
-                spaceAfter=3 if not compact else 1)
-    s_sum  = S("su",  fontName=F_REG, fontSize=8.5 if compact else 9,
-                textColor=C_LGRAY, leading=12 if compact else 13.5, spaceAfter=2 if compact else 3)
+def build_main(data, compact=False, max_bullets=None, stretch=1.0):
+    # stretch > 1.0 inflates spacers/leading to fill the page
+    def sp(n): return Spacer(1, n * stretch)
 
-    story   = [Spacer(1, 8)]
+    s_job  = S("jt",  fontName=F_BOLD, fontSize=10.5,
+                textColor=colors.HexColor("#09152A"),  leading=14 * stretch)
+    s_co   = S("co",  fontName=F_ITALIC, fontSize=8.5,
+                textColor=C_TEAL,  leading=12 * stretch, spaceAfter=2 * stretch)
+    s_date = S("dt",  fontName=F_BOLD, fontSize=8,
+                textColor=C_GOLD,  leading=11 * stretch, alignment=TA_RIGHT)
+    s_bull = S("bu",  fontName=F_REG, fontSize=9 if not compact else 8.5,
+                textColor=C_GRAY,  leading=(14 if not compact else 12) * stretch,
+                leftIndent=10, firstLineIndent=-8,
+                spaceAfter=(4 if not compact else 2) * stretch)
+    s_sum  = S("su",  fontName=F_REG, fontSize=9.5 if not compact else 8.5,
+                textColor=C_LGRAY, leading=(14.5 if not compact else 12) * stretch,
+                spaceAfter=(4 if not compact else 2) * stretch)
+
+    story   = [sp(10)]
     job_idx = 0
     first_sec = True
 
@@ -636,10 +640,10 @@ def build_main(data, compact=False, max_bullets=None):
         if sec["name"] in SIDEBAR_SECTIONS: continue
 
         if not first_sec:
-            story.append(Spacer(1, 10 if not compact else 5))
+            story.append(sp(14 if not compact else 6))
         first_sec = False
         story.append(SectionHeading(sec["name"], MF_AVAIL))
-        story.append(Spacer(1, 5 if not compact else 2))
+        story.append(sp(6 if not compact else 3))
 
         # Text items / tables
         table_rows = []
@@ -702,13 +706,13 @@ def build_main(data, compact=False, max_bullets=None):
                 ("VALIGN",        (0,0),(-1,-1),"TOP"),
                 ("LEFTPADDING",   (0,0),(-1,-1),CARD_LP),
                 ("RIGHTPADDING",  (0,0),(-1,-1),4),
-                ("TOPPADDING",    (0,0),(-1,-1),4),
-                ("BOTTOMPADDING", (0,0),(-1,-1),5),
+                ("TOPPADDING",    (0,0),(-1,-1),int(5 * stretch)),
+                ("BOTTOMPADDING", (0,0),(-1,-1),int(6 * stretch)),
                 ("LINEBEFORE",    (0,0),(0,-1), 3, C_TEAL),
                 ("BACKGROUND",    (0,0),(-1,-1), colors.Color(0.10, 0.48, 0.54, alpha=0.03)),
             ]))
             story.append(card)
-            story.append(Spacer(1, 8 if not compact else 3))
+            story.append(sp(10 if not compact else 4))
             job_idx += 1
 
     return story
@@ -822,13 +826,37 @@ def auto_fit(data, draw_fn):
 #  PDF BUILDER
 # ══════════════════════════════════════════════════════════════════════════════
 
+def _measure_story_height(story, frame_w, frame_h):
+    """Estimate total height of a story by wrapping each flowable."""
+    total = 0
+    for item in story:
+        try:
+            w, h = item.wrap(frame_w, frame_h)
+            total += h
+            if hasattr(item, 'getSpaceAfter'):
+                total += item.getSpaceAfter()
+        except Exception:
+            total += 10
+    return total
+
+
 def build_pdf_resume(md: str, out_path: str, style: str = "signature"):
     data    = parse_resume(md)
     draw_fn = make_draw(data)
 
     compact, max_b = auto_fit(data, draw_fn)
+
+    # Find the stretch factor that best fills the page
+    stretch = 1.0
+    for trial in [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]:
+        sb = build_sidebar(data, compact=compact)
+        mn = build_main(data, compact=compact, max_bullets=max_b, stretch=trial)
+        if _test_pages(sb, mn, draw_fn) > 1:
+            break
+        stretch = trial
+
     sb = build_sidebar(data, compact=compact)
-    mn = build_main(data, compact=compact, max_bullets=max_b)
+    mn = build_main(data, compact=compact, max_bullets=max_b, stretch=stretch)
 
     sf, mf = make_frames()
     doc = BaseDocTemplate(
