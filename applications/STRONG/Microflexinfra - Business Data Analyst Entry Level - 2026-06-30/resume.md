@@ -29,9 +29,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
-- Built **Capitol Mirror** — analytics platform (Next.js, Supabase/PostgreSQL) ingesting and structuring government financial filings into a clean, queryable dataset; documented all business metrics, data definitions, and reporting logic for end users.
-- Built **Container Tracker** — logistics reporting dashboard with live API data integration and a 6-stage status pipeline; fleet-wide KPI visualization and ad hoc filtering for business users.
-- Built **AdvisoryCloud 3.0** — SaaS platform with 15+ normalized database tables and real-time reporting; deployed to production in 7 days.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Senior Data Analytics Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Maintained and improved reporting dashboards across marketing, operations, and logistics; ensured accuracy of business metrics and KPI definitions.

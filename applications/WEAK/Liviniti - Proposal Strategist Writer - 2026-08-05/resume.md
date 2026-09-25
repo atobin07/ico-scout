@@ -26,9 +26,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Technical Writer & Documentation Specialist | Self-Employed | Jan 2026 – Present
-- Produced end-to-end technical documentation for production data platforms — data schemas, ETL pipeline specifications, API integration guides, governance standards, and compliance documentation — written to be accurate enough that another professional could execute from them without clarification.
-- Managed documentation projects against client deadlines: built documentation plans, coordinated reviews with stakeholders, tracked revisions through version-controlled repositories, and delivered final outputs in brand-aligned formats.
-- Wrote client-facing deliverables, onboarding materials, and technical specification documents across multiple concurrent engagements in different industries.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Senior Data Analytics Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Owned all organizational documentation — data dictionary, KPI definitions, SOPs, governance standards, and executive-facing reporting documentation — coordinating with leadership across clinical, finance, and operations to ensure accuracy, consistency, and regulatory alignment.

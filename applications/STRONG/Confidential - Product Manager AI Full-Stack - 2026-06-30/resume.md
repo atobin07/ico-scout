@@ -30,10 +30,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
-- Built and shipped **AdvisoryCloud 3.0** — mobile-first SaaS platform (React 18, Supabase, Tailwind, PWA) from zero to production in 7 days; defined product requirements, designed architecture, and led full implementation including AI-assisted workflows, real-time messaging, and 15+ database tables.
-- Built **Capitol Mirror** — AI-enabled subscription data product (Next.js, TypeScript, Supabase, Stripe) with automated GitHub Actions pipeline, Stripe billing (Free / $30 / $65/mo tiers), natural language data interface, and DigitalOcean/PM2 production deployment.
-- Built **Container Tracker** — full-stack logistics tool (React, Supabase, Vercel) integrating live shipping APIs with 6-stage status pipeline, CRUD backend, and fleet analytics dashboard.
-- Integrated Claude and Azure OpenAI APIs for AI Agent workflows and conversational data interfaces across multiple production projects.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / Systems Developer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Defined and delivered full Airtable enterprise application infrastructure: product requirements, linked record architecture, role-based interfaces, multi-step automations, and API integrations.

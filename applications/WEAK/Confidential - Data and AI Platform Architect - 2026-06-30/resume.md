@@ -30,10 +30,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
-- Built **Capitol Mirror** — full-stack data platform (Next.js, TypeScript, Supabase/PostgreSQL) with automated GitHub Actions ingestion pipeline converting government STOCK Act filings into structured, queryable datasets; implemented schema controls, validation rules, and data quality checks at ingestion; managed governance and access via row-level security.
-- Built **Container Tracker** — logistics data tool integrating live shipping APIs with a structured 6-stage ETL pipeline, full CRUD persistence layer, and fleet-wide analytics dashboard; designed REST API connectors and managed data freshness monitoring.
-- Built **AdvisoryCloud 3.0** — SaaS platform (React, Supabase) with 15+ normalized database tables, real-time data sync, and Edge Functions (Deno); deployed conversational and AI-assisted features integrated into the user interface.
-- Used Azure OpenAI and Claude APIs directly in production projects for natural language data interfaces and AI-assisted workflows.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Senior Data Analytics Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Designed and maintained data infrastructure supporting analytics, marketing, and operations; implemented automation workflows reducing manual processing overhead.

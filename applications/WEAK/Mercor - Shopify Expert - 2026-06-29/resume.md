@@ -30,10 +30,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
-- Built **AdvisoryCloud 3.0** — mobile-first SaaS platform (React 18, Supabase, Tailwind, PWA) connecting founders with expert advisors; zero to live production MVP in 7 days with real-time messaging, 15+ database tables, and Supabase Edge Functions.
-- Built **Capitol Mirror** — full-stack SaaS (Next.js, TypeScript, Supabase, Stripe) converting public government filings into a subscription data product; full Stripe paywall, automated data pipeline, and DigitalOcean/PM2 production deployment.
-- Built **Container Tracker** — logistics tracking platform (React, Supabase, Vercel) with live API integration, full CRUD persistence, and fleet analytics dashboard.
-- Deployed all projects to production with CI/CD pipelines, authentication, and real user data; clients include business owners requiring tailored e-commerce and data solutions.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / Systems Developer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Built full-stack business application infrastructure: linked record architecture, role-based interfaces, automated workflows, and client-facing dashboards.
@@ -48,10 +49,6 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ### Data Analyst / Project Manager | Ferguson Enterprises Inc., Remote | Mar 2022 – Jul 2024
 - Built and optimized data infrastructure supporting large-scale B2B e-commerce operations on MS Azure and MS SQL Server.
 - Automated reporting and data processing workflows; developed executive-facing dashboards using Power BI.
-
-### Owner and Founder | Maker City Pallet Works, Knoxville, TN | Jan 2018 – Dec 2021
-- Built and managed end-to-end business operations including e-commerce presence, digital marketing infrastructure, SEO, Meta ad campaigns, email marketing, and social media automation.
-- Operated independently, managing client relationships and digital systems without external support.
 
 ### Ecommerce Data Analyst | ZenEvo Chocolate, Knoxville, TN | Jan 2021 – Dec 2021
 - Supported e-commerce operations data analysis; tracked and reported on fulfillment, inventory, and sales performance.

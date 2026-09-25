@@ -60,13 +60,6 @@ University of Tennessee, Knoxville, TN — Aug 2019
 - Introduced and implemented centralized digital platforms that improved team collaboration and visibility.
 - Delivered digital solutions iteratively, adapting quickly to evolving requirements and new tools.
 
-### Owner and Founder | Maker City Pallet Works, Knoxville, TN | Jan 2018 – Dec 2021
-
-- Built and managed the company's full digital presence including website, social media channels, and local SEO — from scratch.
-- Designed and executed organic content strategies across web and social platforms, creating copy and visual assets that built brand identity and drove local B2B and B2C sales.
-- Managed local SEO optimization, Meta ad campaigns, and social media marketing end-to-end.
-- Handled all client-facing digital communications and content updates, maintaining a consistent and professional brand voice across channels.
-
 ### Smartsheet Administrator | SiteLogiQ, Remote (Contract) | Aug 2023 – Feb 2024
 
 - Customized and maintained client-facing digital workspaces and interfaces, tailoring layouts and content to align with organizational needs.

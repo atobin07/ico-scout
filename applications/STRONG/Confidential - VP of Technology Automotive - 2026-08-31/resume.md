@@ -30,10 +30,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance VP-Level Technology Consultant | Self-Employed | Jan 2026 – Present
-- **callcathai.online** — Led full technology stack design and delivery: AI-integrated call analytics platform built on Databricks Medallion Architecture with automated alerting, data quality validation, and executive dashboard layer for C-suite visibility.
-- **primelayertrades.com** — Architected and delivered enterprise-grade trading data platform with real-time pipelines, AI-assisted analysis workflows, cloud infrastructure on GCP, and executive KPI reporting used by leadership daily.
-- **hereraspreadsheets.com** — Built reusable technology framework components including AI workflow automation, Python-based data pipelines, and real-time Power BI dashboards; coached client technical team on developer best practices and AI tool adoption.
-- Delivered expert-level C-suite technology roadmaps, AI implementation strategies, and business solution architectures for client organizations across multiple industries.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / Technology Lead | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Led technology strategy and engineering delivery for a multi-location operation; oversaw development of data systems, AI-integrated analytics platforms, and operational tooling on GCP and AWS.

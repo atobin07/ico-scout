@@ -29,10 +29,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance AI Tech Lead & Senior Data Engineer | Self-Employed | Jan 2026 – Present
-- **callcathai.online** — Designed and deployed Generative AI and LLM-integrated call analytics platform on Databricks; built Medallion Architecture pipelines with Delta Live Tables, RAG-based insight retrieval, and AI-assisted executive reporting with automated alerting and monitoring.
-- **primelayertrades.com** — Architected enterprise AI platform on Databricks with LLM workflow integration, Unity Catalog governance, MLflow experiment tracking, and CI/CD pipelines for production AI model deployment across GCP and AWS environments.
-- **hereraspreadsheets.com** — Built reusable AI and data engineering frameworks including Spark optimization patterns, Generative AI workflow automation, and streaming data pipelines feeding real-time executive dashboards; mentored client engineering team on MLOps and AI development best practices.
-- Led AI architecture design and technical stakeholder engagement for client organizations; delivered AI-powered business intelligence solutions with C-suite visibility and measurable operational impact.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / AI & Data Engineering Lead | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Designed and led delivery of Databricks Lakehouse platform on GCP; implemented Medallion Architecture, Delta Live Tables, and Delta Lake with AI-integrated analytics using Databricks AI Genie for executive decision support.

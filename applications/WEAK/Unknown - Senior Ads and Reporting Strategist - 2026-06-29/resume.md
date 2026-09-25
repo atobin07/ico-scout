@@ -30,9 +30,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
-- Built **Capitol Mirror** — subscription analytics platform (Next.js, TypeScript, Supabase, Stripe) with live data pipeline, conversion tracking, and full Stripe billing integration (Free / $30 / $65/mo tiers); implemented analytics layer to track user acquisition, conversion rates, and downstream outcomes.
-- Built **AdvisoryCloud 3.0** — SaaS platform (React, Supabase) with real-time data sync and client-facing dashboards; deployed to production in 7 days with real user data and performance monitoring.
-- Built **Container Tracker** — analytics dashboard with fleet-wide KPI tracking, status pipeline visualization, and live API data integration.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Senior Data Analytics Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Directed digital analytics and reporting infrastructure across marketing, e-commerce, and operations functions.
@@ -48,11 +50,6 @@ University of Tennessee, Knoxville, TN — Aug 2019
 - Developed executive reporting dashboards and KPI frameworks in Power BI, translating multi-source data into clear performance narratives for leadership.
 - Utilized advanced Excel functions (XLOOKUP, INDEX/MATCH, ARRAY formulas) to build complex analytical models supporting business decisions.
 - Streamlined reporting processes and introduced centralized project management; reduced time-to-insight for cross-functional teams.
-
-### Owner and Founder | Maker City Pallet Works, Knoxville, TN | Jan 2018 – Dec 2021
-- Planned and executed paid digital marketing campaigns across Meta Ads and Google; managed targeting, creative testing, and budget optimization to drive leads and conversions.
-- Built SEO infrastructure, email marketing automation, and social media systems; tracked performance and iterated based on cost-per-lead and conversion data.
-- Served as sole decision-maker on marketing strategy, budget allocation, and campaign performance — accountable to the bottom line.
 
 ### Ecommerce Data Analyst | ZenEvo Chocolate, Knoxville, TN | Jan 2021 – Dec 2021
 - Analyzed e-commerce and supply chain performance data; produced written reports and visualizations presenting findings to cross-functional stakeholders.

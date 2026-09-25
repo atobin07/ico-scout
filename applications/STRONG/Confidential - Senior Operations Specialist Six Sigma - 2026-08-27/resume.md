@@ -22,10 +22,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Operations & Systems Consultant | Self-Employed | Jan 2026 – Present
-- **callcathai.online** — Mapped AI workflow processes, gathered stakeholder requirements, and built Salesforce-integrated tracking dashboards and operational reporting infrastructure.
-- **primelayertrades.com** — Implemented Smartsheet-based project tracking systems, real-time initiative dashboards, and Six Sigma-aligned operational documentation frameworks.
-- **hereraspreadsheets.com** — Built automated Smartsheet workflows, SOP documentation, and C-suite KPI dashboards for performance tracking and executive decision-making.
-- Designed and delivered expert-level C-suite KPI dashboards and executive reporting infrastructure for client organizations; built multi-dimensional performance frameworks with automated pipelines and real-time visualization layers.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / Systems Developer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Led strategic operations initiatives across a multi-location environment; developed internal project plans, implemented Smartsheet and Airtable tracking systems, and managed initiative timelines against strategic objectives.

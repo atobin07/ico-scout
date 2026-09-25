@@ -29,7 +29,6 @@ Airtable consultant and junior full-stack developer specializing in building end
 **Bachelor of Arts** — Pre Law/Legal Studies, Business Concentration
 University of Tennessee, Knoxville, TN — Aug 2019
 
-
 ## Certifications
 - Google Analytics Certification
 - Google Ads Certification
@@ -41,10 +40,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & Data Analyst Contractor | Self-Employed | Jan 2026 – Present
-- Built **AdvisoryCloud 3.0** — a mobile-first SaaS platform (React 18, Supabase, Tailwind, PWA) connecting founders with expert advisors; zero to live production MVP in 7 days with real-time messaging, 15+ database tables with RLS, and Supabase Edge Functions.
-- Developed executive-level KPI dashboards and C-suite reporting infrastructure for client organizations; designed multi-dimensional performance frameworks integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
-- Built **Container Tracker** — a full-stack logistics tool (React, Supabase, Vercel) for real-time freight container tracking across a 6-stage status pipeline; live shipping API integration, full CRUD persistence, and fleet-wide dashboard.
-- Deployed all projects to production (Vercel, DigitalOcean) with CI/CD pipelines, authentication, and real user data.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / Systems Developer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Built full Airtable app infrastructure from scratch: linked record architecture, role-based interfaces, automated workflows, and client-facing dashboards.
@@ -71,7 +71,3 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ### Smartsheet Analyst | Integrated Management Strategies, Remote (Contract) | May 2023 – Aug 2023
 - Built Smartsheet infrastructure for the HHS PMO contract.
 - Designed and improved sheets to automate internal HR and business processes.
-
-### Owner and Founder | Maker City Pallet Works, Knoxville, TN | Jan 2018 – Dec 2021
-- Built and managed end-to-end business operations including client systems, invoicing (QuickBooks), and project tracking.
-- Developed digital marketing infrastructure: SEO, Meta ad campaigns, email marketing, social media automation.

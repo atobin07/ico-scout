@@ -32,10 +32,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Web Developer & Designer | Self-Employed | Jan 2026 – Present
-- Designed and launched multiple client-facing production websites — handling layout, content, branding, and responsive design from concept to live deployment.
-- Built **AdvisoryCloud 3.0** — a mobile-first SaaS web platform (React 18, Tailwind CSS, Supabase) with a full PWA experience installable on iOS and Android; zero to live production in 7 days.
-- Built **Capitol Mirror** — a full-stack web application (Next.js, TypeScript) with a polished subscription UI, tiered pricing pages, and real-time data dashboards.
-- Built **Container Tracker** — a logistics web app with a clean dashboard UI, status pipeline visualization, and responsive design across devices.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Senior Data Analytics Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Directed development of mobile application features to enhance customer engagement and digital presence.

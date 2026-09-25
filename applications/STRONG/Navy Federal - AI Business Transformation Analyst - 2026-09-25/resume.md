@@ -41,12 +41,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### AI Systems Developer & Business Transformation Contractor | callcathai.online · primelayertrades.com · hereraspreadsheets.com | Jan 2026 – Present
-- Designed and operationalized AI Value Realization frameworks for three client organizations — defined measurable success metrics, established baselines and targets, tracked realized business benefits post-implementation, and reported performance insights to executive leadership.
-- Developed and maintained portfolio dashboards and scorecards communicating AI investment performance, initiative progress, and value realization against expected outcomes for C-suite audiences.
-- Developed Lean Business Cases and investment recommendations for AI and automation initiatives — connected proposed investment decisions to measurable value drivers and strategic priorities.
-- Built production AI agent workflows using Power Automate, Copilot Studio, and LLM prompt frameworks; led discovery sessions to identify use cases, evaluate feasibility and data readiness, and define acceptance criteria.
-- Designed and optimized prompts (system, user, tool-call) for document processing, data extraction, classification, and decision support; applied responsible AI practices including output validation and auditability.
-- Led change management activities: stakeholder demonstrations, training development, process documentation, and post-launch adoption support.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / Digital Transformation Lead | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Led enterprise digital transformation program: mapped current-state processes, identified AI and automation opportunities, built solution frameworks, tracked adoption and value realization against expected outcomes.

@@ -28,10 +28,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & Digital Marketing Analyst | Self-Employed | Jan 2026 – Present
-- Built and maintained web analytics reporting infrastructure for production digital platforms — configuring custom event tracking, UTM parameter frameworks, and campaign measurement pipelines feeding recurring performance dashboards.
-- Implemented AEO and GEO strategies across client digital properties — optimizing content structure, structured data markup, and entity authority to improve visibility in AI-driven and answer engine search results.
-- Developed SEO strategies using keyword research, Google Search Console data, and SEMrush — monitoring organic ranking trends, identifying content gaps, and reporting performance against targets.
-- Maintained accurate location data and online presence across digital properties — resolving listing inconsistencies, outdated content, and broken links to ensure data integrity across platforms.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Senior Data Analytics Manager | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Built and managed the organization's digital marketing analytics infrastructure — developed recurring campaign reports, KPI dashboards, and performance tracking across email, social, and paid channels.
@@ -43,7 +44,3 @@ University of Tennessee, Knoxville, TN — Aug 2019
 - Developed Power BI dashboards and KPI frameworks translating digital and operational performance data into executive-ready reporting adopted across Finance, Operations, and Marketing.
 - Built recurring and ad hoc data extracts and reporting workflows supporting campaign and business decisions; maintained data quality and consistency across all reporting outputs.
 - Led cross-functional digital and analytics projects — coordinated with marketing, communications, and IT stakeholders to define tracking standards, reporting requirements, and data governance practices.
-
-### Owner and Founder | Maker City Pallet Works, Knoxville, TN | Jan 2018 – Dec 2021
-- Managed all digital marketing across SEO, Meta ad campaigns, Google Ads, and social media — monitored performance using Google Analytics and Search Console, optimized based on data, and grew organic and paid search visibility.
-- Maintained consistent location data and business listings across Google, Yelp, and directory platforms; resolved inaccuracies and duplicate listings to ensure accurate online presence.

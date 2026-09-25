@@ -41,12 +41,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### AI Systems Developer & Freelance Contractor | callcathai.online · primelayertrades.com · hereraspreadsheets.com | Jan 2026 – Present
-- Architected and deployed production AI agent workflows for three client organizations — designed prompt frameworks, built Copilot Studio integrations, and developed no-code automation pipelines using Power Automate and Zapier to eliminate manual bottlenecks.
-- Led full AI use case discovery and requirements sessions with C-suite stakeholders: identified pain points, evaluated feasibility and data readiness, defined acceptance criteria, and translated needs into deployable LLM-powered solutions.
-- Built **AdvisoryCloud 3.0** — production SaaS platform (React, Supabase Edge Functions, Vercel) with AI-integrated features: LLM summarization, automated matching logic, and real-time prompt-driven workflows; zero to live in 7 days.
-- Designed and optimized prompts (system, user, tool-call) for document processing, data extraction, classification, and decision support — iterative testing, output validation, and version control for each use case.
-- Delivered end-user training, process documentation, and change management materials to drive AI tool adoption.
-- Defined success metrics and reported realized business benefits post-implementation.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / Systems Developer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Directed digital transformation program: mapped current-state processes, identified automation use cases, built no-code solutions (Airtable Automations, integrations, scripting), and led adoption across departments.

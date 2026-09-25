@@ -30,10 +30,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Senior FP&A & Data Analyst | Self-Employed | Jan 2026 – Present
-- **callcathai.online** — Built Power BI dashboards and SQL-driven financial reporting pipelines; implemented Microsoft Copilot workflows to automate routine variance reporting and accelerate monthly close commentary for executive leadership.
-- **primelayertrades.com** — Designed dynamic financial models for cash flow forecasting, P&L tracking, and scenario analysis; applied prompt engineering and AI-assisted analysis to surface insights faster and validate outputs before executive presentation.
-- **hereraspreadsheets.com** — Developed expert-level C-suite KPI reporting infrastructure with advanced Excel models, automated data pipelines, and real-time Power BI visualization layers; coached client finance team on AI tool adoption and repeatable FP&A workflows.
-- Delivered expert-level executive reporting and multi-dimensional KPI frameworks across client organizations; partnered with C-suite stakeholders to translate complex financial data into clear strategic narrative.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / FP&A Lead | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Led budgeting, forecasting, and variance analysis for multi-location operations; developed dynamic financial models for long-range planning, scenario analysis, and cash flow projection.

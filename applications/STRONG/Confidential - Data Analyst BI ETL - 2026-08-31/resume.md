@@ -28,10 +28,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Data Analyst & BI Consultant | Self-Employed | Jan 2026 – Present
-- **callcathai.online** — Designed and built SQL-driven ETL pipelines and Power BI dashboards for call analytics data; implemented data quality validation, query optimization, and automated reporting to deliver accurate insights to executive stakeholders.
-- **primelayertrades.com** — Developed Python and SQL data integration workflows with dimensional data models; built Tableau and Power BI dashboards for operational analytics and designed optimized database schemas for efficient data retrieval.
-- **hereraspreadsheets.com** — Built expert-level C-suite KPI dashboards using Power BI, Tableau, and advanced Excel (VBA automation, Power Query, XLOOKUP, ARRAY formulas); designed ETL processes for accurate data integration across client reporting systems.
-- Delivered interactive dashboards, variance analysis, and executive reporting infrastructure across client organizations; translated business requirements into BI solutions with full documentation.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / Data Analyst | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Collected, cleaned, and analyzed large operational and financial datasets using Python, SQL, and Excel; developed and maintained Power BI dashboards delivering KPI and performance insights to executive leadership.

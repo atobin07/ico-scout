@@ -28,11 +28,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance AI Developer & Systems Architect | Self-Employed | Jan 2026 – Present
-- Designed and deployed AI-powered production applications using LLM APIs, prompt engineering, and RAG architectures — integrating AI capabilities with PostgreSQL databases, REST APIs, and cloud-hosted backend services.
-- Built **CallCatch AI** (callcatchai.online) — an AI-driven call analysis and business intelligence platform; engineered prompt pipelines, LLM integration, and automated data extraction workflows for real-time business insights.
-- Built **PrimeLayer** (primelayer.solutions) — full-stack data platform with AI-assisted analysis layers, automated ingestion pipelines, and structured reporting; deployed to production with CI/CD on Vercel and DigitalOcean.
-- Built **Capitol Mirror** — SaaS analytics platform (Next.js, Supabase, Stripe) automating ingestion and analysis of government STOCK Act filings; GitHub Actions CI/CD pipeline, Stripe billing, full production deployment.
-- Produced governance documentation, AI system specifications, and integration guides for every engagement — written to a standard that enables independent execution without clarification.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / AI & Systems Developer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Identified and implemented AI-driven solutions across operations — evaluating tools, designing workflows, and deploying automation that improved efficiency across clinical, finance, and operations functions.

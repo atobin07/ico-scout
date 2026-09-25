@@ -28,10 +28,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & AI Systems Designer | Self-Employed | Jan 2026 – Present
-- Designed and built production AI interaction layers for multiple platforms — custom prompt frameworks with structured validation, fallback logic, and consistent output formats deployed to real end users.
-- Built **Capitol Mirror** — AI-enabled SaaS with LLM-powered analytics interface, automated data ingestion pipeline, and governance controls; designed the full user-facing AI interaction experience from concept through deployment.
-- Developed agentic workflow architectures replacing manual operational processes with intelligent, monitored pipelines — including human review checkpoints and escalation paths.
-- Authored end-to-end technical documentation, onboarding materials, and user-facing playbooks for every AI system deployed.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / AI & Systems Designer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Served as the organization's primary AI and automation implementer — facilitated solution workshops with leadership, designed AI-powered workflows, and led adoption and training across the team.

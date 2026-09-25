@@ -27,9 +27,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Developer & Integration Specialist | Self-Employed | Jan 2026 – Present
-- Designed and built production data integration pipelines connecting external APIs, flat-file feeds, and database systems — including automated ingestion, transformation, validation, and routing logic across end-to-end workflows.
-- Developed and maintained comprehensive technical documentation for all integration systems — covering data schemas, API specifications, ingestion pipeline logic, and data lineage records maintained in version-controlled repositories.
-- Built **Container Tracker** — logistics tracking platform integrating live shipping APIs with a structured multi-stage data pipeline; full CRUD backend and production deployment.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### EDI Integrations & Project Manager | Ferguson Enterprises Inc., Remote | Mar 2022 – Jul 2024
 - Led end-to-end trading partner onboarding to Ferguson's enterprise B2B EDI platform — including partner setup, EDI mapping configuration, validation rule implementation, and transmission testing across FTP, SFTP, and AS2 connections.

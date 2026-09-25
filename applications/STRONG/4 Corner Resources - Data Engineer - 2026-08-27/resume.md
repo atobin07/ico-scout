@@ -25,10 +25,11 @@ University of Tennessee, Knoxville, TN — Aug 2019
 ## Professional Experience
 
 ### Freelance Data Engineer & Developer | Self-Employed | Jan 2026 – Present
-- **callcathai.online** — Engineered PySpark and Python data pipelines on AWS (S3, Redshift) for AI-driven call analytics; built automated ETL workflows ingesting raw call data into structured reporting layers for executive dashboards.
-- **primelayertrades.com** — Designed and deployed cloud data infrastructure on GCP (BigQuery) and AWS; built Java-based data processing jobs and automated ingestion pipelines for trading and financial data with real-time KPI reporting.
-- **hereraspreadsheets.com** — Built full-stack data platform (Supabase, Vercel, Python) with automated data pipelines, advanced SQL reporting layers, and C-suite KPI dashboards for operational and financial performance tracking.
-- Designed and delivered expert-level C-suite KPI dashboards and executive reporting infrastructure across client engagements; built multi-dimensional performance frameworks with automated pipelines and real-time visualization layers.
+- Built and deployed production websites for four active clients: **primelayertrades.com**, **callcatchai.online**, **hereraspreadsheets.com**, and **kizunaperformance.com** — WordPress, Shopify, and custom builds with responsive design, SEO optimization, and post-launch maintenance. Portfolio: [primelayer.solutions/see-our-work](https://www.primelayer.solutions/see-our-work)
+- Built **AdvisoryCloud 3.0** — full-stack SaaS platform (React 18, Supabase, Tailwind CSS, PWA) with real-time messaging, role-based dashboards, and 15+ database tables; from Figma wireframes to live production MVP in 7 days using Claude Code and Cursor.
+- Built **Container Tracker** — production logistics web app (React, Supabase, Vercel) with live API integration, 6-stage status pipeline, and fleet-wide analytics dashboard; clean, responsive, fully deployed.
+- Developed C-suite KPI dashboards and executive reporting frameworks for client organizations; multi-dimensional performance views integrating financial, operational, and sales metrics into real-time visualization layers for leadership decision-making.
+- AI development workflow: Claude Code for architecture and scaffolding, Cursor for in-file editing, v0 for UI prototyping, Figma Dev Mode for design extraction — manually audit every output to production standard.
 
 ### Operations Manager / Data Systems Developer | Catalyzt Nutrition, Virginia Beach, VA | Nov 2024 – Jan 2026
 - Engineered PySpark and Python data pipelines for operational and financial data processing across a multi-location environment; built automated ETL workflows reducing reporting cycle time.
