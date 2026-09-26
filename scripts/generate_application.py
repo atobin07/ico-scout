@@ -749,7 +749,7 @@ def build_main(data, compact=False, max_bullets=None, stretch=1.0):
                 leftIndent=10, firstLineIndent=-8,
                 spaceAfter=(4 if not compact else 2) * stretch)
     s_sum  = S("su",  fontName=F_REG, fontSize=10 if not compact else 8.5,
-                textColor=colors.HexColor("#C8D8E8"),
+                textColor=colors.HexColor("#E8EFF6"),
                 leading=(15.5 if not compact else 12) * stretch,
                 spaceAfter=(6 if not compact else 2) * stretch,
                 leftIndent=8, rightIndent=8)
