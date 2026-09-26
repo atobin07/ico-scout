@@ -282,10 +282,10 @@ export default function Home() {
                       <td className="px-4 py-3">
                         {app.coverLetterPath ? (
                           <button
-                            onClick={() => downloadAs(`/${app.coverLetterPath}`, `Tobin_${app.company}_CoverLetter.md`)}
+                            onClick={() => downloadAs(`/${app.coverLetterPath}`, `Tobin_${app.company}_CoverLetter.pdf`)}
                             className="inline-flex items-center gap-1 px-2 py-1 bg-purple-900 hover:bg-purple-800 text-white text-xs rounded transition-colors"
                           >
-                            Letter ↓
+                            Cover ↓
                           </button>
                         ) : (
                           <span className="text-gray-600 text-xs">—</span>
