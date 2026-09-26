@@ -958,6 +958,94 @@ def build_word_cover_letter(md: str, out_path: str):
     print(f"✓ DOCX: {out_path}")
 
 
+def build_pdf_cover_letter(md: str, out_path: str):
+    """Generate a styled 1-page PDF cover letter matching the resume's design language."""
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
+    from reportlab.lib.styles import ParagraphStyle as PS
+    from reportlab.lib.units import inch
+    from reportlab.lib.pagesizes import letter
+    from reportlab.lib import colors as rl_colors
+
+    PW, PH = letter
+    ML = MR = 0.9 * inch
+    MT = 0.7 * inch
+    MB = 0.7 * inch
+
+    doc = SimpleDocTemplate(out_path, pagesize=letter,
+                            leftMargin=ML, rightMargin=MR,
+                            topMargin=MT, bottomMargin=MB)
+
+    AW = PW - ML - MR
+
+    C_NAVY  = colors.HexColor("#09152A")
+    C_TEAL  = colors.HexColor("#1B7A8C")
+    C_GOLD  = colors.HexColor("#C9A84C")
+    C_GRAY  = colors.HexColor("#4A5568")
+    C_LGRAY = colors.HexColor("#718096")
+
+    def S(name, **kw): return PS(name, **kw)
+
+    s_name    = S("cl_name",  fontName=F_BOLD,   fontSize=22, textColor=C_NAVY,  leading=26, spaceAfter=2)
+    s_contact = S("cl_con",   fontName=F_REG,    fontSize=9.5, textColor=C_LGRAY, leading=13, spaceAfter=0)
+    s_meta    = S("cl_meta",  fontName=F_REG,    fontSize=10,  textColor=C_NAVY,  leading=14, spaceAfter=2)
+    s_dear    = S("cl_dear",  fontName=F_BOLD,   fontSize=11,  textColor=C_NAVY,  leading=15, spaceAfter=10)
+    s_body    = S("cl_body",  fontName=F_REG,    fontSize=10.5, textColor=C_GRAY,
+                  leading=16, spaceAfter=10, wordWrap='LTR')
+    s_sign    = S("cl_sign",  fontName=F_REG,    fontSize=10.5, textColor=C_NAVY,  leading=14, spaceAfter=2)
+    s_sname   = S("cl_sname", fontName=F_BOLD,   fontSize=12,  textColor=C_NAVY,  leading=16)
+
+    lines = md.strip().split("\n")
+    # Skip leading title line (# Cover Letter ...)
+    i = 0
+    while i < len(lines) and not lines[i].strip().startswith("Alexander"): i += 1
+
+    story = []
+
+    # Name
+    name = lines[i].strip() if i < len(lines) else "Alexander Tobin"
+    story.append(Paragraph(name, s_name))
+    i += 1
+
+    # Contact line(s)
+    while i < len(lines) and lines[i].strip() and not lines[i].strip().startswith("---"):
+        story.append(Paragraph(lines[i].strip(), s_contact))
+        i += 1
+
+    # Gold rule
+    story.append(Spacer(1, 6))
+    story.append(HRFlowable(width=AW, thickness=2, color=C_GOLD, spaceAfter=10))
+
+    # Skip blank / ---
+    while i < len(lines) and (not lines[i].strip() or lines[i].strip() == "---"): i += 1
+
+    # Date + addressee block (up to "Dear")
+    while i < len(lines) and lines[i].strip() and not lines[i].strip().startswith("Dear"):
+        story.append(Paragraph(lines[i].strip(), s_meta))
+        i += 1
+    story.append(Spacer(1, 8))
+
+    # Body
+    while i < len(lines):
+        ln = lines[i].strip()
+        i += 1
+        if not ln:
+            story.append(Spacer(1, 4))
+            continue
+        if ln == "---": continue
+        if ln.startswith("Dear"):
+            story.append(Paragraph(ln, s_dear))
+            continue
+        if ln.startswith("Sincerely"):
+            story.append(Spacer(1, 20))
+            story.append(Paragraph(ln + ",", s_sign))
+            continue
+        # Next non-blank after Sincerely = name
+        story.append(Paragraph(rich(ln), s_body if not ln.startswith("Alexander") else s_sname))
+
+    doc.build(story)
+    print(f"✓ Cover Letter PDF: {out_path}")
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 #  MAIN
 # ══════════════════════════════════════════════════════════════════════════════
@@ -977,5 +1065,5 @@ if __name__ == "__main__":
     with open(os.path.join(folder, "resume.md"))       as f: resume_md = f.read()
     with open(os.path.join(folder, "cover_letter.md")) as f: cover_md  = f.read()
 
-    build_pdf_resume(resume_md,       os.path.join(folder, "resume.pdf"), style=style)
-    build_word_cover_letter(cover_md, os.path.join(folder, "cover_letter.docx"))
+    build_pdf_resume(resume_md,    os.path.join(folder, "resume.pdf"), style=style)
+    build_pdf_cover_letter(cover_md, os.path.join(folder, "cover_letter.pdf"))
