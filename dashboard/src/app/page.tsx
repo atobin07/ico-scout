@@ -38,6 +38,7 @@ type Application = {
   resumePath: string
   coverLetterPath: string
   coverLetterText?: string
+  jobDescriptionText?: string
   hasPdf: boolean
 }
 
@@ -72,6 +73,11 @@ export default function Home() {
   const [showUnAppliedOnly, setShowUnAppliedOnly] = useState(false)
   const [copyModal, setCopyModal] = useState<{ company: string; text: string } | null>(null)
   const [copied, setCopied] = useState(false)
+  const [activeTab, setActiveTab] = useState<'applications' | 'search'>('applications')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResult, setSearchResult] = useState<Application | null>(null)
+  const [searchJdCopied, setSearchJdCopied] = useState(false)
+  const [searchClCopied, setSearchClCopied] = useState(false)
 
   function openCopyModal(app: Application) {
     setCopyModal({ company: app.company, text: app.coverLetterText || '' })
@@ -84,6 +90,13 @@ export default function Home() {
       setTimeout(() => setCopied(false), 2000)
     })
   }
+
+  const searchMatches = searchQuery.trim().length > 0
+    ? apps.filter(a =>
+        a.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        a.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : []
 
   useEffect(() => {
     try {
@@ -134,7 +147,23 @@ export default function Home() {
           <div className="text-xs text-gray-500 italic">{TAGLINES[getDailyIndex(TAGLINES)]}</div>
         </div>
 
-        <div className="p-3 border-b border-gray-800 space-y-1">
+        {/* Tab switcher */}
+        <div className="flex border-b border-gray-800">
+          <button
+            onClick={() => setActiveTab('applications')}
+            className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors ${activeTab === 'applications' ? 'bg-gray-800 text-teal-400' : 'text-gray-500 hover:text-gray-300'}`}
+          >
+            Applications
+          </button>
+          <button
+            onClick={() => setActiveTab('search')}
+            className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors ${activeTab === 'search' ? 'bg-gray-800 text-teal-400' : 'text-gray-500 hover:text-gray-300'}`}
+          >
+            🔍 Search
+          </button>
+        </div>
+
+        <div className={`p-3 border-b border-gray-800 space-y-1 ${activeTab !== 'applications' ? 'hidden' : ''}`}>
           <button
             onClick={() => { setSelectedDate('all'); setFitFilter('ALL'); setShowAppliedOnly(false); setShowUnAppliedOnly(false) }}
             className={`w-full text-left px-3 py-2 rounded text-sm font-medium transition-colors ${selectedDate === 'all' && fitFilter === 'ALL' && !showAppliedOnly && !showUnAppliedOnly ? 'bg-teal-600 text-white' : 'text-gray-300 hover:bg-gray-800'}`}
@@ -172,7 +201,7 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-3">
+        <div className={`flex-1 overflow-y-auto p-3 ${activeTab !== 'applications' ? 'hidden' : ''}`}>
           <div className="text-xs uppercase tracking-widest text-gray-500 mb-2 px-1">By Date</div>
           {dates.map(d => {
             const count = apps.filter(a => a.date === d).length
@@ -216,7 +245,106 @@ export default function Home() {
 
       {/* Main content */}
       <main className="flex-1 overflow-auto">
-        <div className="p-6">
+
+        {/* ── Search tab ── */}
+        {activeTab === 'search' && (
+          <div className="p-6 max-w-4xl">
+            <h1 className="text-xl font-bold text-white mb-1">Application Lookup</h1>
+            <p className="text-sm text-gray-400 mb-5">Search by company or role to find your submitted materials.</p>
+
+            <input
+              autoFocus
+              type="text"
+              value={searchQuery}
+              onChange={e => { setSearchQuery(e.target.value); setSearchResult(null) }}
+              placeholder="Search company or role..."
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-teal-500 mb-4"
+            />
+
+            {/* Match list */}
+            {searchMatches.length > 0 && !searchResult && (
+              <div className="border border-gray-800 rounded-lg overflow-hidden mb-6">
+                {searchMatches.map(a => (
+                  <button
+                    key={getAppliedKey(a)}
+                    onClick={() => setSearchResult(a)}
+                    className="w-full text-left px-4 py-3 border-b border-gray-800 last:border-0 hover:bg-gray-800 transition-colors"
+                  >
+                    <div className="text-white text-sm font-medium">{a.company}</div>
+                    <div className="text-gray-400 text-xs mt-0.5">{a.title} &nbsp;·&nbsp; {a.date}</div>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {searchQuery && searchMatches.length === 0 && (
+              <p className="text-gray-500 text-sm">No applications found for "{searchQuery}"</p>
+            )}
+
+            {/* Detail panel */}
+            {searchResult && (
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-lg font-bold text-white">{searchResult.company}</h2>
+                    <p className="text-sm text-gray-400">{searchResult.title} &nbsp;·&nbsp; {searchResult.date}</p>
+                  </div>
+                  <button onClick={() => setSearchResult(null)} className="text-gray-500 hover:text-white text-sm">← Back</button>
+                </div>
+
+                {/* Action buttons */}
+                <div className="flex flex-wrap gap-3">
+                  {searchResult.applyUrl && (
+                    <a href={searchResult.applyUrl} target="_blank" rel="noopener noreferrer"
+                      className="px-4 py-2 bg-teal-700 hover:bg-teal-600 text-white text-sm rounded-lg transition-colors">
+                      Apply →
+                    </a>
+                  )}
+                  {searchResult.hasPdf && (
+                    <button onClick={() => downloadAs(`/${searchResult.resumePath}`, `Tobin_${searchResult.company}_Resume.pdf`)}
+                      className="px-4 py-2 bg-blue-800 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors">
+                      Resume PDF ↓
+                    </button>
+                  )}
+                  {searchResult.coverLetterPath && (
+                    <button onClick={() => downloadAs(`/${searchResult.coverLetterPath}`, `Tobin_${searchResult.company}_CoverLetter.pdf`)}
+                      className="px-4 py-2 bg-purple-800 hover:bg-purple-700 text-white text-sm rounded-lg transition-colors">
+                      Cover Letter PDF ↓
+                    </button>
+                  )}
+                  {searchResult.coverLetterText && (
+                    <button onClick={() => { navigator.clipboard.writeText(searchResult.coverLetterText!); setSearchClCopied(true); setTimeout(() => setSearchClCopied(false), 2000) }}
+                      className={`px-4 py-2 text-sm rounded-lg transition-colors ${searchClCopied ? 'bg-green-700 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'}`}>
+                      {searchClCopied ? '✓ Copied!' : 'Copy Cover Letter'}
+                    </button>
+                  )}
+                </div>
+
+                {/* Job Description */}
+                {searchResult.jobDescriptionText && (
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-widest text-teal-400 mb-2">Job Description</div>
+                    <pre className="bg-gray-900 border border-gray-800 rounded-lg px-5 py-4 text-sm text-gray-300 whitespace-pre-wrap font-sans leading-relaxed max-h-96 overflow-y-auto">
+                      {searchResult.jobDescriptionText}
+                    </pre>
+                  </div>
+                )}
+
+                {/* Cover Letter */}
+                {searchResult.coverLetterText && (
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-widest text-teal-400 mb-2">Cover Letter Submitted</div>
+                    <pre className="bg-gray-900 border border-gray-800 rounded-lg px-5 py-4 text-sm text-gray-300 whitespace-pre-wrap font-sans leading-relaxed max-h-96 overflow-y-auto">
+                      {searchResult.coverLetterText}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'applications' && <div className="p-6">
           {/* Erin's daily greeting */}
           <div className="mb-6 px-4 py-3 rounded-lg bg-gradient-to-r from-teal-900/40 to-blue-900/30 border border-teal-800/40 text-sm text-teal-100">
             {GREETINGS[getDailyIndex(GREETINGS)]}
@@ -349,7 +477,8 @@ export default function Home() {
               </tbody>
             </table>
           </div>
-        </div>
+        </div>}
+
       </main>
     </div>
   )
