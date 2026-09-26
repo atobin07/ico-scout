@@ -1093,8 +1093,9 @@ def build_pdf_cover_letter(md: str, out_path: str):
     # Parse out name + contact from the markdown header
     lines = md.strip().split("\n")
     i = 0
-    while i < len(lines) and not lines[i].strip().startswith("Alexander"): i += 1
-    cl_name    = lines[i].strip() if i < len(lines) else "Alexander Tobin"
+    while i < len(lines) and "ALEXANDER" not in lines[i].upper()[:25]: i += 1
+    raw_name   = lines[i].strip().lstrip("#").strip()
+    cl_name    = raw_name.title() if raw_name.isupper() else raw_name
     i += 1
     cl_contact = ""
     while i < len(lines) and lines[i].strip() and not lines[i].strip().startswith("---"):
