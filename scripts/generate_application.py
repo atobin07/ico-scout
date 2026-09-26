@@ -993,24 +993,32 @@ def build_pdf_cover_letter(md: str, out_path: str):
     def draw_page(canvas, doc):
         canvas.saveState()
 
-        # ── Identical header (navy + teal diagonal + gold accents) ───────────
+        # ── Full-page navy→white gradient wash (drawn first, behind everything) ─
+        body_h = H - HDR_H
+        steps  = 300   # enough steps that bands are sub-pixel, invisible
+        for k in range(steps):
+            t      = k / steps
+            alpha  = max(0.0, 0.11 * (1.0 - t / 0.55))
+            band_y = body_h - (k + 1) * body_h / steps
+            band_h = body_h / steps + 0.5
+            canvas.setFillColor(colors.Color(0.035, 0.082, 0.165, alpha=alpha))
+            canvas.rect(0, band_y, W, band_h, fill=1, stroke=0)
+
+        # ── Header on top of gradient ────────────────────────────────────────
         draw_fn(canvas, doc)
 
-        # ── Cover sidebar elements with clean white ──────────────────────────
+        # ── Erase sidebar chrome (gold strip, navy panel, gold divider) ──────
         canvas.setFillColor(colors.white)
         canvas.rect(0, 0, SB_W + GOLD_DIV + 2, H - HDR_H, fill=1, stroke=0)
 
-        # ── Gradient wash: navy at top fading to nothing by ~40% down ────────
-        body_h = H - HDR_H
-        steps = 60
+        # ── Re-draw gradient over the area we just blanked ───────────────────
         for k in range(steps):
-            t      = k / steps                          # 0 = top of body, 1 = bottom
-            alpha  = max(0.0, 0.13 * (1 - t / 0.40))  # fade out by 40% of page height
+            t      = k / steps
+            alpha  = max(0.0, 0.11 * (1.0 - t / 0.55))
             band_y = body_h - (k + 1) * body_h / steps
-            band_h = body_h / steps + 1
+            band_h = body_h / steps + 0.5
             canvas.setFillColor(colors.Color(0.035, 0.082, 0.165, alpha=alpha))
-            canvas.rect(SB_W + GOLD_DIV + 2, band_y, W - SB_W - GOLD_DIV - 2, band_h,
-                        fill=1, stroke=0)
+            canvas.rect(0, band_y, SB_W + GOLD_DIV + 2, band_h, fill=1, stroke=0)
 
         canvas.restoreState()
 
@@ -1054,7 +1062,7 @@ def build_pdf_cover_letter(md: str, out_path: str):
             story.append(Paragraph(ln, s_dear)); continue
         if ln.startswith("Sincerely"):
             story.append(Spacer(1, 22))
-            story.append(Paragraph(ln + ",", s_sign)); continue
+            story.append(Paragraph(ln.rstrip(",") + ",", s_sign)); continue
         if ln.startswith("Alexander"):
             story.append(Paragraph(ln, s_snam)); continue
         story.append(Paragraph(rich(ln), s_body))
