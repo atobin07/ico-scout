@@ -359,6 +359,126 @@ def parse_resume(md: str) -> dict:
 #  PAGE DRAW  (header + sidebar drawn fresh every page via onPage)
 # ══════════════════════════════════════════════════════════════════════════════
 
+def make_header_draw(data):
+    """Like make_draw but renders ONLY the header — no sidebar, no divider."""
+    initials = "".join(w[0].upper() for w in data["name"].split() if w)
+
+    def draw(canvas, doc):
+        canvas.saveState()
+        canvas.setFillColor(C_NAVY)
+        canvas.rect(0, H - HDR_H, W, HDR_H, fill=1, stroke=0)
+
+        canvas.saveState()
+        clip = canvas.beginPath()
+        clip.rect(0, H - HDR_H, W, HDR_H)
+        canvas.clipPath(clip, stroke=0)
+
+        diag_top = SPLIT_X + 30
+        diag_bot = SPLIT_X - 22
+        tp = canvas.beginPath()
+        tp.moveTo(diag_bot, H - HDR_H + CTX_H)
+        tp.lineTo(diag_top, H)
+        tp.lineTo(W, H)
+        tp.lineTo(W, H - HDR_H + CTX_H)
+        tp.close()
+        canvas.setFillColor(C_TEAL2)
+        canvas.drawPath(tp, fill=1, stroke=0)
+
+        canvas.setFillColor(C_TEAL3)
+        canvas.rect(W - 26, H - HDR_H + CTX_H, 26, HDR_H - CTX_H, fill=1, stroke=0)
+
+        canvas.setFont(F_BOLD, 90)
+        canvas.setFillColor(colors.Color(1, 1, 1, alpha=0.055))
+        iw = canvas.stringWidth(initials, F_BOLD, 90)
+        canvas.drawString(W - iw - 10, H - HDR_H + CTX_H + 2, initials)
+
+        ring_cx = diag_bot + (W - diag_bot) * 0.38
+        ring_cy = H - HDR_H + CTX_H + (HDR_H - CTX_H) * 0.52
+        for r, lw, a in [(56, 1.8, 0.18), (40, 1.1, 0.12), (26, 0.7, 0.08)]:
+            canvas.setStrokeColor(colors.Color(1, 1, 1, alpha=a))
+            canvas.setLineWidth(lw)
+            canvas.circle(ring_cx, ring_cy, r, fill=0, stroke=1)
+
+        canvas.setFillColor(colors.Color(1, 1, 1, alpha=0.14))
+        gx0 = diag_bot + 14
+        gy0 = H - HDR_H + CTX_H + 8
+        for col in range(4):
+            for row in range(4):
+                canvas.circle(gx0 + col * 11, gy0 + row * 11, 1.4, fill=1, stroke=0)
+
+        if data.get("tags"):
+            pill_font_size = 6.8
+            pill_pad_x = 5
+            pill_pad_y = 2.5
+            pill_h = pill_font_size + pill_pad_y * 2
+            pill_y = H - HDR_H + CTX_H + 5
+            pill_x = diag_bot + 18
+            canvas.setFont(F_BOLD, pill_font_size)
+            for tag in data["tags"][:8]:
+                tw = canvas.stringWidth(tag, F_BOLD, pill_font_size)
+                pw = tw + pill_pad_x * 2
+                if pill_x + pw > W - 10: break
+                canvas.setFillColor(colors.Color(1, 1, 1, alpha=0.14))
+                canvas.roundRect(pill_x, pill_y, pw, pill_h, pill_h / 2, fill=1, stroke=0)
+                canvas.setStrokeColor(colors.Color(1, 1, 1, alpha=0.28))
+                canvas.setLineWidth(0.5)
+                canvas.roundRect(pill_x, pill_y, pw, pill_h, pill_h / 2, fill=0, stroke=1)
+                canvas.setFillColor(C_WHITE)
+                canvas.drawString(pill_x + pill_pad_x, pill_y + pill_pad_y + 0.5, tag)
+                pill_x += pw + 5
+
+        canvas.setStrokeColor(colors.Color(0.79, 0.66, 0.30, alpha=0.12))
+        canvas.setLineWidth(32)
+        p = canvas.beginPath()
+        p.moveTo(-8, H - HDR_H + CTX_H + 4)
+        p.curveTo(60, H - HDR_H + CTX_H + 58, 190, H - HDR_H + CTX_H + 78,
+                  diag_bot + 8, H - HDR_H + CTX_H + 82)
+        canvas.drawPath(p, fill=0, stroke=1)
+
+        canvas.setStrokeColor(colors.Color(1, 1, 1, alpha=0.04))
+        canvas.setLineWidth(0.5)
+        for offset in range(8, 56, 14):
+            canvas.line(0, H - HDR_H + CTX_H + offset, diag_bot - 4, H - HDR_H + CTX_H + offset)
+
+        canvas.setStrokeColor(colors.Color(0.79, 0.66, 0.30, alpha=0.55))
+        canvas.setLineWidth(1.8)
+        canvas.line(diag_bot - 6, H - HDR_H + CTX_H, diag_top - 6, H)
+
+        canvas.restoreState()  # end clip
+
+        canvas.setFillColor(colors.Color(0, 0, 0, alpha=0.30))
+        canvas.rect(0, H - HDR_H, W, CTX_H, fill=1, stroke=0)
+        canvas.setFillColor(C_GOLD)
+        canvas.rect(0, H - HDR_H + CTX_H - 0.5, W, 1.5, fill=1, stroke=0)
+        canvas.setFillColor(colors.Color(0.79, 0.66, 0.30, alpha=0.30))
+        canvas.rect(0, H - HDR_H + CTX_H + 3, W, 0.5, fill=1, stroke=0)
+
+        parts = [p.strip() for p in data["contact"].split("|") if p.strip()]
+        contact_str = "   ◆   ".join(parts)
+        canvas.setFont(F_REG, 7.5)
+        canvas.setFillColor(colors.HexColor("#8AADCC"))
+        canvas.drawString(16, H - HDR_H + 6, contact_str)
+
+        name_y = H - HDR_H + CTX_H + 34
+        canvas.setFont(F_BOLD, 36)
+        canvas.setFillColor(C_WHITE)
+        canvas.drawString(16, name_y, data["name"])
+
+        canvas.setFillColor(C_GOLD)
+        canvas.rect(16, name_y - 5, 80, 3, fill=1, stroke=0)
+        canvas.setFillColor(colors.Color(0.79, 0.66, 0.30, alpha=0.40))
+        canvas.rect(16, name_y - 9, 44, 1.2, fill=1, stroke=0)
+
+        if data["subtitle"]:
+            canvas.setFont(F_REG, 9.5)
+            canvas.setFillColor(C_GOLD2)
+            canvas.drawString(18, H - HDR_H + CTX_H + 14, data["subtitle"])
+
+        canvas.restoreState()
+
+    return draw
+
+
 def make_draw(data):
     initials = "".join(w[0].upper() for w in data["name"].split() if w)
 
@@ -988,14 +1108,14 @@ def build_pdf_cover_letter(md: str, out_path: str):
         "tags":     [],
         "sections": [],
     }
-    draw_fn = make_draw(cl_data)
+    cl_header_draw = make_header_draw(cl_data)
 
     def draw_page(canvas, doc):
         canvas.saveState()
 
-        # ── Full-page navy→white gradient wash (drawn first, behind everything) ─
+        # Full-width navy→transparent gradient, 300 sub-pixel bands = no banding
         body_h = H - HDR_H
-        steps  = 300   # enough steps that bands are sub-pixel, invisible
+        steps  = 300
         for k in range(steps):
             t      = k / steps
             alpha  = max(0.0, 0.11 * (1.0 - t / 0.55))
@@ -1004,21 +1124,8 @@ def build_pdf_cover_letter(md: str, out_path: str):
             canvas.setFillColor(colors.Color(0.035, 0.082, 0.165, alpha=alpha))
             canvas.rect(0, band_y, W, band_h, fill=1, stroke=0)
 
-        # ── Header on top of gradient ────────────────────────────────────────
-        draw_fn(canvas, doc)
-
-        # ── Erase sidebar chrome (gold strip, navy panel, gold divider) ──────
-        canvas.setFillColor(colors.white)
-        canvas.rect(0, 0, SB_W + GOLD_DIV + 2, H - HDR_H, fill=1, stroke=0)
-
-        # ── Re-draw gradient over the area we just blanked ───────────────────
-        for k in range(steps):
-            t      = k / steps
-            alpha  = max(0.0, 0.11 * (1.0 - t / 0.55))
-            band_y = body_h - (k + 1) * body_h / steps
-            band_h = body_h / steps + 0.5
-            canvas.setFillColor(colors.Color(0.035, 0.082, 0.165, alpha=alpha))
-            canvas.rect(0, band_y, SB_W + GOLD_DIV + 2, band_h, fill=1, stroke=0)
+        # Header only — no sidebar
+        cl_header_draw(canvas, doc)
 
         canvas.restoreState()
 
