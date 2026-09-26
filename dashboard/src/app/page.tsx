@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import data from '../../public/data.json'
 
 const TAGLINES = [
@@ -73,6 +73,8 @@ export default function Home() {
   const [showUnAppliedOnly, setShowUnAppliedOnly] = useState(false)
   const [copyModal, setCopyModal] = useState<{ company: string; text: string } | null>(null)
   const [copied, setCopied] = useState(false)
+  const [expandedCl, setExpandedCl] = useState<string | null>(null)
+  const [clCopied, setClCopied] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'applications' | 'search'>('applications')
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResult, setSearchResult] = useState<Application | null>(null)
@@ -392,10 +394,11 @@ export default function Home() {
                 {filtered.map((app, i) => {
                   const key = getAppliedKey(app)
                   const isApplied = !!applied[key]
+                  const isClExpanded = expandedCl === key
                   return (
+                    <React.Fragment key={key}>
                     <tr
-                      key={key}
-                      className={`border-b border-gray-800/50 transition-colors ${isApplied ? 'bg-blue-950/20' : i % 2 === 0 ? 'bg-gray-950' : 'bg-gray-900/30'} hover:bg-gray-800/40`}
+                      className={`border-b ${isClExpanded ? '' : 'border-gray-800/50'} transition-colors ${isApplied ? 'bg-blue-950/20' : i % 2 === 0 ? 'bg-gray-950' : 'bg-gray-900/30'} hover:bg-gray-800/40`}
                     >
                       <td className="px-3 py-3 text-center">
                         <input
@@ -462,16 +465,39 @@ export default function Home() {
                       <td className="px-4 py-3">
                         {app.coverLetterText ? (
                           <button
-                            onClick={() => openCopyModal(app)}
-                            className="inline-flex items-center gap-1 px-2 py-1 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded transition-colors"
+                            onClick={() => setExpandedCl(isClExpanded ? null : key)}
+                            className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded transition-colors ${isClExpanded ? 'bg-teal-700 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'}`}
                           >
-                            Copy
+                            {isClExpanded ? 'Hide ▲' : 'View ▼'}
                           </button>
                         ) : (
                           <span className="text-gray-600 text-xs">—</span>
                         )}
                       </td>
                     </tr>
+                    {isClExpanded && app.coverLetterText && (
+                      <tr key={key + '-cl'} className={`border-b border-gray-800/50 ${isApplied ? 'bg-blue-950/20' : i % 2 === 0 ? 'bg-gray-950' : 'bg-gray-900/30'}`}>
+                        <td colSpan={11} className="px-6 pb-5 pt-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-xs font-bold uppercase tracking-widest text-teal-400">Cover Letter — {app.company}</span>
+                            <button
+                              onClick={() => {
+                                navigator.clipboard.writeText(app.coverLetterText!)
+                                setClCopied(key)
+                                setTimeout(() => setClCopied(null), 2000)
+                              }}
+                              className={`px-3 py-1 text-xs rounded font-bold transition-colors ${clCopied === key ? 'bg-green-700 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'}`}
+                            >
+                              {clCopied === key ? '✓ Copied!' : 'Copy All'}
+                            </button>
+                          </div>
+                          <pre className="bg-gray-900 border border-gray-800 rounded-lg px-5 py-4 text-sm text-gray-200 whitespace-pre-wrap font-sans leading-relaxed max-h-96 overflow-y-auto">
+                            {app.coverLetterText}
+                          </pre>
+                        </td>
+                      </tr>
+                    )}
+                    </React.Fragment>
                   )
                 })}
               </tbody>
