@@ -1124,15 +1124,15 @@ def build_pdf_cover_letter(md: str, out_path: str):
         _grad_img.putpixel((0, _i), (9, 21, 42, _a))
     _grad_buf = _io.BytesIO()
     _grad_img.save(_grad_buf, "PNG")
-    _grad_buf.seek(0)
-    _grad_reader = _IR(_grad_buf)
+    _grad_png_bytes = _grad_buf.getvalue()  # keep raw bytes so we can re-create reader per build
+
+    def _make_grad_reader():
+        return _IR(_io.BytesIO(_grad_png_bytes))
 
     def draw_page(canvas, doc):
         canvas.saveState()
         body_h = H - HDR_H
-        # Smooth RGBA gradient image — truly line-free
-        canvas.drawImage(_grad_reader, 0, 0, W, body_h, mask="auto")
-        # Header only — no sidebar
+        canvas.drawImage(_make_grad_reader(), 0, 0, W, body_h, mask="auto")
         cl_header_draw(canvas, doc)
         canvas.restoreState()
 
@@ -1189,17 +1189,16 @@ def build_pdf_cover_letter(md: str, out_path: str):
         _doc.build(story)
         return _doc.page
 
-    # Scale font down in 0.5pt steps until the cover letter fits one page
+    # Scale font down in 0.5pt steps until the cover letter fits one page.
+    # Paragraphs are stateful after a build — always rebuild fresh for the final output.
     fs = 10.5
-    story = build_story(fs)
-    while _cl_pages(story, fs) > 1 and fs > 7.0:
+    while _cl_pages(build_story(fs), fs) > 1 and fs > 7.0:
         fs -= 0.5
-        story = build_story(fs)
 
     frame = Frame(CL_ML, CL_MB, CL_AW, FRAME_H, id="body")
     pt    = PageTemplate(id="cover", frames=[frame], onPage=draw_page)
     doc   = BaseDocTemplate(out_path, pagesize=letter, pageTemplates=[pt])
-    doc.build(story)
+    doc.build(build_story(fs))
     pages = doc.page
     print(f"✓ Cover Letter PDF{'  ⚠️ ' + str(pages) + 'p' if pages > 1 else ''}: {out_path}")
 
