@@ -991,11 +991,27 @@ def build_pdf_cover_letter(md: str, out_path: str):
     draw_fn = make_draw(cl_data)
 
     def draw_page(canvas, doc):
-        draw_fn(canvas, doc)
-        # Suppress the sidebar — paint over it with the page background colour
         canvas.saveState()
-        canvas.setFillColor(colors.HexColor("#F7F8FA"))
-        canvas.rect(0, 0, SB_W + GOLD_DIV + 1, H - HDR_H, fill=1, stroke=0)
+
+        # ── Identical header (navy + teal diagonal + gold accents) ───────────
+        draw_fn(canvas, doc)
+
+        # ── Cover sidebar elements with clean white ──────────────────────────
+        canvas.setFillColor(colors.white)
+        canvas.rect(0, 0, SB_W + GOLD_DIV + 2, H - HDR_H, fill=1, stroke=0)
+
+        # ── Gradient wash: navy at top fading to nothing by ~40% down ────────
+        body_h = H - HDR_H
+        steps = 60
+        for k in range(steps):
+            t      = k / steps                          # 0 = top of body, 1 = bottom
+            alpha  = max(0.0, 0.13 * (1 - t / 0.40))  # fade out by 40% of page height
+            band_y = body_h - (k + 1) * body_h / steps
+            band_h = body_h / steps + 1
+            canvas.setFillColor(colors.Color(0.035, 0.082, 0.165, alpha=alpha))
+            canvas.rect(SB_W + GOLD_DIV + 2, band_y, W - SB_W - GOLD_DIV - 2, band_h,
+                        fill=1, stroke=0)
+
         canvas.restoreState()
 
     frame = Frame(CL_ML, CL_MB, CL_AW, H - CL_MT - CL_MB, id="body")
