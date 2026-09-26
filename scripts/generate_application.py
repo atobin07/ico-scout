@@ -959,88 +959,89 @@ def build_word_cover_letter(md: str, out_path: str):
 
 
 def build_pdf_cover_letter(md: str, out_path: str):
-    """Generate a styled 1-page PDF cover letter matching the resume's design language."""
-    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
-    from reportlab.lib.styles import ParagraphStyle as PS
-    from reportlab.lib.units import inch
-    from reportlab.lib.pagesizes import letter
-    from reportlab.lib import colors as rl_colors
+    """Generate a PDF cover letter using the same visual design as the resume."""
+    from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, Paragraph, Spacer
 
-    PW, PH = letter
-    ML = MR = 0.9 * inch
-    MT = 0.7 * inch
-    MB = 0.7 * inch
+    # Cover letter uses same header canvas as resume but no sidebar —
+    # content starts below the header and spans the full page width.
+    CL_ML   = 36          # left margin (pts) for body text
+    CL_MR   = 36          # right margin
+    CL_MT   = HDR_H + 18  # top margin = header height + gap
+    CL_MB   = 28
+    CL_AW   = W - CL_ML - CL_MR
 
-    doc = SimpleDocTemplate(out_path, pagesize=letter,
-                            leftMargin=ML, rightMargin=MR,
-                            topMargin=MT, bottomMargin=MB)
-
-    AW = PW - ML - MR
-
-    C_NAVY  = colors.HexColor("#09152A")
-    C_TEAL  = colors.HexColor("#1B7A8C")
-    C_GOLD  = colors.HexColor("#C9A84C")
-    C_GRAY  = colors.HexColor("#4A5568")
-    C_LGRAY = colors.HexColor("#718096")
-
-    def S(name, **kw): return PS(name, **kw)
-
-    s_name    = S("cl_name",  fontName=F_BOLD,   fontSize=22, textColor=C_NAVY,  leading=26, spaceAfter=2)
-    s_contact = S("cl_con",   fontName=F_REG,    fontSize=9.5, textColor=C_LGRAY, leading=13, spaceAfter=0)
-    s_meta    = S("cl_meta",  fontName=F_REG,    fontSize=10,  textColor=C_NAVY,  leading=14, spaceAfter=2)
-    s_dear    = S("cl_dear",  fontName=F_BOLD,   fontSize=11,  textColor=C_NAVY,  leading=15, spaceAfter=10)
-    s_body    = S("cl_body",  fontName=F_REG,    fontSize=10.5, textColor=C_GRAY,
-                  leading=16, spaceAfter=10, wordWrap='LTR')
-    s_sign    = S("cl_sign",  fontName=F_REG,    fontSize=10.5, textColor=C_NAVY,  leading=14, spaceAfter=2)
-    s_sname   = S("cl_sname", fontName=F_BOLD,   fontSize=12,  textColor=C_NAVY,  leading=16)
-
+    # Parse out name + contact from the markdown header
     lines = md.strip().split("\n")
-    # Skip leading title line (# Cover Letter ...)
     i = 0
     while i < len(lines) and not lines[i].strip().startswith("Alexander"): i += 1
+    cl_name    = lines[i].strip() if i < len(lines) else "Alexander Tobin"
+    i += 1
+    cl_contact = ""
+    while i < len(lines) and lines[i].strip() and not lines[i].strip().startswith("---"):
+        cl_contact = lines[i].strip(); i += 1
+
+    # Build a data-like dict so make_draw can render the header identically
+    cl_data = {
+        "name":     cl_name,
+        "subtitle": "Cover Letter",
+        "contact":  cl_contact,
+        "tags":     [],
+        "sections": [],
+    }
+    draw_fn = make_draw(cl_data)
+
+    def draw_page(canvas, doc):
+        draw_fn(canvas, doc)
+        # Suppress the sidebar — paint over it with the page background colour
+        canvas.saveState()
+        canvas.setFillColor(colors.HexColor("#F7F8FA"))
+        canvas.rect(0, 0, SB_W + GOLD_DIV + 1, H - HDR_H, fill=1, stroke=0)
+        canvas.restoreState()
+
+    frame = Frame(CL_ML, CL_MB, CL_AW, H - CL_MT - CL_MB, id="body")
+    pt    = PageTemplate(id="cover", frames=[frame], onPage=draw_page)
+    doc   = BaseDocTemplate(out_path, pagesize=letter, pageTemplates=[pt])
+
+    def S(name, **kw):
+        from reportlab.lib.styles import ParagraphStyle
+        return ParagraphStyle(name, **kw)
+
+    s_meta = S("cl_meta", fontName=F_REG,    fontSize=10,
+                textColor=C_LGRAY, leading=14, spaceAfter=2)
+    s_dear = S("cl_dear", fontName=F_BOLD,   fontSize=11,
+                textColor=C_GRAY,  leading=15, spaceAfter=10)
+    s_body = S("cl_body", fontName=F_REG,    fontSize=10.5,
+                textColor=C_GRAY,  leading=17, spaceAfter=10)
+    s_sign = S("cl_sign", fontName=F_REG,    fontSize=10.5,
+                textColor=C_LGRAY, leading=14, spaceAfter=0)
+    s_snam = S("cl_snam", fontName=F_BOLD,   fontSize=11,
+                textColor=C_GRAY,  leading=15)
 
     story = []
 
-    # Name
-    name = lines[i].strip() if i < len(lines) else "Alexander Tobin"
-    story.append(Paragraph(name, s_name))
-    i += 1
-
-    # Contact line(s)
-    while i < len(lines) and lines[i].strip() and not lines[i].strip().startswith("---"):
-        story.append(Paragraph(lines[i].strip(), s_contact))
-        i += 1
-
-    # Gold rule
-    story.append(Spacer(1, 6))
-    story.append(HRFlowable(width=AW, thickness=2, color=C_GOLD, spaceAfter=10))
-
-    # Skip blank / ---
+    # Skip blank / --- after contact block
     while i < len(lines) and (not lines[i].strip() or lines[i].strip() == "---"): i += 1
 
-    # Date + addressee block (up to "Dear")
+    # Date + addressee lines (up to "Dear")
     while i < len(lines) and lines[i].strip() and not lines[i].strip().startswith("Dear"):
         story.append(Paragraph(lines[i].strip(), s_meta))
         i += 1
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 10))
 
     # Body
     while i < len(lines):
-        ln = lines[i].strip()
-        i += 1
+        ln = lines[i].strip(); i += 1
         if not ln:
-            story.append(Spacer(1, 4))
-            continue
+            story.append(Spacer(1, 4)); continue
         if ln == "---": continue
         if ln.startswith("Dear"):
-            story.append(Paragraph(ln, s_dear))
-            continue
+            story.append(Paragraph(ln, s_dear)); continue
         if ln.startswith("Sincerely"):
-            story.append(Spacer(1, 20))
-            story.append(Paragraph(ln + ",", s_sign))
-            continue
-        # Next non-blank after Sincerely = name
-        story.append(Paragraph(rich(ln), s_body if not ln.startswith("Alexander") else s_sname))
+            story.append(Spacer(1, 22))
+            story.append(Paragraph(ln + ",", s_sign)); continue
+        if ln.startswith("Alexander"):
+            story.append(Paragraph(ln, s_snam)); continue
+        story.append(Paragraph(rich(ln), s_body))
 
     doc.build(story)
     print(f"✓ Cover Letter PDF: {out_path}")
