@@ -1136,53 +1136,72 @@ def build_pdf_cover_letter(md: str, out_path: str):
         cl_header_draw(canvas, doc)
         canvas.restoreState()
 
-    frame = Frame(CL_ML, CL_MB, CL_AW, H - CL_MT - CL_MB, id="body")
+    from reportlab.lib.styles import ParagraphStyle
+
+    FRAME_H = H - CL_MT - CL_MB
+
+    def S(name, fs, lead, sa, bold=False, color=None):
+        return ParagraphStyle(
+            name, fontName=F_BOLD if bold else F_REG, fontSize=fs,
+            textColor=color or C_GRAY, leading=lead, spaceAfter=sa,
+        )
+
+    def build_story(fs):
+        """Build story flowables for a given base font size `fs`."""
+        lead_meta = fs + 3;  sa_meta = 1
+        lead_dear = fs + 4;  sa_dear = fs
+        lead_body = fs + 6;  sa_body = fs - 1
+        lead_sign = fs + 3;  sa_sign = 0
+
+        pm = S("cl_meta", fs - 0.5, lead_meta, sa_meta, color=C_LGRAY)
+        pd = S("cl_dear", fs + 0.5, lead_dear, sa_dear, bold=True)
+        pb = S("cl_body", fs,       lead_body, sa_body)
+        ps = S("cl_sign", fs,       lead_sign, sa_sign, color=C_LGRAY)
+        pn = S("cl_snam", fs + 0.5, lead_dear, 0,       bold=True)
+
+        j = i  # local cursor (i captured from outer scope)
+        st = []
+        while j < len(lines) and (not lines[j].strip() or lines[j].strip() == "---"): j += 1
+        while j < len(lines) and lines[j].strip() and not lines[j].strip().startswith("Dear"):
+            st.append(Paragraph(lines[j].strip(), pm)); j += 1
+        st.append(Spacer(1, fs))
+        while j < len(lines):
+            ln = lines[j].strip(); j += 1
+            if not ln:
+                st.append(Spacer(1, fs * 0.3)); continue
+            if ln == "---": continue
+            if ln.startswith("Dear"):
+                st.append(Paragraph(ln, pd)); continue
+            if ln.startswith("Sincerely"):
+                st.append(Spacer(1, fs * 2))
+                st.append(Paragraph(ln.rstrip(",") + ",", ps)); continue
+            if ln.startswith("Alexander"):
+                st.append(Paragraph(ln, pn)); continue
+            st.append(Paragraph(rich(ln), pb))
+        return st
+
+    def _cl_pages(story, fs):
+        from io import BytesIO as _BIO
+        buf = _BIO()
+        fr  = Frame(CL_ML, CL_MB, CL_AW, FRAME_H, id="body")
+        _doc = BaseDocTemplate(buf, pagesize=letter,
+                               pageTemplates=[PageTemplate(id="c", frames=[fr], onPage=draw_page)])
+        _doc.build(story)
+        return _doc.page
+
+    # Scale font down in 0.5pt steps until the cover letter fits one page
+    fs = 10.5
+    story = build_story(fs)
+    while _cl_pages(story, fs) > 1 and fs > 7.0:
+        fs -= 0.5
+        story = build_story(fs)
+
+    frame = Frame(CL_ML, CL_MB, CL_AW, FRAME_H, id="body")
     pt    = PageTemplate(id="cover", frames=[frame], onPage=draw_page)
     doc   = BaseDocTemplate(out_path, pagesize=letter, pageTemplates=[pt])
-
-    def S(name, **kw):
-        from reportlab.lib.styles import ParagraphStyle
-        return ParagraphStyle(name, **kw)
-
-    s_meta = S("cl_meta", fontName=F_REG,    fontSize=10,
-                textColor=C_LGRAY, leading=14, spaceAfter=2)
-    s_dear = S("cl_dear", fontName=F_BOLD,   fontSize=11,
-                textColor=C_GRAY,  leading=15, spaceAfter=10)
-    s_body = S("cl_body", fontName=F_REG,    fontSize=10.5,
-                textColor=C_GRAY,  leading=17, spaceAfter=10)
-    s_sign = S("cl_sign", fontName=F_REG,    fontSize=10.5,
-                textColor=C_LGRAY, leading=14, spaceAfter=0)
-    s_snam = S("cl_snam", fontName=F_BOLD,   fontSize=11,
-                textColor=C_GRAY,  leading=15)
-
-    story = []
-
-    # Skip blank / --- after contact block
-    while i < len(lines) and (not lines[i].strip() or lines[i].strip() == "---"): i += 1
-
-    # Date + addressee lines (up to "Dear")
-    while i < len(lines) and lines[i].strip() and not lines[i].strip().startswith("Dear"):
-        story.append(Paragraph(lines[i].strip(), s_meta))
-        i += 1
-    story.append(Spacer(1, 10))
-
-    # Body
-    while i < len(lines):
-        ln = lines[i].strip(); i += 1
-        if not ln:
-            story.append(Spacer(1, 4)); continue
-        if ln == "---": continue
-        if ln.startswith("Dear"):
-            story.append(Paragraph(ln, s_dear)); continue
-        if ln.startswith("Sincerely"):
-            story.append(Spacer(1, 22))
-            story.append(Paragraph(ln.rstrip(",") + ",", s_sign)); continue
-        if ln.startswith("Alexander"):
-            story.append(Paragraph(ln, s_snam)); continue
-        story.append(Paragraph(rich(ln), s_body))
-
     doc.build(story)
-    print(f"✓ Cover Letter PDF: {out_path}")
+    pages = doc.page
+    print(f"✓ Cover Letter PDF{'  ⚠️ ' + str(pages) + 'p' if pages > 1 else ''}: {out_path}")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
