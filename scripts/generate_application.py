@@ -1110,23 +1110,29 @@ def build_pdf_cover_letter(md: str, out_path: str):
     }
     cl_header_draw = make_header_draw(cl_data)
 
+    # Build a 1×600 RGBA PNG gradient: navy→transparent top-to-bottom
+    # Stretched to full page width = perfectly smooth, zero banding
+    import io as _io
+    from PIL import Image as _Image
+    from reportlab.lib.utils import ImageReader as _IR
+    _px_h = 600
+    _grad_img = _Image.new("RGBA", (1, _px_h))
+    for _i in range(_px_h):
+        _t = _i / (_px_h - 1)
+        _a = int(255 * max(0.0, 0.11 * (1.0 - _t / 0.55)))
+        _grad_img.putpixel((0, _i), (9, 21, 42, _a))
+    _grad_buf = _io.BytesIO()
+    _grad_img.save(_grad_buf, "PNG")
+    _grad_buf.seek(0)
+    _grad_reader = _IR(_grad_buf)
+
     def draw_page(canvas, doc):
         canvas.saveState()
-
-        # Full-width navy→transparent gradient, 300 sub-pixel bands = no banding
         body_h = H - HDR_H
-        steps  = 300
-        for k in range(steps):
-            t      = k / steps
-            alpha  = max(0.0, 0.11 * (1.0 - t / 0.55))
-            band_y = body_h - (k + 1) * body_h / steps
-            band_h = body_h / steps + 0.5
-            canvas.setFillColor(colors.Color(0.035, 0.082, 0.165, alpha=alpha))
-            canvas.rect(0, band_y, W, band_h, fill=1, stroke=0)
-
+        # Smooth RGBA gradient image — truly line-free
+        canvas.drawImage(_grad_reader, 0, 0, W, body_h, mask="auto")
         # Header only — no sidebar
         cl_header_draw(canvas, doc)
-
         canvas.restoreState()
 
     frame = Frame(CL_ML, CL_MB, CL_AW, H - CL_MT - CL_MB, id="body")
