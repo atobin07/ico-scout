@@ -1119,7 +1119,7 @@ def build_pdf_cover_letter(md: str, out_path: str):
     _grad_img = _Image.new("RGBA", (1, _px_h))
     for _i in range(_px_h):
         _t = _i / (_px_h - 1)
-        _a = int(255 * max(0.0, 0.11 * (1.0 - _t / 0.55)))
+        _a = int(255 * max(0.0, 0.11 * (1.0 - _t / 0.85)))
         _grad_img.putpixel((0, _i), (9, 21, 42, _a))
     _grad_buf = _io.BytesIO()
     _grad_img.save(_grad_buf, "PNG")
