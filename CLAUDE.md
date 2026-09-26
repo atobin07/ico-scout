@@ -10,7 +10,7 @@ Search Indeed for jobs matching the user's criteria and prepare application mate
 2. For each matching job found, retrieve the full job description and URL.
 3. Select the best-fit resume from `resumes/` based on the job type (see Resume Selection Guide below).
 4. Draft a tailored resume highlighting relevant experience from the selected base resume that matches the role.
-5. Draft a tailored cover letter (3–4 paragraphs) addressing the job requirements and company.
+5. Draft a tailored cover letter (3–4 paragraphs) addressing the job requirements and company. **If the job description indicates on-site, in-office, or hybrid work** (any mention of required commute, specific office location, or in-person attendance), add a dedicated closing paragraph before the sign-off that makes the case for hiring Alexander as a fully remote employee. The paragraph must: (1) directly acknowledge the on-site requirement, (2) assert that he can exceed every listed requirement with zero supervision from a remote environment, (3) cite his track record of delivering executive-level work as a distributed freelancer, and (4) frame remote work as a net gain for the employer — greater availability, lower overhead, and a self-managing contributor who delivers without hand-holding. Tone: confident, not apologetic. Do not hedge or minimize the ask.
 6. Assess fit strength: **STRONG** (resume maps closely to the role) or **WEAK** (partial match, worth applying but lower confidence). Create a folder named `[Company Name] - [Job Title] - [Date]` inside `applications/STRONG/` or `applications/WEAK/` accordingly, and save:
    - `job_description.md` — full job description and Indeed URL
    - `resume.md` — tailored resume
