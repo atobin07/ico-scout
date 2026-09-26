@@ -37,6 +37,7 @@ type Application = {
   postedAge: string
   resumePath: string
   coverLetterPath: string
+  coverLetterText?: string
   hasPdf: boolean
 }
 
@@ -69,6 +70,20 @@ export default function Home() {
   const [applied, setApplied] = useState<Record<string, boolean>>({})
   const [showAppliedOnly, setShowAppliedOnly] = useState(false)
   const [showUnAppliedOnly, setShowUnAppliedOnly] = useState(false)
+  const [copyModal, setCopyModal] = useState<{ company: string; text: string } | null>(null)
+  const [copied, setCopied] = useState(false)
+
+  function openCopyModal(app: Application) {
+    setCopyModal({ company: app.company, text: app.coverLetterText || '' })
+    setCopied(false)
+  }
+
+  function handleCopy(text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
 
   useEffect(() => {
     try {
@@ -175,6 +190,30 @@ export default function Home() {
         </div>
       </aside>
 
+      {/* Copy modal */}
+      {copyModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70" onClick={() => setCopyModal(null)}>
+          <div className="bg-gray-900 border border-gray-700 rounded-xl w-full max-w-2xl mx-4 shadow-2xl flex flex-col max-h-[80vh]" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-800">
+              <div>
+                <div className="text-sm font-bold text-white">{copyModal.company}</div>
+                <div className="text-xs text-gray-400 mt-0.5">Cover letter — plain text</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handleCopy(copyModal.text)}
+                  className={`px-3 py-1.5 rounded text-xs font-bold transition-colors ${copied ? 'bg-green-700 text-white' : 'bg-teal-600 hover:bg-teal-500 text-white'}`}
+                >
+                  {copied ? '✓ Copied!' : 'Copy All'}
+                </button>
+                <button onClick={() => setCopyModal(null)} className="text-gray-500 hover:text-white text-lg px-2">✕</button>
+              </div>
+            </div>
+            <pre className="flex-1 overflow-y-auto px-5 py-4 text-sm text-gray-200 whitespace-pre-wrap font-sans leading-relaxed">{copyModal.text}</pre>
+          </div>
+        </div>
+      )}
+
       {/* Main content */}
       <main className="flex-1 overflow-auto">
         <div className="p-6">
@@ -213,12 +252,13 @@ export default function Home() {
                   <th className="px-4 py-3 text-gray-400 font-medium w-24">Apply</th>
                   <th className="px-4 py-3 text-gray-400 font-medium w-24">Resume</th>
                   <th className="px-4 py-3 text-gray-400 font-medium w-28">Cover Letter</th>
+                  <th className="px-4 py-3 text-gray-400 font-medium w-20">Copy</th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={10} className="px-4 py-12 text-center text-gray-500">No applications found</td>
+                    <td colSpan={11} className="px-4 py-12 text-center text-gray-500">No applications found</td>
                   </tr>
                 )}
                 {filtered.map((app, i) => {
@@ -286,6 +326,18 @@ export default function Home() {
                             className="inline-flex items-center gap-1 px-2 py-1 bg-purple-900 hover:bg-purple-800 text-white text-xs rounded transition-colors"
                           >
                             Cover ↓
+                          </button>
+                        ) : (
+                          <span className="text-gray-600 text-xs">—</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3">
+                        {app.coverLetterText ? (
+                          <button
+                            onClick={() => openCopyModal(app)}
+                            className="inline-flex items-center gap-1 px-2 py-1 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded transition-colors"
+                          >
+                            Copy
                           </button>
                         ) : (
                           <span className="text-gray-600 text-xs">—</span>
